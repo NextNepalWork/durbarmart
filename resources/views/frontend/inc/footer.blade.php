@@ -120,6 +120,10 @@
                             {{__('Useful Link')}}
                         </h4>
                         <ul class="footer-links">
+                            <li>
+                                <a class="nav-link text-white" href="{{ route('shops.create') }}">{{__('Become a vendor')}}</a>
+                            </li>
+                            
                             @foreach (\App\Link::all() as $key => $link)
                                 <li>
                                     <a href="{{ $link->url }}" title="">

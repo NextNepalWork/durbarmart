@@ -1,10 +1,10 @@
 .env.*.php
 .env.php
 /.env
-/.idea
-/.vscode
-/.vagrant
-/.vendor
+/idea
+/vscode
+/vagrant
+/vendor
 /public/uploads
 Homestead.json
 Homestead.yaml
