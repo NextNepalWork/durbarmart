@@ -5,7 +5,7 @@
 /.vscode
 /.vagrant
 /.vendor
-/.public/.uploads
+/.public/.uploads/*
 Homestead.json
 Homestead.yaml
 npm-debug.log
