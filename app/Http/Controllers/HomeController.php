@@ -450,7 +450,7 @@ class HomeController extends Controller
         // }
         
         if($user_id){
-            $products = Product::whereIn('user_id',(array)$user_id)->where('published',1);
+            $products = Product::whereIn('user_id',(array)$user_id)->where($conditions);
         }
         else{
             $products = Product::where($conditions);
