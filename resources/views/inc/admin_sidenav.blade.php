@@ -170,6 +170,31 @@
                         </li>
                         @endif
 
+                        @if(Auth::user()->user_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
+                            @php
+                            $admin_user_id=array();
+                            foreach(\App\User::where('user_type', 'seller')->get() as $user){
+                                array_push($admin_user_id,$user->id);
+                            }
+
+                                $orders = DB::table('orders')
+                                            ->orderBy('code', 'desc')
+                                            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+                                            ->whereIn('order_details.seller_id', (array)$admin_user_id)
+                                            ->where('orders.viewed', 1)
+                                            ->select('orders.id')
+                                            ->distinct()
+                                            ->count();
+
+                            @endphp
+                        <li class="{{ areActiveRoutes(['orders.seller', 'orders.show'])}}">
+                            <a class="nav-link" href="{{ route('orders.seller') }}">
+                                <i class="fa fa-shopping-basket"></i>
+                                <span class="menu-title">{{__('Seller orders')}} @if($orders > 0)<span class="pull-right badge badge-info">{{ $orders }}</span>@endif</span>
+                            </a>
+                        </li>
+                        @endif
+
                         @if(Auth::user()->user_type == 'admin' || in_array('14', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['pick_up_point.order_index','pick_up_point.order_show'])}}">
                             <a class="nav-link" href="{{ route('pick_up_point.order_index') }}">

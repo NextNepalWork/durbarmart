@@ -103,6 +103,45 @@ class OrderController extends Controller
         return view('orders.index', compact('orders', 'payment_status', 'delivery_status', 'sort_search', 'admin_user_id'));
     }
 
+    public function seller_orders(Request $request)
+    {
+        // dd('hi');
+        CoreComponentRepository::instantiateShopRepository();
+
+        $payment_status = null;
+        $delivery_status = null;
+        $sort_search = null;
+        $admin_user_id=array();
+        foreach(User::where('user_type', 'seller')->get() as $user){
+            array_push($admin_user_id,$user->id);
+
+        }
+
+        
+        $orders = DB::table('orders')
+            ->orderBy('code', 'desc')
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->whereIn('order_details.seller_id', (array)$admin_user_id)
+            ->select('orders.id')
+            ->distinct();
+
+        if ($request->payment_type != null) {
+            $orders = $orders->where('order_details.payment_status', $request->payment_type);
+            $payment_status = $request->payment_type;
+        }
+        if ($request->delivery_status != null) {
+            $orders = $orders->where('order_details.delivery_status', $request->delivery_status);
+            $delivery_status = $request->delivery_status;
+        }
+        if ($request->has('search')) {
+            $sort_search = $request->search;
+            $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
+        }
+        $orders = $orders->paginate(15);
+        // dd($orders);
+        return view('orders.seller-orders', compact('orders', 'delivery_status', 'sort_search', 'admin_user_id'));
+    }
+
     /**
      * Display a listing of the sales to admin.
      *

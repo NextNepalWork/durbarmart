@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="panel">
     	<div class="panel-body">
     		<div class="invoice-masthead">
