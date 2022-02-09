@@ -250,7 +250,7 @@
                             </div>
                             <div class="col-xl-7 offset-xl-1">
                                 <div class="row no-gutters">
-                                    <div class="col-3">
+                                    <div class="col-lg-3 col-md-6 col-6">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Sort by')}}</label>
@@ -263,7 +263,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-lg-3 col-md-6 col-6">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Brands')}}</label>
@@ -276,7 +276,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-lg-3 col-md-6 col-6">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Sellers')}}</label>
@@ -291,7 +291,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-lg-3 col-md-6 col-6">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Locations')}}</label>

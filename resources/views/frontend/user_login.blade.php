@@ -12,7 +12,7 @@
                                     {{__('Login to your account.')}}
                                 </h1>
                             </div>
-                            <div class="px-5 py-3 py-lg-4">
+                            <div class="px-md-5 px-3 py-3 py-lg-4">
                                 <div class="">
                                     <form class="form-default" role="form" action="{{ route('login') }}" method="POST">
                                         @csrf
