@@ -445,14 +445,12 @@ class HomeController extends Controller
             $conditions = array_merge($conditions, ['user_id' => Seller::findOrFail($seller_id)->user->id]);
         }
 
-        // if($user_id != null){
-        //     $conditions = array_merge($conditions, ['user_id' => $user_id]);
-        // }
         
         if($user_id){
             $products = Product::whereIn('user_id',(array)$user_id)->where($conditions);
         }
         else{
+            // if($user_id)
             $products = Product::where($conditions);
         }
 
