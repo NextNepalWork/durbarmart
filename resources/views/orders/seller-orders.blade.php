@@ -155,9 +155,9 @@
                                             {{ __('Actions') }} <i class="dropdown-caret"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            {{-- <li><a
+                                            <li><a
                                                     href="{{ route('orders.show', encrypt($order->id)) }}">{{ __('View') }}</a>
-                                            </li> --}}
+                                            </li>
                                             <li><a
                                                     href="{{ route('seller.invoice.download', $order->id) }}">{{ __('Download Invoice') }}</a>
                                             </li>

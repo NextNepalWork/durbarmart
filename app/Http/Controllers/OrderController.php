@@ -100,6 +100,7 @@ class OrderController extends Controller
             $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
         }
         $orders = $orders->paginate(15);
+        // dd($orders);
         return view('orders.index', compact('orders', 'payment_status', 'delivery_status', 'sort_search', 'admin_user_id'));
     }
 
@@ -138,7 +139,7 @@ class OrderController extends Controller
             $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
         }
         $orders = $orders->paginate(15);
-        // dd($orders);
+        
         return view('orders.seller-orders', compact('orders', 'delivery_status', 'sort_search', 'admin_user_id'));
     }
 
