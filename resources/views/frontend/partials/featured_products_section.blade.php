@@ -13,7 +13,11 @@
                         <div class="product-box-2 bg-white alt-box my-2">
                             <div class="position-relative overflow-hidden">
                                 <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
-                                    <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                    @if (empty($product->featured_img))
+                                        <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                    @else
+                                        <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                    @endif
                                 </a>
                                 <div class="product-btns clearfix">
                                     <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
