@@ -263,7 +263,7 @@
     </div>
 
     <div id="section_best_selling">
-
+        
     </div>
 
     <div id="section_home_categories">
