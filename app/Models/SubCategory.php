@@ -40,4 +40,9 @@ class SubCategory extends Model
     {
         return $this->hasMany(SubSubCategory::class);
     }
+    
+    public function subSubCategoriesXml()
+    {
+        return $this->hasMany(SubSubCategory::class,'sub_category_id','id');
+    }
 }
