@@ -12,6 +12,9 @@
 */
 
 //demo
+
+use App\Http\Controllers\SitemapXmlController;
+
 Route::get('/demo/cron_1', 'DemoController@cron_1');
 Route::get('/demo/cron_2', 'DemoController@cron_2');
 
@@ -219,6 +222,8 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('/orders/details', 'OrderController@order_details')->name('orders.details');
 	Route::post('/orders/update_delivery_status', 'OrderController@update_delivery_status')->name('orders.update_delivery_status');
 	Route::post('/orders/update_payment_status', 'OrderController@update_payment_status')->name('orders.update_payment_status');
+	Route::get('seller-orders', 'OrderController@seller_orders')->name('orders.seller');
+
 
 	Route::resource('/reviews', 'ReviewController');
 
@@ -270,3 +275,6 @@ Route::get('/addresses/destroy/{id}', 'AddressController@destroy')->name('addres
 Route::get('/addresses/set_default/{id}', 'AddressController@set_default')->name('addresses.set_default');
 
 Route::get('/{slug}', 'PageController@show_custom_page')->name('custom-pages.show_custom_page');
+
+// site map 
+Route::get('/sitemap.xml', [SitemapXmlController::class, 'index']);

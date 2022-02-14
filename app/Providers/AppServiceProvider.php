@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
             error_reporting(E_ALL & ~E_USER_DEPRECATED);
         } else {
             error_reporting(0);
+        }
+
+        if(env('APP_ENV') !== "local"){
+            URL::forceScheme('https');
         }
     }
 

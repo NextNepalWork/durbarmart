@@ -18,7 +18,11 @@
                                     <div class="col-4">
                                         <div class="position-relative overflow-hidden h-100">
                                             <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100">
-                                            <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                            @if (empty($product->photos))
+                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">        
+                                            @else        
+                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                            @endif
                                                     
                                             </a>
                                             <div class="product-btns">
