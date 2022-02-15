@@ -1,4 +1,4 @@
-<header class="section-header top-header-bg d-md-block d-none">
+<header class="section-header top-header-bg d-md-block d-none header-sticky position-sticky">
     <div class="container">
       <div class="top-header d-flex justify-content-end align-items-center">
         <div class="top-social-icon">
@@ -21,7 +21,7 @@
       </div>
     </div>
 </header>
-<nav class="header navbar navbar-expand-lg header-sticky">
+<nav class="header navbar navbar-expand-lg">
     <div class="container">
       <div class="header-logo text-center d-flex">
         <a
@@ -39,7 +39,7 @@
           </a>
         <!-- search start  -->
 
-        <div class="searchbar d-none d-md-block ml-5">
+        <div class="searchbar d-none d-md-block mr-md-5 mr-1">
             <form action="{{ route('search') }}" method="GET">
                 <div class="d-flex position-relative">
                     {{-- <div class="d-lg-none search-box-back">
@@ -92,7 +92,7 @@
             </button>
 
             <div class="sub_search">
-              <form action="{{ route('search') }}" method="GET" class="d-flex">
+              <form action="{{ route('search') }}" method="GET" class="d-flex m-0">
                 <input
                 class="search_input input_box" type="text" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off"
                 />
@@ -104,7 +104,7 @@
         </div>
         <!-- search mobile new end  -->
       </div>
-      <div class="logo-bar-icons ml-auto d-md-block d-none">
+      <div class="logo-bar-icons ml-auto d-md-flex d-none">
           {{-- <div class="d-inline-block d-lg-none">
               <div class="nav-search-box">
                   <a href="#" class="nav-box-link">
@@ -139,7 +139,7 @@
                   </a>
               </div>
           </div>
-          <div class="d-inline-block" data-hover="dropdown">
+          <div class="d-none d-lg-inline-block" data-hover="dropdown">
               <div class="nav-cart-box dropdown" id="cart_items">
                   <a href="" class="nav-box-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <!-- <i class="fa fa-shopping-cart text-dark"></i> -->
@@ -234,7 +234,7 @@
       
     </div>
     <!-- Button trigger modal -->
-    <a class="hamburger_icon d-md-none d-block" onclick="sideMenuOpen(this)">
+    <a class="hamburger_icon d-lg-none d-block" onclick="sideMenuOpen(this)">
         <div class="hamburger-icon">
             <span></span>
             <span></span>

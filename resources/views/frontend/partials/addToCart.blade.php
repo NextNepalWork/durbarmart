@@ -232,6 +232,9 @@
                                 <i class="la la-cart-arrow-down"></i> {{__('Out of Stock')}}
                             </button>
                         @endif
+                        <button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now px-2 font-weight-light" onclick="buyNow()">
+                                            <i class="la la-shopping-cart"></i> Buy Now
+                                        </button>
                     </div>
                 </div>
 
