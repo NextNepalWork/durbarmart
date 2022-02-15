@@ -278,8 +278,8 @@ a.banner-container.banner_block:hover::before {
     line-height: 49px;
     padding-left: 16px;
     font-size: 13px;
-    background-color: #dc3545;
-    color: white;
+    background-color: #f4f4f4;
+
     position: relative;
 }
 
@@ -302,14 +302,15 @@ a.banner-container:hover {
 }
 
 span.view_button {
-    line-height: 1em;
+
+    /* line-height: 1em; */
     letter-spacing: 0.06em;
     font-family: "Lato", sans-serif;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 10px;
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.849) !important;
-    background: white;
+    color: rgb(0 0 0 / 85%) !important;
+    /* background: #dc3545; */
     display: inline-block;
     padding: 10px;
     transition: background 200ms;
@@ -318,12 +319,13 @@ span.view_button {
     right: 4%;
     top: 50%;
     transform: translate(4%, -50%);
-    font-weight: 600;
+
+
 }
 
 span.view_button i.fa.fa-angle-up {
-    transform: rotate(82deg);
-    font-size: 14px;
+    transform: rotate(90deg);
+
     font-weight: 600;
 }
 
@@ -538,7 +540,7 @@ a.top_btn i.fa.fa-angle-up {
 .button_chat {
     background: #dc3545;
     color: white;
-
+    display: none;
     font-weight: 600;
     border-radius: 2px;
     right: 5.5%;
@@ -588,7 +590,7 @@ span.pr-2.category_icon_img img {
     border: 0;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
+
     color: white;
     background: #dc3545;
     text-decoration: none;
@@ -612,13 +614,12 @@ span.pr-2.category_icon_img img {
 .searchbar {
     margin-bottom: auto;
     margin-top: auto;
-    height: 50px;
-    /* background-color: #353b48; */
-    border-radius: 30px;
+    height: 48px;
+    background-color: #f1f1f1;
+
     padding: 0px 10px;
     width: 721px;
-    border: 2px solid;
-    border-color: #dc3545;
+
 }
 
 .searchbar:hover>.search_input {
@@ -1230,11 +1231,11 @@ div#related_products_block img.img-fit.lazyloaded {
     top: -9px;
 }
 
-section#login_section .login .card .btn-styled:hover,
+/* section#login_section .login .card .btn-styled:hover,
 .registration .card .btn-styled:hover {
     color: white !important;
     border: 1px solid white !important;
-}
+} */
 
 /*================================================================ RESPONSIVE CSS START  */
 @media (max-width: 1444px) {

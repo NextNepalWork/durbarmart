@@ -183,7 +183,7 @@
                     </div>
                     @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                         <div class="col text-center text-md-left">
-                            <div class="mt-4">
+                            <div class="mt-3">
                                 
                                 <div class="d-inline-block d-md-block">
                             <form class="form-inline" method="POST" action="{{ route('subscribers.store') }}">
