@@ -263,7 +263,7 @@
     </div>
 
     <div id="section_best_selling">
-
+        
     </div>
 
     <div id="section_home_categories">
@@ -293,7 +293,11 @@
                                        <div class="card-body p-0">
                                            <div class="card-image">
                                                <a href="{{ route('customer.product', $customer_product->slug) }}" class="d-block">
-                                                <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($customer_product->photos)[0]) }}" alt="{{ __($customer_product->name) }}">
+                                                @if (empty($customer_product->photos))
+                                                    <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}"alt="{{ __($customer_product->name) }}">
+                                                @else
+                                                    <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($customer_product->photos)[0]) }}" alt="{{ __($customer_product->name) }}">
+                                                @endif
                                                </a>
                                            </div>
 

@@ -250,7 +250,7 @@
                             </div>
                             <div class="col-xl-7 offset-xl-1">
                                 <div class="row no-gutters">
-                                    <div class="col-3">
+                                    <div class="col-lg-3 col-md-6 col-6">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Sort by')}}</label>
@@ -263,7 +263,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-lg-3 col-md-6 col-6">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Brands')}}</label>
@@ -276,7 +276,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-lg-3 col-md-6 col-6">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Sellers')}}</label>
@@ -291,7 +291,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-lg-3 col-md-6 col-6">
                                         <div class="sort-by-box px-1">
                                             <div class="form-group">
                                                 <label>{{__('Locations')}}</label>
@@ -317,7 +317,11 @@
                                         <div class="product-box-2 bg-white alt-box my-md-2">
                                             <div class="position-relative overflow-hidden">
                                                 <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
-                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                                    @if (empty($product->photos))
+                                                        <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
+                                                    @else
+                                                        <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                                    @endif
                                                 </a>
                                                 <div class="product-btns clearfix">
                                                     <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">

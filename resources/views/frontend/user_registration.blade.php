@@ -1,11 +1,11 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <section class="gry-bg">
+    <section class="bg-white ">
         <div class="profile registration">
             <div class="container">
                 <div class="row">
-                    <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 mx-auto">
+                    <div class="col-xl-5 col-lg-6 col-md-8 mx-auto">
                         <div class="card border-0">
                             <div class="text-center px-35 pt-5">
                                 <h1 class="heading heading-4 strong-500">
@@ -154,7 +154,9 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-xl-7 mx-auto text-center">
+                        <div class="image"><img src="http://pillwill.com/login/svg/login-image.svg" alt=""></div>
+                    </div>
                 </div>
             </div>
         </div>

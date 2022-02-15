@@ -1,24 +1,29 @@
 @foreach (\App\HomeCategory::where('status', 1)->get() as $key => $homeCategory)
     @if ($homeCategory->category != null)
-        <section class="mb-4">
-            <div class="container">
-                <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
-                    <div class="section-title-1 clearfix">
-                        <h3 class="heading-5 strong-700 mb-0 float-lg-left">
-                            <span class="mr-4">{{ __($homeCategory->category->name) }}</span>
-                        </h3>
-                        <ul class="inline-links float-lg-right nav mt-3 mb-2 m-lg-0">
-                            <li><a href="{{ route('products.category', $homeCategory->category->slug) }}" class="active">View More</a></li>
-                        </ul>
-                    </div>
-                    <div class="caorusel-box arrow-round gutters-5">
-                        <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
+    <section class="mb-4">
+        <div class="container">
+            <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
+                <div class="section-title-1 clearfix">
+                    <h3 class="heading-5 strong-700 mb-0 float-lg-left">
+                        <span class="mr-4">{{ __($homeCategory->category->name) }}</span>
+                    </h3>
+                    <ul class="inline-links float-lg-right nav mt-3 mb-2 m-lg-0">
+                        <li><a href="{{ route('products.category', $homeCategory->category->slug) }}" class="active">View More</a></li>
+                    </ul>
+                </div>
+                <div class="caorusel-box arrow-round gutters-5">
+                    <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
                         @foreach (filter_products(\App\Product::where('published', 1)->where('category_id', $homeCategory->category->id))->latest()->limit(12)->get() as $key => $product)
+                        
                             <div class="caorusel-card">
                                 <div class="product-box-2 bg-white alt-box my-2">
                                     <div class="position-relative overflow-hidden">
                                         <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
-                                        <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                            @if (empty($product->photos))
+                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
+                                            @else
+                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                            @endif
                                         </a>
                                         <div class="product-btns clearfix">
                                             <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
@@ -55,10 +60,10 @@
                                 </div>
                             </div>
                         @endforeach
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
         </section>
     @endif
 @endforeach
