@@ -1,6 +1,7 @@
 @extends('layouts.blank')
 
 @section('content')
+
 <div class="text-center">
     <h1 class="error-code text-danger">{{__('404')}}</h1>
     <p class="h4 text-uppercase text-bold">{{__('Page Not Found!')}}</p>

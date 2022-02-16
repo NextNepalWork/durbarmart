@@ -115,8 +115,6 @@ checkbox-color input:checked~label:after {
 
 .login .image img,
 .registration .image img {
-
-
     max-height: 500px;
     min-height: 500px;
     object-fit: contain;
@@ -135,7 +133,6 @@ checkbox-color input:checked~label:after {
 .registration .card .heading {
     color: white;
 } */
-
 .login .card .btn-styled:hover .icon,
 .registration .card .btn-styled:hover .icon {
     background: unset;
@@ -143,7 +140,6 @@ checkbox-color input:checked~label:after {
 
 .login .card .btn-styled:hover,
 .registration .card .btn-styled:hover {
-
     border: 1px solid #dc3545;
 }
 
@@ -157,13 +153,11 @@ checkbox-color input:checked~label:after {
 }
 
 /* Product Compare */
-
 .ion-android-cart {
     display: none;
 }
 
 /* Product Compare Ends */
-
 .widget-profile-box {
     border: 1px solid;
     border-style: dashed;
@@ -195,4 +189,18 @@ checkbox-color input:checked~label:after {
 
 /* .btn-styled:hover {
     border: 0 !important;
+} */
+#error_page .error img {
+    max-height: 400px;
+    min-height: 400px;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+}
+
+/* .sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%
 } */
