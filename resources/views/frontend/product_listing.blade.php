@@ -361,6 +361,7 @@
                                     @endforeach
                                 @else
                                         <p>Sorry, Nothing to show here.</p>
+                                    <img style="max-height: 250px;" src="{{asset('img/client-images/Add to Cart-amico.svg')}}" alt="">
                                 @endif
                             </div>
                         </div>
