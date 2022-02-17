@@ -7,7 +7,8 @@
         <p class="pad-btm">{{__('Enter your email address and new password and confirm password.')}} </p>
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
-
+            
+            <img src="{{asset('img/client-images/Reset password-cuate.svg')}}" alt="">
             <input type="hidden" name="token" value="{{ $token }}">
 
             <div class="form-group">

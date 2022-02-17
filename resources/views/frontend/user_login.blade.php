@@ -98,7 +98,7 @@
                 <!-- Put This Section on 404error page -->
                     <section class="bg-white py-4" id="error_page">
       <div class="error">
-          <img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/02/000-404.png" alt="404 Error" class="img-fluid">
+          {{-- <img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/02/000-404.png" alt="404 Error" class="img-fluid"> --}}
       </div>
     </section>
     <!-- Put This Section on 404error page -->
