@@ -90,7 +90,9 @@
                         </div>
                     </div>
                     <div class="col-xl-7 mx-auto text-center">
-                        <div class="image"><img src="http://pillwill.com/login/svg/login-image.svg" alt=""></div>
+                        <div class="image">
+                            <img src="{{asset('img/client-images/Tablet login-cuate.svg')}}" alt="">
+                        </div>
                     </div>
                     <div class="col-12">
                 <!-- Put This Section on 404error page -->

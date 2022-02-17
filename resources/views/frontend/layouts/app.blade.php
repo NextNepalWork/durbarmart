@@ -219,6 +219,7 @@
             timer: 3000
         });
     }
+    
 </script>
 
 @foreach (session('flash_notification', collect())->toArray() as $message)

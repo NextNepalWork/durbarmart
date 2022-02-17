@@ -79,7 +79,7 @@
                                             @php
                                                 $order = \App\Order::find($order_id->id);
                                             @endphp
-                                            @if($order != null)
+                                            @if($order != null && !empty($order))
                                                 <tr>
                                                     <td>
                                                         {{ $key+1 }}
@@ -92,7 +92,7 @@
                                                     </td>
                                                     <td>
                                                         @if ($order->user_id != null)
-                                                            {{ $order->user->name }}
+                                                            {{ (isset($order->user) && !empty($order->user))?$order->user->name:'Not Found' }}
                                                         @else
                                                             Guest ({{ $order->guest_id }})
                                                         @endif
@@ -159,13 +159,27 @@
             </div>
         </div>
     </div>
-
-@endsection
-
-@section('script')
     <script type="text/javascript">
         function sort_orders(el){
             $('#sort_orders').submit();
         }
+        function show_order_details(order_id)
+            {
+        $('#order-details-modal-body').html(null);
+
+        if(!$('#modal-size').hasClass('modal-lg')){
+            $('#modal-size').addClass('modal-lg');
+        }
+
+        $.post('{{ route('orders.details') }}', { _token : '{{ @csrf_token() }}', order_id : order_id}, function(data){
+            $('#order-details-modal-body').html(data);
+            $('#order_details').modal();
+            $('.c-preloader').hide();
+        });
+        }
     </script>
+@endsection
+
+@section('script')
+   
 @endsection
