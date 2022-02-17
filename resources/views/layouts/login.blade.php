@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,15 +37,15 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
 </head>
+
 <body>
     @php
-        $generalsetting = \App\GeneralSetting::first();
+    $generalsetting = \App\GeneralSetting::first();
     @endphp
-    <div id="container" class="blank-index"
-        @if ($generalsetting->admin_login_background != null)
-            style="background-image:url('{{ asset($generalsetting->admin_login_background) }}');"
+    <div id="container" class="blank-index" @if ($generalsetting->admin_login_background != null)
+        style="background-image:url('{{ asset($generalsetting->admin_login_background) }}');"
         @else
-            style="background-image:url('{{ asset('img/bg-img/login-bg.jpg') }}');"
+        style="background-image:url('{{ asset('img/bg-img/login-bg.jpg') }}');"
         @endif>
         <div class="cls-content">
             <div class="container">
@@ -81,4 +82,5 @@
     @yield('script')
 
 </body>
+
 </html>
