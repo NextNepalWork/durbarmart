@@ -809,7 +809,7 @@
                                             <div class="input-group input-group--style-1">
                                                 <input type="email" name="email" class="form-control" placeholder="{{__('Email')}}">
                                                 <span class="input-group-addon">
-                                                    <i class="text-md ion-person"></i>
+                                                    <i class="text-md la la-user"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -818,7 +818,7 @@
                                             <div class="input-group input-group--style-1">
                                                 <input type="password" name="password" class="form-control" placeholder="{{__('Password')}}">
                                                 <span class="input-group-addon">
-                                                    <i class="text-md ion-locked"></i>
+                                                    <i class="text-md la la-lock"></i>
                                                 </span>
                                             </div>
                                         </div>
