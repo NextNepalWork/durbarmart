@@ -8724,7 +8724,7 @@ svg#bigTriangleColor {
 }
 
 .footer .heading {
-    color: rgba(255, 255, 255, 0.8);
+    color: #b20000;
     font-size: 0.9rem !important;
 }
 
@@ -8739,12 +8739,12 @@ svg#bigTriangleColor {
     padding: 0.25rem 0;
     font-size: 0.8rem;
     font-weight: 400;
-    color: #fff;
+    color: #000;
 }
 
-.footer .footer-links>li>a:hover {
+/* .footer .footer-links>li>a:hover {
     color: rgba(255, 255, 255, 0.5);
-}
+} */
 
 .footer .footer-links>li>.footer-link-date {
     display: block;
@@ -8816,11 +8816,11 @@ svg#bigTriangleColor {
     display: inline-block;
     margin-right: 10px;
     font-size: 0.75rem;
-    color: #818a91;
+    color: #fff;
 }
 
 .footer .copy-links li a {
-    color: #818a91;
+    color: #fff;
 }
 
 .footer .copy-links li a:hover {
