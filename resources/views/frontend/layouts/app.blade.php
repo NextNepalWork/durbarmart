@@ -212,7 +212,7 @@
             type = 'error';
         }
         swal({
-            position: 'top-end',
+            position: 'center',
             type: type,
             title: message,
             showConfirmButton: false,

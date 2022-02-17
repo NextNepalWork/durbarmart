@@ -1,5 +1,4 @@
 @extends('frontend.layouts.app')
-​
 @section('content')
     <section class="bg-white py-4" id="login_section">
         <div class="profile login">
