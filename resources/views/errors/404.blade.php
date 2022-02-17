@@ -1,6 +1,7 @@
 @extends('layouts.blank')
 
 @section('content')
+
 <div class="text-center">
     <img src="{{asset('img/client-images/404 Error Page not Found with people connecting a plug-pana.svg')}}" alt="">
     {{-- <h1 class="error-code text-danger">{{__('404')}}</h1> --}}

@@ -94,6 +94,15 @@
                             <img src="{{asset('img/client-images/Tablet login-cuate.svg')}}" alt="">
                         </div>
                     </div>
+                    <div class="col-12">
+                <!-- Put This Section on 404error page -->
+                    <section class="bg-white py-4" id="error_page">
+      <div class="error">
+          <img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/02/000-404.png" alt="404 Error" class="img-fluid">
+      </div>
+    </section>
+    <!-- Put This Section on 404error page -->
+                    </div>
                     @if (env("DEMO_MODE") == "On")
                         <div class="bg-white p-4 mx-auto mt-4">
                             <div class="">
@@ -117,7 +126,6 @@
         </div>
     </section>
 @endsection
-​
 @section('script')
     <script type="text/javascript">
         function autoFillSeller(){

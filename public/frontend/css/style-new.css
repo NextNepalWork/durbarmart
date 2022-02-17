@@ -202,7 +202,6 @@ ul.inline-links>li>a.active:hover {
 }
 
 /* product old html css end  */
-
 /* Circle */
 a.banner-container.banner_block {
     position: relative;
@@ -279,7 +278,6 @@ a.banner-container.banner_block:hover::before {
     padding-left: 16px;
     font-size: 13px;
     background-color: #f4f4f4;
-
     position: relative;
 }
 
@@ -302,7 +300,6 @@ a.banner-container:hover {
 }
 
 span.view_button {
-
     /* line-height: 1em; */
     letter-spacing: 0.06em;
     font-family: "Lato", sans-serif;
@@ -319,21 +316,16 @@ span.view_button {
     right: 4%;
     top: 50%;
     transform: translate(4%, -50%);
-
-
 }
 
 span.view_button i.fa.fa-angle-up {
     transform: rotate(90deg);
-
     font-weight: 600;
 }
 
 .product-box-2:hover .product-btns {
     background: #dc3545;
-
     border-color: #bfbfbf;
-
     color: white;
 }
 
@@ -374,7 +366,6 @@ section#category .slick-next {
     font-size: 0px;
     transform: rotate(180deg);
     cursor: pointer;
-
     color: white;
     top: 50%;
     z-index: 999;
@@ -397,7 +388,6 @@ section#category .slick-prev {
     font-size: 0px;
     transform: rotate(180deg);
     cursor: pointer;
-
     color: white;
     top: 50%;
     z-index: 999;
@@ -433,7 +423,6 @@ section#category .slick-prev::before {
 }
 
 /* SLICK BANNER START  */
-
 .mb-4 .slick-w4 .slick-button {
     display: none !important;
 }
@@ -459,7 +448,6 @@ section#category .slick-prev::before {
     font-size: 0px;
     transform: rotate(180deg);
     cursor: pointer;
-
     color: white;
     top: 50%;
     z-index: 999;
@@ -482,7 +470,6 @@ section#category .slick-prev::before {
     font-size: 0px;
     transform: rotate(180deg);
     cursor: pointer;
-
     color: white;
     top: 50%;
     z-index: 999;
@@ -567,7 +554,6 @@ footer#footer b i {
 }
 
 /*============================== HEADER START  */
-
 /* ======================= HEADER START   */
 span.pr-2.category_icon_img img {
     max-width: 21px;
@@ -590,7 +576,6 @@ span.pr-2.category_icon_img img {
     border: 0;
     justify-content: center;
     align-items: center;
-
     color: white;
     background: #dc3545;
     text-decoration: none;
@@ -616,10 +601,8 @@ span.pr-2.category_icon_img img {
     margin-top: auto;
     height: 48px;
     background-color: #f1f1f1;
-
     padding: 0px 10px;
     width: 721px;
-
 }
 
 .searchbar:hover>.search_input {
@@ -666,8 +649,10 @@ input.search_input::placeholder {
     height: 20px;
 }
 
-nav.header {
+nav.navbar {
     border-bottom: 1px solid #00000036;
+    background: var(--white);
+    padding: 3px 0;
 }
 
 header {
@@ -806,11 +791,11 @@ li.nav-item {
 }
 
 a.navbar-brand img {
-    height: 53px;
-    /* text-align: center; */
-    /* width: 7.3rem; */
-    /* transition: 0.5s; */
-    /* line-height: 43px; */
+    max-height: 53px;
+    min-height: 53px;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
 }
 
 li.nav-item a.nav-link {
@@ -954,7 +939,6 @@ a.them_btn_new.btn_cart_modal:hover {
 }
 
 /* DROP DOWN START  */
-
 .menu_drop_down {
     z-index: 9;
     position: absolute;
@@ -976,26 +960,20 @@ a.them_btn_new.btn_cart_modal:hover {
   left: -108%;
   box-shadow: 0 3px 16px 0 rgb(0 0 0 / 11%);
 } */
-
 /* .menu_drop_down {
   transition: 0.5s;
   display: none;
 } */
-
 /* li.nav-item.position-relative:hover .menu_drop_down {
   display: block;
   z-index: 999;
   transition: 0.5s;
 } */
-
 /* lsdkjf */
-
 /* .menu_drop_down {
   display: none;
 } */
-
 /* menu animation start  */
-
 .menu_drop_down {
     -webkit-transition: max-height 0.5s;
     -moz-transition: max-height 0.5s;
@@ -1031,7 +1009,6 @@ li.nav-item.position-relative:hover .menu_drop_down {
 }
 
 /* lsdkjf */
-
 .menu_drop_list li a {
     color: #dc3545;
     transition: 0.3s;
@@ -1061,9 +1038,7 @@ a.drop_arrow::after {
 }
 
 /* SEARCH BOX START  */
-
 /* Popup Search Modal */
-
 .modal {
     border: 0;
 }
@@ -1151,14 +1126,7 @@ a.drop_arrow::after {
 }
 
 /* Popup Search Modal Ends*/
-
 /* SEARCH BOX END  */
-
-nav.header {
-    background: var(--white);
-    padding: 3px 0;
-}
-
 .sticky-bar {
     left: 0;
     margin: auto;
@@ -1175,7 +1143,6 @@ nav.header {
 }
 
 /* menu animation end  */
-
 button.pb-0.btn.bg-transparent.dropdown-toggle.pt-0.font-weight-normal {
     color: var(--white);
     font-size: 15px;
@@ -1187,7 +1154,6 @@ nav.navbar a.nav-link:hover {
 }
 
 /*=================================================== HEADER END  */
-
 /*=================================================== PRODUCT DETAIL START  */
 div#related_products_block img.img-fit.lazyloaded {
     min-height: 200px;
@@ -1196,7 +1162,6 @@ div#related_products_block img.img-fit.lazyloaded {
 }
 
 /*=================================================== PRODUCT DETAIL EMD  */
-
 /*=================================================== PRODUCT LIST START  */
 .sidebar-box .box-title {
     padding: 15px;
@@ -1236,7 +1201,6 @@ div#related_products_block img.img-fit.lazyloaded {
     color: white !important;
     border: 1px solid white !important;
 } */
-
 /*================================================================ RESPONSIVE CSS START  */
 @media (max-width: 1444px) {
     .searchbar {
@@ -1250,21 +1214,16 @@ div#related_products_block img.img-fit.lazyloaded {
 
     #footer form button.btn {
         margin-top: 10px;
-
     }
 }
 
 @media (max-width: 1024px) {
-
     #footer form button.btn {
         margin-top: 0px;
-
     }
-
 }
 
 @media (max-width: 769px) {
-
 
     /*=========== MOBILE SEARCH START  */
     .search_icon {
@@ -1275,7 +1234,6 @@ div#related_products_block img.img-fit.lazyloaded {
         border: 0;
         justify-content: center;
         align-items: center;
-        border-radius: 50%;
         color: white;
         background: #dc3545;
         text-decoration: none;
@@ -1283,7 +1241,6 @@ div#related_products_block img.img-fit.lazyloaded {
     }
 
     /*=========== MOBILE SEARCH END  */
-
     section.mb-4 .product-btns.clearfix {
         position: absolute;
         top: 0;
@@ -1304,12 +1261,6 @@ div#related_products_block img.img-fit.lazyloaded {
         opacity: 1;
     }
 
-    .slick-slide img {
-        /* display: block;
-        max-height: 300px;
-        min-height: 300px; */
-    }
-
     /* SEARCH MOBILE START  */
     .search_top {
         background: #dc3545;
@@ -1318,7 +1269,6 @@ div#related_products_block img.img-fit.lazyloaded {
         display: flex;
         /* padding: 9px 12px; */
         /* border: 1px solid; */
-        border-radius: 50%;
         /* border-color: gray; */
         height: 44px;
         width: 48px;
@@ -1339,7 +1289,6 @@ div#related_products_block img.img-fit.lazyloaded {
         border-left: 0;
         transform: translateX(-36px);
     } */
-
     input.input_box[type="text"] {
         width: 100%;
         border-radius: 20px;
@@ -1354,17 +1303,11 @@ div#related_products_block img.img-fit.lazyloaded {
         border: 0;
         display: flex;
         padding: 5px 9px;
-        border: 1px solid;
         height: 33px;
         align-items: center;
         width: 33px;
         justify-content: center;
-        border-radius: 50%;
-        border-color: gray;
-        margin-top: 9px;
         transition: 0.9s;
-        position: absolute;
-        right: 75px;
     }
 
     .sub_search {
@@ -1379,20 +1322,18 @@ div#related_products_block img.img-fit.lazyloaded {
         width: 85%;
         border-color: #dc3545;
         transform: translateX(-50%);
-        border-radius: 50px;
         background: white;
     }
 
     /* SEARCH MOBILE END  */
-
     a.hamburger_icon {
         z-index: 9;
         position: absolute;
         right: 24px;
+        top: 50px;
     }
 
     /* Mobile Menu Ends */
-
     section.home-banner-area .slick-slide {
         height: unset !important;
     }
@@ -1404,7 +1345,6 @@ div#related_products_block img.img-fit.lazyloaded {
 
     table {
         table-layout: fixed;
-
     }
 
     section#compare_page th {
@@ -1420,15 +1360,26 @@ div#related_products_block img.img-fit.lazyloaded {
     #footer form {
         justify-content: center;
     }
+
+    a.hamburger_icon {
+        top: 20px;
+    }
 }
 
 @media (max-width: 320px) {
-
-    #footer form button.btn {
-        margin-top: 10px;
-
+    .navbar-brand {
+        width: 50%;
     }
 
+    .header-logo {
+        width: 75%;
+    }
+}
+
+@media (max-width: 320px) {
+    #footer form button.btn {
+        margin-top: 10px;
+    }
 }
 
 /*================================================================ RESPONSIVE CSS END  */
