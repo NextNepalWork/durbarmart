@@ -92,6 +92,7 @@ checkbox-color input:checked~label:after {
 
 .login div a.link {
     text-decoration: none;
+    color: #3b5998;
 }
 
 .login .form-default .input-group--style-1 .input-group-addon,
@@ -204,3 +205,33 @@ checkbox-color input:checked~label:after {
     left: 0;
     width: 100%
 } */
+.products-box-bar .nothing-wrap p {
+    font-size: 1.2rem;
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.products-box-bar .nothing {
+    max-height: 300px;
+    min-height: 300px;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+}
+
+/* #container {
+    background-image: none !important;
+    background: none !important;
+} */
+
+.media-banner img {
+    max-height: 150px;
+    min-height: 150px;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+}
+
+.modal.show {
+    z-index: 9999;
+}
