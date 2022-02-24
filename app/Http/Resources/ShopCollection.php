@@ -11,11 +11,6 @@ class ShopCollection extends ResourceCollection
         return [
             'data' => $this->collection->map(function($data) {
                 $a = \App\User::where('id',$data->user_id);
-                // $a = $data->user;
-                // dd($data->user->name);
-                // echo '<pre>';
-                // print_r($data->user);
-                // echo '</pre>';
                 return [
                     'name' => $data->name,
                     'user' => [
