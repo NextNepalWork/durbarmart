@@ -204,7 +204,7 @@
 {{-- script-new js --}}
 <script src="{{ asset('frontend/js/script-new.js') }}"></script>
 
-
+<script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 
 <script>
     function showFrontendAlert(type, message){
