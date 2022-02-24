@@ -21,9 +21,10 @@ class ProductDetailCollection extends ResourceCollection
                         'email' => $data->user->email,
                         'avatar' => $data->user->avatar,
                         'avatar_original' => $data->user->avatar_original,
+                        
                         'shop_name' => $data->added_by == 'admin' ? '' : $data->user->shop->name,
                         'shop_logo' => $data->added_by == 'admin' ? '' : $data->user->shop->logo,
-                        'shop_link' => $data->added_by == 'admin' ? '' : route('shops.info', $data->user->shop->id)
+                        'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)?$data->user->shop->id:'')
                     ],
                     'category' => [
                         'name' => $data->category->name,
