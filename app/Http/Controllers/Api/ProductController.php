@@ -25,9 +25,6 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        echo '<pre>';
-        print_r(Product::where('id', $id)->get());
-        echo '</pre>';
         return new ProductDetailCollection(Product::where('id', $id)->get());
     }
 
@@ -69,6 +66,7 @@ class ProductController extends Controller
     public function flashDeal()
     {
         $flash_deals = FlashDeal::where('status', 1)->where('featured', 1)->where('start_date', '<=', strtotime(date('d-m-Y')))->where('end_date', '>=', strtotime(date('d-m-Y')))->get();
+        // dd($flash_deals);
         return new FlashDealCollection($flash_deals);
     }
 
@@ -97,7 +95,9 @@ class ProductController extends Controller
     public function search()
     {
         $key = request('key');
+        // return $key;
         $scope = request('scope');
+
 
         switch ($scope) {
 
