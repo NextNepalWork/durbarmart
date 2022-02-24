@@ -19,12 +19,15 @@ class ProductController extends Controller
 {
     public function index()
     {
+        
         return new ProductCollection(Product::latest()->paginate(10));
     }
 
     public function show($id)
     {
-    
+        echo '<pre>';
+        print_r(Product::where('id', $id)->get());
+        echo '</pre>';
         return new ProductDetailCollection(Product::where('id', $id)->get());
     }
 
