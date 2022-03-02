@@ -145,6 +145,7 @@ class ProductController extends Controller
             }
             $product->photos = json_encode($photos);
             $product->thumbnail_img = json_encode($thumb);
+            // dd(json_decode($product->photos));
 
 
         }
