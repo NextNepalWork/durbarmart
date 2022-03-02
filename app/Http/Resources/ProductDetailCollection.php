@@ -14,7 +14,7 @@ class ProductDetailCollection extends ResourceCollection
         return [
             'data' => $this->collection->map(function($data) {
                 $photo=[];
-                $placeholder_img='uploads/frontend/images/placeholder.jpg';
+                $placeholder_img='frontend/images/placeholder.jpg';
                 if(isset($data->photos)){
                     array_push($photo,$placeholder_img);
                 }else{

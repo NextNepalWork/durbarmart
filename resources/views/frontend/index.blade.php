@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+{{dd('uploads/products/featured/VNota2dOlybtyimNEpuoaEZCv6rERHJjk1nEXB9v.jpg')}}
     <section class="home-banner-area">
         <div class="container">
             <div class="row no-gutters position-relative">
