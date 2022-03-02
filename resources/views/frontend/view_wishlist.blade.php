@@ -40,7 +40,7 @@
                         <div class="row shop-default-wrapper shop-cards-wrapper shop-tech-wrapper mt-4">
                             @foreach ($wishlists as $key => $wishlist)
                                 @if ($wishlist->product != null)
-                                    <div class="col-xl-4 col-6" id="wishlist_{{ $wishlist->id }}">
+                                    <div class="col-xl-4 col-sm-6 col-12" id="wishlist_{{ $wishlist->id }}">
                                         <div class="card card-product mb-3 product-card-2">
                                             <div class="card-body p-3">
                                                 <div class="card-image">

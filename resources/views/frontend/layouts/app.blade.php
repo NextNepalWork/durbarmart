@@ -212,13 +212,14 @@
             type = 'error';
         }
         swal({
-            position: 'top-end',
+            position: 'center',
             type: type,
             title: message,
             showConfirmButton: false,
             timer: 3000
         });
     }
+    
 </script>
 
 @foreach (session('flash_notification', collect())->toArray() as $message)

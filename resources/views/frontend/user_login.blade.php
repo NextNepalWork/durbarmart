@@ -1,18 +1,17 @@
 @extends('frontend.layouts.app')
-​
 @section('content')
-    <section class="gry-bg" id="login_section">
+    <section class="bg-white py-4" id="login_section">
         <div class="profile login">
             <div class="container">
                 <div class="row">
-                    <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 mx-auto">
+                    <div class="col-xl-5 col-lg-6 col-md-8 mx-auto">
                         <div class="card border-0">
-                            <div class="text-center px-35 pt-5">
+                            <div class="text-center px-35 pt-3">
                                 <h1 class="heading heading-4 strong-500">
                                     {{__('Login to your account.')}}
                                 </h1>
                             </div>
-                            <div class="px-5 py-3 py-lg-4">
+                            <div class="px-md-5 px-3 py-3 py-lg-4">
                                 <div class="">
                                     <form class="form-default" role="form" action="{{ route('login') }}" method="POST">
                                         @csrf
@@ -31,7 +30,6 @@
                                                 </span>
                                             </div>
                                         </div>
-​
                                         <div class="form-group">
                                             <div class="input-group input-group--style-1">
                                                 <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{__('Password')}}" name="password" id="password">
@@ -40,7 +38,6 @@
                                                 </span>
                                             </div>
                                         </div>
-​
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
@@ -56,8 +53,6 @@
                                                 <a href="{{ route('password.request') }}" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
                                             </div>
                                         </div>
-​
-​
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-styled btn-base-1 btn-md w-100">{{ __('Login') }}</button>
                                         </div>
@@ -93,6 +88,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-7 mx-auto text-center">
+                        <div class="image">
+                            <img src="{{asset('img/client-images/Tablet login-cuate.svg')}}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                <!-- Put This Section on 404error page -->
+                    <section class="bg-white py-4" id="error_page">
+      <div class="error">
+          {{-- <img src="https://www.elegantthemes.com/blog/wp-content/uploads/2020/02/000-404.png" alt="404 Error" class="img-fluid"> --}}
+      </div>
+    </section>
+    <!-- Put This Section on 404error page -->
+                    </div>
                     @if (env("DEMO_MODE") == "On")
                         <div class="bg-white p-4 mx-auto mt-4">
                             <div class="">
@@ -116,7 +125,6 @@
         </div>
     </section>
 @endsection
-​
 @section('script')
     <script type="text/javascript">
         function autoFillSeller(){

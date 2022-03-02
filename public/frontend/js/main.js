@@ -385,3 +385,13 @@ $(document).ajaxComplete(function () {
         $(".selectpicker").select2({});
     });
 });
+// $(window).scroll(function() {
+//     var scroll = $(window).scrollTop();
+//     if (scroll > 50) {
+//         $(".nav-wrapper").css("position", "sticky");
+
+//     } else {
+//         $(".nav-wrapper").css("position", "sticky");
+//     }
+// }); 
+

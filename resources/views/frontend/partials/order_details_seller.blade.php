@@ -6,6 +6,7 @@
 </div>
 
 @php
+// dd($order);
     $status = $order->orderDetails->where('seller_id', Auth::user()->id)->first()->delivery_status;
     $payment_status = $order->orderDetails->where('seller_id', Auth::user()->id)->first()->payment_status;
     $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
@@ -68,7 +69,14 @@
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{__('Customer')}}:</td>
-                            <td>{{ json_decode($order->shipping_address)->name }}</td>
+                            @php
+                                $shipping = json_decode($order->shipping_address,true);
+                                $name = 'empty';
+                                if(isset($shipping['name']) && !empty($shipping['name'])){
+                                    $name = $shipping['name'];
+                                }
+                            @endphp
+                            <td>{{ $name }}</td>
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{__('Email')}}:</td>

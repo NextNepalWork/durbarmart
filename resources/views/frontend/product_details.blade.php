@@ -281,18 +281,18 @@
                             </form>
 
                             <div class="d-table width-100 mt-3">
-                                <div class="d-table-cell">
+                                <div class="d-table-cell text-center">
                                     <!-- Buy Now button -->
                                     @if ($qty > 0)
-                                        <button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now" onclick="buyNow()">
+                                        <button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now px-2 mb-1 font-weight-light" onclick="buyNow()">
                                             <i class="la la-shopping-cart"></i> {{__('Buy Now')}}
                                         </button>
-                                        <button type="button" class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart" onclick="addToCart()">
+                                        <button type="button" class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart px-2 mb-1 font-weight-light" onclick="addToCart()">
                                             <i class="la la-shopping-cart"></i>
-                                            <span class="d-none d-md-inline-block"> {{__('Add to cart')}}</span>
+                                            <span class="d-md-inline-block"> {{__('Add to cart')}}</span>
                                         </button>
                                     @else
-                                        <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>
+                                        <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700 px-2 mb-1 font-weight-light" disabled>
                                             <i class="la la-cart-arrow-down"></i> {{__('Out of Stock')}}
                                         </button>
                                     @endif
@@ -304,7 +304,7 @@
                             <div class="d-table width-100 mt-3">
                                 <div class="d-table-cell">
                                     <!-- Add to wishlist button -->
-                                    <button type="button" class="btn pl-0 btn-link strong-700" onclick="addToWishList({{ $detailedProduct->id }})">
+                                    <button type="button" class="btn pl-lg-0 pl-3 btn-link strong-700" onclick="addToWishList({{ $detailedProduct->id }})">
                                         {{__('Add to wishlist')}}
                                     </button>
                                     <!-- Add to compare button -->
@@ -809,7 +809,7 @@
                                             <div class="input-group input-group--style-1">
                                                 <input type="email" name="email" class="form-control" placeholder="{{__('Email')}}">
                                                 <span class="input-group-addon">
-                                                    <i class="text-md ion-person"></i>
+                                                    <i class="text-md la la-user"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -818,7 +818,7 @@
                                             <div class="input-group input-group--style-1">
                                                 <input type="password" name="password" class="form-control" placeholder="{{__('Password')}}">
                                                 <span class="input-group-addon">
-                                                    <i class="text-md ion-locked"></i>
+                                                    <i class="text-md la la-lock"></i>
                                                 </span>
                                             </div>
                                         </div>

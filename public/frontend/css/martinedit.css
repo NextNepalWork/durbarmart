@@ -92,6 +92,7 @@ checkbox-color input:checked~label:after {
 
 .login div a.link {
     text-decoration: none;
+    color: #3b5998;
 }
 
 .login .form-default .input-group--style-1 .input-group-addon,
@@ -101,33 +102,38 @@ checkbox-color input:checked~label:after {
     background: unset;
 }
 
-.login {
-    background-image: url(../images/user4.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.login .heading,
+.registration .heading {
+    text-transform: capitalize;
+    font-weight: 600 !important;
+    color: #dc3545;
 }
 
-.registration {
-    background-image: url(../images/user4.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.login .card,
+.registration .card {
+    background: rgb(247 247 247) !important;
+}
+
+.login .image img,
+.registration .image img {
+    max-height: 500px;
+    min-height: 500px;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
 }
 
 .login .card,
 .registration .card {
     backdrop-filter: blur(18px) saturate(100%);
     -webkit-backdrop-filter: blur(18px) saturate(100%);
-    background-color: rgb(210 210 210 / 64%);
-    margin: 25px 0px;
+    margin: 35px 0px;
 }
 
-.login .card .heading,
+/* .login .card .heading,
 .registration .card .heading {
     color: white;
-}
-
+} */
 .login .card .btn-styled:hover .icon,
 .registration .card .btn-styled:hover .icon {
     background: unset;
@@ -135,8 +141,7 @@ checkbox-color input:checked~label:after {
 
 .login .card .btn-styled:hover,
 .registration .card .btn-styled:hover {
-    color: white !important;
-    border: 1px solid white;
+    border: 1px solid #dc3545;
 }
 
 .gry-bg .compare-table td img {
@@ -147,13 +152,13 @@ checkbox-color input:checked~label:after {
     width: 100%;
     padding: 0 !important;
 }
-/* Product Compare */
 
+/* Product Compare */
 .ion-android-cart {
     display: none;
 }
-/* Product Compare Ends */
 
+/* Product Compare Ends */
 .widget-profile-box {
     border: 1px solid;
     border-style: dashed;
@@ -186,3 +191,47 @@ checkbox-color input:checked~label:after {
 /* .btn-styled:hover {
     border: 0 !important;
 } */
+#error_page .error img {
+    max-height: 400px;
+    min-height: 400px;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+}
+
+/* .sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%
+} */
+.products-box-bar .nothing-wrap p {
+    font-size: 1.2rem;
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.products-box-bar .nothing {
+    max-height: 300px;
+    min-height: 300px;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+}
+
+/* #container {
+    background-image: none !important;
+    background: none !important;
+} */
+
+.media-banner img {
+    max-height: 150px;
+    min-height: 150px;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+}
+
+.modal.show {
+    z-index: 9999;
+}

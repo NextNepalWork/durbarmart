@@ -25,6 +25,7 @@ class ProductCollection extends ResourceCollection
                     }
                 }
                 return [
+                    'id' => (integer) $data->id,
                     'name' => $data->name,
                     'photos' => $photo,
                     'thumbnail_image' => file_exists($data->thumbnail_img) ? $data->thumbnail_img : asset('frontend/images/placeholder.jpg'),
