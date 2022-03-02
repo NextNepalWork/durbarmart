@@ -31,6 +31,7 @@ class ProductCollection extends ResourceCollection
                     'thumbnail_image' => file_exists($data->thumbnail_img) ? json_decode($data->thumbnail_img) : $placeholder_img,
                     'featured_image' => file_exists($data->featured_image) ? $data->featured_image : $placeholder_img,
                     'flash_deal_image' => file_exists($data->flash_deal_image) ? $data->flash_deal_image : $placeholder_img,
+                    'unit_price' => $data->unit_price,
                     'base_price' => (double) homeBasePrice($data->id),
                     'base_discounted_price' => (double) homeDiscountedBasePrice($data->id),
                     'todays_deal' => (integer) $data->todays_deal,
