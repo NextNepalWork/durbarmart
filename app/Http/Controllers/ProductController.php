@@ -22,6 +22,7 @@ class ProductController extends Controller
     {
         //CoreComponentRepository::instantiateShopRepository();
 
+        
         $type = 'In House';
         $col_name = null;
         $query = null;
