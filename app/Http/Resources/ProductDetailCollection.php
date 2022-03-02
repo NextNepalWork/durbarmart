@@ -10,8 +10,22 @@ class ProductDetailCollection extends ResourceCollection
 {
     public function toArray($request)
     {
+
         return [
             'data' => $this->collection->map(function($data) {
+                $photo=[];
+                $placeholder_img=asset('frontend/images/placeholder.jpg');
+                if(isset($data->photos)){
+                    array_push($photo,$placeholder_img);
+                }else{
+                    foreach(json_decode($data->photos) as $key=>$img){
+                        if(file_exists($img)){
+                            array_push($photo,$img);
+                        }else{
+                            array_push($photo,$placeholder_img);
+                        }
+                    }
+                }
                 return [
                     'id' => (integer) $data->id,
                     'name' => $data->name,
@@ -48,10 +62,10 @@ class ProductDetailCollection extends ResourceCollection
                             'products' => route('api.products.brand', $data->brand_id ?? '/')
                         ]
                     ],
-                    'photos' => json_decode($data->photos),
-                    'thumbnail_image' => $data->thumbnail_img,
-                    'featured_image' => $data->featured_img,
-                    'flash_deal_image' => $data->flash_deal_img,
+                    'photos' => $photo,
+                    'thumbnail_image' => file_exists($data->thumbnail_img) ? $data->thumbnail_img : asset('frontend/images/placeholder.jpg'),
+                    'featured_image' => file_exists($data->featured_img) ? $data->featured_img : asset('frontend/images/placeholder.jpg'),
+                    'flash_deal_image' => file_exists($data->flash_deal_img) ? $data->flash_deal_img : asset('frontend/images/placeholder.jpg'),
                     'tags' => explode(',', $data->tags),
                     'price_lower' => (double) explode('-', homeDiscountedPrice($data->id))[0],
                     'price_higher' => (double) explode('-', homeDiscountedPrice($data->id))[1],

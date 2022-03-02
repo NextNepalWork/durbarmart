@@ -194,15 +194,14 @@
                                                     @endif
                                                 @endif
 
-                                                <div class="col-6">
+                                                {{-- <div class="col-6">
                                                     <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
-                                                        <input type="radio" id="" name="payment_option" value="khalti" checked>
+                                                        <input type="radio" id="" name="payment_option" value="khalti">
                                                         <span>
-                                                            <button id="payment-button" class="btn btn-success">Pay with Khalti</button>
-                                                            {{-- <img loading="lazy" src="{{ asset('frontend/images/icons/cards/paytm.jpg')}}" class="img-fluid"> --}}
+                                                            <img loading="lazy" src="{{ asset('frontend/images/icons/cards/paytm.jpg')}}" class="img-fluid">
                                                         </span>
                                                     </label>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -226,6 +225,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <button id="payment-button">Pay with Khalti</button>
                             <div class="row align-items-center pt-4">
                                 <div class="col-6">
                                     <a href="{{ route('home') }}" class="link link--style-3">
@@ -264,7 +264,7 @@
     <script>
         var config = {
             // replace the publicKey with yours
-            "publicKey": "test_public_key_dc74e0fd57cb46cd93832aee0a391354",
+            "publicKey": "test_public_key_eb32162715ff4ac0b16fb0e82fc4dbed",
             "productIdentity": "1234567890",
             "productName": "Dragon",
             "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
@@ -274,7 +274,7 @@
             "eventHandler": {
                 onSuccess (payload) {
                     // hit merchant api for initiating verfication
-                    console.log(payload);
+                    console.log('payload');
                 },
                 onError (error) {
                     console.log(error);
@@ -289,7 +289,7 @@
         var btn = document.getElementById("payment-button");
         btn.onclick = function () {
             // minimum transaction amount must be 10, i.e 1000 in paisa.
-            checkout.show({amount: 10000});
+            checkout.show({amount: 1000});
         }
     </script>
 @endsection

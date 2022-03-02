@@ -118,9 +118,9 @@
                   <img data-toggle="tooltip" data-placement="top" title="Compare" src="{{asset('frontend/images/coma.svg')}}" alt="cart-logo" class="img-fluid img_sag">
                       {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Compare')}}</span> --}}
                       @if(Session::has('compare'))
-                          <sup class="nav-box-number">{{ count(Session::get('compare'))}}</sup>
+                          <sup class="nav-box-number" id="cart_items_sidenav">{{ count(Session::get('compare'))}}</sup>
                       @else
-                          <sup class="nav-box-number">0</sup>
+                          <sup class="nav-box-number" id="cart_items_sidenav">0</sup>
                       @endif
                   </a>
               </div>
@@ -132,9 +132,9 @@
                       <img data-toggle="tooltip" data-placement="top" title="Wishlist" src="{{asset('frontend/images/hort.svg')}}" alt="cart-logo" class="img-fluid img_sag">
                       {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Wishlist')}}</span> --}}
                       @if(Auth::check())
-                          <sup class="nav-box-number">{{ count(Auth::user()->wishlists)}}</sup>
+                          <sup class="nav-box-number" id="cart_items_sidenav">{{ count(Auth::user()->wishlists)}}</sup>
                       @else
-                          <sup class="nav-box-number">0</sup>
+                          <sup class="nav-box-number" id="cart_items_sidenav">0</sup>
                       @endif
                   </a>
               </div>
@@ -146,9 +146,9 @@
                       <img data-toggle="tooltip" data-placement="top" title="Cart" src="{{asset('frontend/images/b15beedcaf38913a9969b50753dd2aa1.svg')}}" alt="cart-logo" class="img-fluid img_sag">
                       {{-- <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span> --}}
                       @if(Session::has('cart'))
-                          <sup class="nav-box-number">{{ count(Session::get('cart'))}}</sup>
+                          <sup class="nav-box-number" id="cart_items_sidenav">{{ count(Session::get('cart'))}}</sup>
                       @else
-                          <sup class="nav-box-number">0</sup>
+                          <sup class="nav-box-number" id="cart_items_sidenav">0</sup>
                       @endif
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right px-0">
@@ -460,9 +460,9 @@
                                             <i class="la la-refresh d-inline-block nav-box-icon"></i>
                                             <span class="nav-box-text d-none d-xl-inline-block">{{__('Compare')}}</span>
                                             @if(Session::has('compare'))
-                                                <span class="nav-box-number">{{ count(Session::get('compare'))}}</span>
+                                                <span class="nav-box-number" id="cart_items_sidenav">{{ count(Session::get('compare'))}}</span>
                                             @else
-                                                <span class="nav-box-number">0</span>
+                                                <span class="nav-box-number" id="cart_items_sidenav">0</span>
                                             @endif
                                         </a>
                                     </div>
@@ -473,9 +473,9 @@
                                             <i class="la la-heart-o d-inline-block nav-box-icon"></i>
                                             <span class="nav-box-text d-none d-xl-inline-block">{{__('Wishlist')}}</span>
                                             @if(Auth::check())
-                                                <span class="nav-box-number">{{ count(Auth::user()->wishlists)}}</span>
+                                                <span class="nav-box-number" id="cart_items_sidenav">{{ count(Auth::user()->wishlists)}}</span>
                                             @else
-                                                <span class="nav-box-number">0</span>
+                                                <span class="nav-box-number" id="cart_items_sidenav">0</span>
                                             @endif
                                         </a>
                                     </div>
@@ -486,9 +486,9 @@
                                             <i class="la la-shopping-cart d-inline-block nav-box-icon"></i>
                                             <span class="nav-box-text d-none d-xl-inline-block">{{__('Cart')}}</span>
                                             @if(Session::has('cart'))
-                                                <span class="nav-box-number">{{ count(Session::get('cart'))}}</span>
+                                                <span class="nav-box-number" id="cart_items_sidenav">{{ count(Session::get('cart'))}}</span>
                                             @else
-                                                <span class="nav-box-number">0</span>
+                                                <span class="nav-box-number" id="cart_items_sidenav">0</span>
                                             @endif
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-right px-0">
