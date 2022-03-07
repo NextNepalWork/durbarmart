@@ -4,13 +4,15 @@
         <div class="profile login">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-5 col-lg-6 col-md-8 mx-auto">
+                    <div class="col-xl-12 col-lg-12 col-md-12 mx-auto">
+                        <div class="text-center px-35 pt-3">
+                            <h1 class="heading heading-4 strong-500">
+                                Login to your account.
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-8 mx-auto">
                         <div class="card border-0">
-                            <div class="text-center px-35 pt-3">
-                                <h1 class="heading heading-4 strong-500">
-                                    {{__('Login to your account.')}}
-                                </h1>
-                            </div>
                             <div class="px-md-5 px-3 py-3 py-lg-4">
                                 <div class="">
                                     <form class="form-default" role="form" action="{{ route('login') }}" method="POST">
@@ -50,7 +52,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <a href="{{ route('password.request') }}" class="link link-xs link--style-3">{{__('Forgot password?')}}</a>
+                                                <a href="{{ route('password.request') }}" class="link link-xs link--style-3" style="color:#dc3545">{{__('Forgot password?')}}</a>
                                             </div>
                                         </div>
                                         <div class="text-center">
@@ -88,9 +90,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-7 mx-auto text-center">
+                    <div class="col-xl-6 m-auto text-center">
                         <div class="image">
-                            <img src="{{asset('img/client-images/Tablet login-cuate.svg')}}" alt="">
+                            <img src="{{asset('client-image/DurbarMart-Login.svg')}}" alt="">
                         </div>
                     </div>
                     <div class="col-12">
