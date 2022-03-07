@@ -10,6 +10,7 @@ class ShopCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->map(function($data) {
+                $placeholder_img='frontend/images/placeholder.jpg';
                 $a = \App\User::where('id',$data->user_id);
                 // $a = $data->user;
                 // dd($data->user->name);
@@ -24,13 +25,13 @@ class ShopCollection extends ResourceCollection
                         
                         'email' => $a->get('email'),
                         // $data->user->email
-                        'avatar' => $a->get('avatar'),
+                        'avatar' => file_exists($a->get('avatar')) ? $a->get('avatar') : $placeholder_img ,
                         // $data->user->avatar
-                        'avatar_original' => $a->get('avatar_original')
+                        'avatar_original' => file_exists($a->get('avatar_original')) ? $a->get('avatar_original') : $placeholder_img
                         // $data->user->avatar_original
                     ],
-                    'logo' => $data->logo,
-                    'sliders' => json_decode($data->sliders),
+                    'logo' => file_exists($data->logo) ? $data->logo : $placeholder_img,
+                    'sliders' => file_exists($data->sliders) ? json_decode($data->sliders) : $placeholder_img,
                     'address' => $data->address,
                     'facebook' => $data->facebook,
                     'google' => $data->google,
