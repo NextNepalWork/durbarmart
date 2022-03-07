@@ -14,7 +14,7 @@ class ProductCollection extends ResourceCollection
                 $photo=[];
                 $placeholder_img='frontend/images/placeholder.jpg';
                 
-                if(isset($data->photos)){
+                if(!(isset($data->photos))){
                     array_push($photo,$placeholder_img);
                 }else{
                     foreach(json_decode($data->photos) as $key=>$img){
