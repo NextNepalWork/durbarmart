@@ -266,15 +266,15 @@
             // replace the publicKey with yours
             "publicKey": "test_public_key_eb32162715ff4ac0b16fb0e82fc4dbed",
             "productIdentity": "1234567890",
-            "productName": "Dragon",
-            "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+            "productName": "Pearl Green Tea",
+            "productUrl": "http://localhost:8000/product/Pearl-Green-Tea1-ACSSP",
             "paymentPreference": [
                 "KHALTI"
                 ],
             "eventHandler": {
                 onSuccess (payload) {
                     // hit merchant api for initiating verfication
-                    console.log('payload');
+                    console.log(payload);
                 },
                 onError (error) {
                     console.log(error);
