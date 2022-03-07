@@ -22,6 +22,7 @@ class ProductController extends Controller
     {
         //CoreComponentRepository::instantiateShopRepository();
 
+
         $type = 'In House';
         $col_name = null;
         $query = null;
@@ -129,22 +130,26 @@ class ProductController extends Controller
         $product->made_in_nepal = $request->made_in_nepal != null ? 1 : 0;
 
         $photos = array();
-        $thumb=array();
+        // $thumb=array();
         if ($request->hasFile('photos')) {
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
-                $thumbnail_path = $photo->store('uploads/products/thumbnail');
+                // if($key == 0){
+                //     $thumbnail_path = $photo->store('uploads/products/thumbnail');
+                //     Image::make(public_path($thumbnail_path))->resize(100,100)->save();
+                // }
                 Image::make(public_path($path))->resize(750,750)->save();
 
-                Image::make(public_path($thumbnail_path))->resize(100,100)->save();
 
                 array_push($photos, $path);
-                array_push($thumb, $thumbnail_path);
+                // array_push($thumb, $thumbnail_path);
 
                 //ImageOptimizer::optimize(base_path('public/').$path);
             }
             $product->photos = json_encode($photos);
-            $product->thumbnail_img = json_encode($thumb);
+            // $product->thumbnail_img = json_encode($thumb);
+            // $product->thumbnail_img = $thumb;
+            // dd(json_decode($product->photos));
 
 
         }
@@ -375,29 +380,31 @@ class ProductController extends Controller
 
         if ($request->has('previous_photos')) {
             $photos = $request->previous_photos;
-            $thumb = $request->previous_thumbnail_img;
+            // $thumb = $request->previous_thumbnail_img;
+            // dd($request->all());
         }
         else{
             $photos = array();
-            $thumb=array();
+            // $thumb=array();
         }
+        // dd($thumb);
 
         if ($request->hasFile('photos')) {
             foreach ($request->photos as $key => $photo) {
                 $path = $photo->store('uploads/products/photos');
-                $thumbnail_path = $photo->store('uploads/products/thumbnail');
+                // $thumbnail_path = $photo->store('uploads/products/thumbnail');
 
                 Image::make(public_path($path))->resize(750,750)->save();
-                Image::make(public_path($thumbnail_path))->resize(100,100)->save();
+                // Image::make(public_path($thumbnail_path))->resize(100,100)->save();
 
 
                 array_push($photos, $path);
-                array_push($thumb, $thumbnail_path);
+                // array_push($thumb, $thumbnail_path);
                 //ImageOptimizer::optimize(base_path('public/').$path);
             }
         }
         $product->photos = json_encode($photos);
-        $product->thumbnail_img = json_encode($thumb);
+        // $product->thumbnail_img = json_encode($thumb);
 
         // $product->thumbnail_img = $request->previous_thumbnail_img;
         // if($request->hasFile('thumbnail_img')){
