@@ -36,9 +36,8 @@
 </div>
 </div>
 </section> --}}
-
 <a href="" class='button_chat'>chat</a>
-<a href="#" class='top_btn'><i class="fa fa-angle-up"></i></a>
+<a href="#" class='top_btn hidden'><i class="fa fa-angle-up"></i></a>
 
 <!-- FOOTER -->
 <footer id="footer" class="footer">

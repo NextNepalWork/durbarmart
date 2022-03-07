@@ -594,6 +594,21 @@
          });
      }
 
+    var timer;
+    $(document).scroll(function(){
+
+    if(timer != "undefined"){
+    clearTimeout(timer);
+    }
+
+    $('.top_btn').show();
+    timer = setTimeout(function(){
+    
+    $('.top_btn').hide();
+
+    },900)//Threshold is 100ms
+
+    });
 </script>
 
 @yield('script')

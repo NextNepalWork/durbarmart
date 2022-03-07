@@ -33,8 +33,8 @@ class ProductDetailCollection extends ResourceCollection
                     'user' => [
                         'name' => $data->user->name,
                         'email' => $data->user->email,
-                        'avatar' => $data->user->avatar,
-                        'avatar_original' => $data->user->avatar_original,
+                        'avatar' =>file_exists($data->user->avatar) ? $data->user->avatar : $placeholder_img,
+                        'avatar_original' =>file_exists($data->user->avatar_original) ? $data->user->avatar_original : $placeholder_img,
                         
                         'shop_name' => $data->added_by == 'admin' ? '' : $data->user->shop->name,
                         'shop_logo' => $data->added_by == 'admin' ? '' : $data->user->shop->logo,
@@ -42,8 +42,8 @@ class ProductDetailCollection extends ResourceCollection
                     ],
                     'category' => [
                         'name' => $data->category->name,
-                        'banner' => $data->category->banner,
-                        'icon' => $data->category->icon,
+                        'banner' => file_exists($data->category->banner) ? $data->category->banner : $placeholder_img,
+                        'icon' => file_exists($data->category->icon) ? $data->category->icon : $placeholder_img,
                         'links' => [
                             'products' => route('api.products.category', $data->category_id),
                             'sub_categories' => route('subCategories.index', $data->category_id)

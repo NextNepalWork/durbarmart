@@ -1,6 +1,6 @@
 <nav class="navbar header navbar-expand-lg p-0">
-    <div class="row">
-        <div class="col-12">
+    <div class="row m-0 w-100">
+        <div class="col-12 p-0">
             <header class="section-header top-header-bg d-md-block d-none">
                 <div class="container">
                     <div class="top-header d-flex justify-content-end align-items-center">
@@ -25,7 +25,7 @@
                 </div>
             </header>
         </div>
-        <div class="col-12 header-content py-1">
+        <div class="col-12 header-content py-1 p-0">
             <div class="container">
                 <div class="header-logo text-center d-flex justify-content-between align-items-center">
                     <a class="navbar-brand text-white text-uppercase text-left p-0" href="{{ route('home') }}">
@@ -39,7 +39,7 @@
                         @endif
                     </a>
                     <!-- search start  -->
-                    <div class="searchbar d-none d-md-block">
+                    <div class="searchbar d-none d-md-block" style="border-radius:10px">
                         <form action="{{ route('search') }}" method="GET">
                             <div class="d-flex position-relative">
                                 {{-- <div class="d-lg-none search-box-back">
@@ -61,7 +61,7 @@
                                 @endforeach
                                 </select>
                             </div> --}}
-                            <button type="submit" class="search_icon"><i class="fa fa-search"></i></button>
+                            <button type="submit" class="search_icon" style="border-radius: 0 10px 10px 0px;"><i class="fa fa-search"></i></button>
                             {{-- <button class="d-none d-lg-block" type="submit">
                         <i class="la la-search la-flip-horizontal"></i>
                              </button> --}}

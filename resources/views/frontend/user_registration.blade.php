@@ -5,13 +5,15 @@
         <div class="profile registration">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-5 col-lg-6 col-md-8 mx-auto">
+                    <div class="col-xl-12 col-lg-12 col-md-12 mx-auto">
+                        <div class="text-center px-35 pt-3">
+                            <h1 class="heading heading-4 strong-500">
+                                Create an account.
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-8 mx-auto">
                         <div class="card border-0">
-                            <div class="text-center px-35 pt-5">
-                                <h1 class="heading heading-4 strong-500">
-                                    {{__('Create an account.')}}
-                                </h1>
-                            </div>
                             <div class="px-5 py-3 py-lg-4">
                                 <div class="">
                                     <form class="form-default" role="form" action="{{ route('register') }}" method="POST">
@@ -154,9 +156,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-7 mx-auto text-center">
+                    <div class="col-xl-6 m-auto text-center">
                         <div class="image">
-                            <img src="{{asset('img/client-images/Sign up-bro.svg')}}" alt="">
+                            <img src="{{asset('client-image/DurbarMartRegister.svg')}}" alt="">
                         </div>
                     </div>
                 </div>

@@ -194,14 +194,15 @@
                                                     @endif
                                                 @endif
 
-                                                {{-- <div class="col-6">
+                                                <div class="col-6">
                                                     <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
-                                                        <input type="radio" id="" name="payment_option" value="khalti">
+                                                        {{-- <button id="payment-button">Pay with Khalti</button> --}}
+                                                        <input type="radio" id="payment-button" name="payment_option" value="khalti">
                                                         <span>
                                                             <img loading="lazy" src="{{ asset('frontend/images/icons/cards/paytm.jpg')}}" class="img-fluid">
                                                         </span>
                                                     </label>
-                                                </div> --}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -225,7 +226,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <button id="payment-button">Pay with Khalti</button>
+
                             <div class="row align-items-center pt-4">
                                 <div class="col-6">
                                     <a href="{{ route('home') }}" class="link link--style-3">
