@@ -15,7 +15,7 @@ class ProductDetailCollection extends ResourceCollection
             'data' => $this->collection->map(function($data) {
                 $photo=[];
                 $placeholder_img='frontend/images/placeholder.jpg';
-                if(isset($data->photos)){
+                if(!(isset($data->photos)) && empty($data->photos)){
                     array_push($photo,$placeholder_img);
                 }else{
                     foreach(json_decode($data->photos) as $key=>$img){
