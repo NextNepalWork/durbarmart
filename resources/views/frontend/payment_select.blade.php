@@ -197,7 +197,7 @@
                                                 <div class="col-6">
                                                     <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
                                                         {{-- <button id="payment-button">Pay with Khalti</button> --}}
-                                                        <input type="radio" id="" name="khalti" value="khalti">
+                                                        <input type="radio" id="" name="payment_option" value="khalti">
                                                         <span>
                                                             <img loading="lazy" src="{{ asset('frontend/images/icons/cards/paytm.jpg')}}" class="img-fluid">
                                                         </span>
@@ -263,7 +263,7 @@
             $('#checkout-form').submit();
         }
     </script>
-    <script>
+    {{-- <script>
         var config = {
             // replace the publicKey with yours
             "publicKey": "test_public_key_eb32162715ff4ac0b16fb0e82fc4dbed",
@@ -288,10 +288,10 @@
         };
 
         var checkout = new KhaltiCheckout(config);
-        var btn = document.getElementById("payment-button");
-        btn.onclick = function () {
+        // var btn = document.getElementById("payment-button");
+        // btn.onclick = function () {
             // minimum transaction amount must be 10, i.e 1000 in paisa.
             checkout.show({amount: 1000});
-        }
-    </script>
+        // }
+    </script> --}}
 @endsection
