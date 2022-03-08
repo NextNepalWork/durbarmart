@@ -100,7 +100,7 @@
 <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
 
 
-@if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
+{{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
 
@@ -110,9 +110,9 @@
       gtag('js', new Date());
       gtag('config', '{{ env('TRACKING_ID') }}');
     </script>
-@endif
+@endif --}}
 
-@if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1)
+{{-- @if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1)
 <!-- Facebook Pixel Code -->
 <script>
   !function(f,b,e,v,n,t,s)
@@ -131,7 +131,7 @@
        src="https://www.facebook.com/tr?id={{ env('FACEBOOK_PIXEL_ID') }}/&ev=PageView&noscript=1"/>
 </noscript>
 <!-- End Facebook Pixel Code -->
-@endif
+@endif --}}
 
 </head>
 <body>
@@ -149,14 +149,14 @@
 
     @include('frontend.partials.modal')
 
-    @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
+    {{-- @if (\App\BusinessSetting::where('type', 'facebook_chat')->first()->value == 1)
         <div id="fb-root"></div>
         <!-- Your customer chat code -->
         <div class="fb-customerchat"
           attribution=setup_tool
           page_id="{{ env('FACEBOOK_PAGE_ID') }}">
         </div>
-    @endif
+    @endif --}}
 
     <div class="modal fade" id="addToCart">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
