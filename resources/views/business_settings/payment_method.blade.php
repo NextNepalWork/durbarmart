@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Paypal Credential')}}</h3>
@@ -271,7 +271,9 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
+
+
 
     <div class="col-lg-6">
         <div class="panel">
@@ -283,32 +285,24 @@
                     @csrf
                     <input type="hidden" name="payment_method" value="khalti">
                     <div class="form-group">
-                        <input type="hidden" name="types[]" value="KHALTI_PUBLIC_KEY">
+                        <input type="hidden" name="types[]" value="KHALTI_KEY">
                         <div class="col-lg-3">
-                            <label class="control-label">{{__('PUBLIC KEY')}}</label>
+                            <label class="control-label">{{__('KHALTI KEY')}}</label>
                         </div>
                         <div class="col-lg-6">
-                            <input type="text" class="form-control" name="KHALTI_PUBLIC_KEY" value="{{  env('KHALTI_PUBLIC_KEY') }}" placeholder="PUBLIC KEY" required>
+                            <input type="text" class="form-control" name="KHALTI_KEY" value="{{  env('KHALTI_KEY') }}" placeholder="KHALTI KEY" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="hidden" name="types[]" value="KHALTI_SECRET_KEY">
+                        <input type="hidden" name="types[]" value="KHALTI_SECRET">
                         <div class="col-lg-3">
-                            <label class="control-label">{{__('SECRET KEY')}}</label>
+                            <label class="control-label">{{__('KHALTI SECRET')}}</label>
                         </div>
                         <div class="col-lg-6">
-                            <input type="text" class="form-control" name="KHALTI_SECRET_KEY" value="{{  env('KHALTI_SECRET_KEY') }}" placeholder="SECRET KEY" required>
+                            <input type="text" class="form-control" name="KHALTI_SECRET" value="{{  env('KHALTI_SECRET') }}" placeholder="KHALTI SECRET" required>
                         </div>
                     </div>
-                    {{-- <div class="form-group">
-                        <input type="hidden" name="types[]" value="MERCHANT_EMAIL">
-                        <div class="col-lg-3">
-                            <label class="control-label">{{__('MERCHANT EMAIL')}}</label>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="MERCHANT_EMAIL" value="{{  env('MERCHANT_EMAIL') }}" placeholder="MERCHANT EMAIL" required>
-                        </div>
-                    </div> --}}
+
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
                             <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
@@ -318,6 +312,7 @@
             </div>
         </div>
     </div>
+
 
 </div>
 <div class="row">
