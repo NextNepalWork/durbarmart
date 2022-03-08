@@ -8,9 +8,9 @@
                             <ul class="mb-0">
                                 <li>
                                     <a href="{{ route('orders.track') }}" class="text-dark">{{__('Track Order')}}</a>
-                                    @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated)
+                                    {{-- @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated)
                                     <a href="{{ route('affiliate.apply') }}" class="text-dark">{{__('Be an affiliate partner')}}</a>
-                                    @endif
+                                    @endif --}}
                                     @auth
                                     <a href="{{ route('dashboard') }}" class="text-dark">{{__('My Panel')}}</a>
                                     <a href="{{ route('logout') }}" class="text-dark">{{__('Logout')}}</a>
@@ -39,7 +39,7 @@
                         @endif
                     </a>
                     <!-- search start  -->
-                    <div class="searchbar d-none d-md-block" style="border-radius:10px">
+                    <div class="searchbar d-md-block d-none" style="border-radius:10px">
                         <form action="{{ route('search') }}" method="GET">
                             <div class="d-flex position-relative">
                                 {{-- <div class="d-lg-none search-box-back">
@@ -83,7 +83,7 @@
                 </div>
                 <!-- search end  -->
                 <!-- search mobile new star  -->
-                <div class="search_mobile_men d-block d-md-none">
+                <div class="search_mobile_men d-md-none d-block">
                     <button class="search_icon_new" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
