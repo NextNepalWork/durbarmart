@@ -62,6 +62,10 @@ class WalletController extends Controller
             $paytm = new PaytmController;
             return $paytm->index();
         }
+        elseif($request->payment_option == 'khalti'){
+            $khalti = new KhaltiController;
+            return $khalti->walletKhalti();
+        }
     }
 
     public function wallet_payment_done($payment_data, $payment_details){

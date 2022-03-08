@@ -172,6 +172,9 @@
                                         @if (\App\Addon::where('unique_identifier', 'paytm')->first() != null && \App\Addon::where('unique_identifier', 'paytm')->first()->activated)
                                             <option value="paytm">{{__('Paytm')}}</option>
                                         @endif
+                                        @if((\App\BusinessSetting::where('type', 'khalti')->count() > 0) && (\App\BusinessSetting::where('type', 'khalti')->first()->value == 1))
+                                            <option value="khalti">{{__('Khalti')}}</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>
