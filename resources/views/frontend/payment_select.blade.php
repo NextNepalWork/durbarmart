@@ -193,16 +193,17 @@
                                                         @endforeach
                                                     @endif
                                                 @endif
-
-                                                <div class="col-6">
-                                                    <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
-                                                        {{-- <button id="payment-button">Pay with Khalti</button> --}}
-                                                        <input type="radio" id="" name="payment_option" value="khalti">
-                                                        <span>
-                                                            <img loading="lazy" src="{{ asset('frontend/images/icons/cards/paytm.jpg')}}" class="img-fluid">
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                                @if((\App\BusinessSetting::where('type', 'khalti')->count() > 0) && (\App\BusinessSetting::where('type', 'khalti')->first()->value == 1))
+                                                    <div class="col-6">
+                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
+                                                            {{-- <button id="payment-button">Pay with Khalti</button> --}}
+                                                            <input type="radio" id="" name="payment_option" value="khalti">
+                                                            <span>
+                                                                <img loading="lazy" src="{{ asset('frontend/images/icons/cards/khalti.png')}}" class="img-fluid">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

@@ -8,9 +8,9 @@
                             <ul class="mb-0">
                                 <li>
                                     <a href="{{ route('orders.track') }}" class="text-dark">{{__('Track Order')}}</a>
-                                    @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated)
+                                    {{-- @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated)
                                     <a href="{{ route('affiliate.apply') }}" class="text-dark">{{__('Be an affiliate partner')}}</a>
-                                    @endif
+                                    @endif --}}
                                     @auth
                                     <a href="{{ route('dashboard') }}" class="text-dark">{{__('My Panel')}}</a>
                                     <a href="{{ route('logout') }}" class="text-dark">{{__('Logout')}}</a>
