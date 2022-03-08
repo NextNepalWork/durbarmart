@@ -413,11 +413,16 @@ class ProductController extends Controller
         // }
 
         $product->featured_img = $request->previous_featured_img;
+        
+
         if ($request->hasFile('featured_img')) {
             $product->featured_img = $request->featured_img->store('uploads/products/featured');
             $product->thumbnail_img = $request->featured_img->store('uploads/products/thumbnail');
             $product->meta_img = $request->featured_img->store('uploads/products/meta');
+            
+            // $product->meta_img = $request->meta_img->store('uploads/products/meta');
             //ImageOptimizer::optimize(base_path('public/').$product->featured_img);
+            // dd($product->meta_img);
         }
 
         $product->flash_deal_img = $request->previous_flash_deal_img;
@@ -448,11 +453,11 @@ class ProductController extends Controller
         $product->meta_title = $request->meta_title;
         $product->meta_description = $request->meta_description;
 
-        $product->meta_img = $request->previous_meta_img;
-        if ($request->hasFile('meta_img')) {
-            $product->meta_img = $request->meta_img->store('uploads/products/meta');
-            //ImageOptimizer::optimize(base_path('public/').$product->meta_img);
-        }
+        // $product->meta_img = $request->previous_featured_img;
+        // if ($request->hasFile('meta_img')) {
+        //     $product->meta_img = $request->meta_img->store('uploads/products/meta');
+        //     //ImageOptimizer::optimize(base_path('public/').$product->meta_img);
+        // }
 
         if ($request->hasFile('pdf')) {
             $product->pdf = $request->pdf->store('uploads/products/pdf');

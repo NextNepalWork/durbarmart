@@ -5,6 +5,7 @@
     <h1 class="page-header text-overflow">Edit Product</h1>
 </div>
 <div class="row">
+	{{-- {{dd($product)}} --}}
 	<div class="col-lg-8 col-lg-offset-2">
 		<form class="form form-horizontal mar-top" action="{{route('products.update', $product->id)}}" method="POST" enctype="multipart/form-data" id="choice_form">
 			<input name="_method" type="hidden" value="POST">
@@ -419,6 +420,7 @@
 							<textarea name="meta_description" rows="8" class="form-control">{{ $product->meta_description }}</textarea>
 						</div>
 					</div>
+
 					{{-- <div class="form-group">
 						<label class="col-lg-2 control-label">{{ __('Meta Image') }}</label>
 						<div class="col-lg-7">
