@@ -3,7 +3,7 @@
 @extends('frontend.layouts.app')
 
 
-@section('content')
+@section('script')
     
 @php
 $order = \App\Order::findOrFail(Session::get('order_id'));
@@ -22,13 +22,13 @@ $order = \App\Order::findOrFail(Session::get('order_id'));
         "eventHandler": {
             onSuccess (payload) {
                 // hit merchant api for initiating verfication
-                console.log(payload);
+                window.location = '{{url("checkout/order-confirmed")}}';
             },
             onError (error) {
                 console.log(error);
             },
             onClose () {
-                console.log('widget is closing');
+        console.log('widget is closing');
             }
         }
     };
@@ -37,7 +37,7 @@ $order = \App\Order::findOrFail(Session::get('order_id'));
     // var btn = document.getElementById("payment-button");
     // btn.onclick = function () {
         // minimum transaction amount must be 10, i.e 1000 in paisa.
-        checkout.show({amount: '{{$order->grand_total}}' });
+        checkout.show({amount: '{{$order->grand_total}}'*100 });
     // }
 </script>
 
