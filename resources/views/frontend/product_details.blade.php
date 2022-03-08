@@ -38,12 +38,12 @@
         <div class="container">
 
             <div class="bg-white">
-                {{-- {{dd($detailedProduct)}} --}}
 
                 <!-- Product gallery and Description -->
                 <div class="row no-gutters cols-xs-space cols-sm-space cols-md-space">
                     <div class="col-lg-6">
                         <div class="product-gal sticky-top d-flex flex-row-reverse">
+                            
                             @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
                                 <div class="product-gal-img">
                                     <img src="{{ asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ asset(json_decode($detailedProduct->photos)[0]) }}" />
@@ -361,6 +361,7 @@
                                     </div>
                                 </div>
                             @endif
+                            
                             <div class="row no-gutters mt-3">
                                 <div class="col-2">
                                     <div class="product-description-label alpha-6">{{__('Payment')}}:</div>
@@ -428,6 +429,7 @@
                                         <a href="#tab_default_2" data-toggle="tab" class="nav-link text-uppercase strong-600">{{__('Video')}}</a>
                                     </li>
                                 @endif
+                                
                                 @if($detailedProduct->pdf != null)
                                     <li class="nav-item">
                                         <a href="#tab_default_3" data-toggle="tab" class="nav-link text-uppercase strong-600">{{__('Downloads')}}</a>
@@ -476,6 +478,7 @@
                                         <span class="space-md-md"></span>
                                     </div>
                                 </div>
+                                
                                 <div class="tab-pane" id="tab_default_4">
                                     <div class="fluid-paragraph py-4">
                                         @foreach ($detailedProduct->reviews as $key => $review)
@@ -593,7 +596,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- {{dd('hi')}} --}}
+
                     <div class="my-4 bg-white p-3">
                         <div class="section-title-1">
                             <h3 class="heading-5 strong-700 mb-0">
@@ -608,7 +611,13 @@
                                         <div class="col-12">
                                             <div class="position-relative overflow-hidden h-100">
                                                 <a href="{{ route('product', $related_product->slug) }}" class="d-block product-image h-100 text-center">
-                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($related_product->photos)[0]) }}" alt="{{ __($related_product->name) }}">
+                                                    @if(is_array(json_decode($related_product->photos)) && count(json_decode($related_product->photos)) > 0)
+                                                        
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($related_product->photos)[0]) }}" alt="{{ __($related_product->name) }}">
+                                                    @else
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($related_product->name) }}">
+
+                                                    @endif
                                                 </a>
                                             </div>
                                         </div>
@@ -639,10 +648,12 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-3 d-none d-xl-block">
                     <div class="seller-info-box mb-3">
                         <div class="sold-by position-relative">
@@ -657,6 +668,7 @@
                                     </svg>
                                 </div>
                             @endif
+                            
                             <div class="title">{{__('Sold By')}}</div>
                             @if($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                                 <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="name d-block">{{ $detailedProduct->user->shop->name }}
@@ -726,19 +738,26 @@
                         <div class="box-title">
                             {{__('Top Selling Products From This Seller')}}
                         </div>
+
                         <div class="box-content">
                             @foreach (filter_products(\App\Product::where('user_id', $detailedProduct->user_id)->orderBy('num_of_sale', 'desc'))->limit(6)->get() as $key => $top_product)
                             <div class="mb-3 product-box-3">
                                 <div class="clearfix">
                                     <div class="product-image float-left">
                                         <a href="{{ route('product', $top_product->slug) }}">
+                                           @if(is_array(json_decode($top_product->photos)) && count(json_decode($top_product->photos)) > 0)
                                             <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($top_product->photos)[0]) }}" alt="{{ __($top_product->name) }}">
+                                            @else
+                                            <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($top_product->name) }}">
+
+                                            @endif
                                         </a>
                                     </div>
                                     <div class="product-details float-left">
                                         <h4 class="title text-truncate">
                                             <a href="{{ route('product', $top_product->slug) }}" class="d-block">{{ $top_product->name }}</a>
                                         </h4>
+                                        
                                         <div class="star-rating star-rating-sm mt-1">
                                             {{ renderStarRating($top_product->rating) }}
                                         </div>
@@ -759,6 +778,7 @@
             </div>
         </div>
     </section>
+    
     <div class="modal fade" id="chat_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
             <div class="modal-content position-relative">

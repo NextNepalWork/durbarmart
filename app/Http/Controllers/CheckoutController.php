@@ -37,7 +37,7 @@ class CheckoutController extends Controller
             
             $orderController = new OrderController;
             $orderController->store($request);
-            // dd($orderController);
+            dd($orderController);
             $request->session()->put('payment_type', 'cart_payment');
 
 

@@ -197,7 +197,7 @@
                                                 <div class="col-6">
                                                     <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
                                                         {{-- <button id="payment-button">Pay with Khalti</button> --}}
-                                                        <input type="radio" id="payment-button" name="payment_option" value="khalti">
+                                                        <input type="radio" id="" name="khalti" value="khalti">
                                                         <span>
                                                             <img loading="lazy" src="{{ asset('frontend/images/icons/cards/paytm.jpg')}}" class="img-fluid">
                                                         </span>
@@ -234,6 +234,7 @@
                                         {{__('Return to shop')}}
                                     </a>
                                 </div>
+
                                 <div class="col-6 text-right">
                                     <button type="button" onclick="submitOrder(this)" class="btn btn-styled btn-base-1">{{__('Complete Order')}}</button>
                                 </div>
