@@ -39,7 +39,7 @@
                         @endif
                     </a>
                     <!-- search start  -->
-                    <div class="searchbar d-none d-md-block" style="border-radius:10px">
+                    <div class="searchbar d-md-block d-none" style="border-radius:10px">
                         <form action="{{ route('search') }}" method="GET">
                             <div class="d-flex position-relative">
                                 {{-- <div class="d-lg-none search-box-back">
@@ -83,7 +83,7 @@
                 </div>
                 <!-- search end  -->
                 <!-- search mobile new star  -->
-                <div class="search_mobile_men d-block d-md-none">
+                <div class="search_mobile_men d-md-none d-block">
                     <button class="search_icon_new" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
