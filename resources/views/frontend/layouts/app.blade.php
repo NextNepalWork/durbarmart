@@ -14,6 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <title>@yield('meta_title', config('app.name', 'Laravel'))</title>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="description" content="@yield('meta_description', $seosetting->description)" />
 <meta name="keywords" content="@yield('meta_keywords', $seosetting->keyword)">
 <meta name="author" content="{{ $seosetting->author }}">

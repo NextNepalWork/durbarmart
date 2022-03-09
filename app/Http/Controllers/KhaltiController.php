@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Session;
 
 class KhaltiController extends Controller
 {
+    public function walletKhalti(){
+        if(Session::has('payment_type')){
+            if(Session::get('payment_type') == 'wallet_payment'){
+              return view('frontend.payment.khalti');
+            }
+        }
+    }
     public function khalti()
     {
         if(Session::has('payment_type')){

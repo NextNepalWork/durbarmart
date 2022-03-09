@@ -165,7 +165,8 @@ Route::group(['middleware' => ['user', 'verified']], function(){
 
 	Route::get('/wallet', 'WalletController@index')->name('wallet.index');
 	Route::post('/recharge', 'WalletController@recharge')->name('wallet.recharge');
-
+	Route::post('/wallet_payment_done_khalti', 'WalletController@wallet_payment_done_khalti')->name('wallet_payment_done_khalti');
+	
 	Route::resource('support_ticket','SupportTicketController');
 	Route::post('support_ticket/reply','SupportTicketController@seller_store')->name('support_ticket.seller_store');
 
