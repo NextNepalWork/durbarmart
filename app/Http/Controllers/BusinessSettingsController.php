@@ -8,6 +8,7 @@ use App\BusinessSetting;
 use App\Category;
 use Artisan;
 use CoreComponentRepository;
+use Illuminate\Routing\Route;
 
 class BusinessSettingsController extends Controller
 {
@@ -70,7 +71,7 @@ class BusinessSettingsController extends Controller
                 $business_settings->save();
             }
         }
-
+        
         flash("Settings updated successfully")->success();
         return back();
     }
