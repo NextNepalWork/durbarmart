@@ -2,6 +2,7 @@
 
 @extends('frontend.layouts.app')
 
+{{-- {{dd(env("KHALTI_KEY"))}} --}}
 
 @section('script')
     
@@ -29,7 +30,7 @@
         "publicKey": "test_public_key_eb32162715ff4ac0b16fb0e82fc4dbed",
         "productIdentity": '{{$orderCode}}',
         "productName": '{{$orderCode}}',
-        "productUrl": "http://localhost:8000/product/Pearl-Green-Tea1-ACSSP",
+        "productUrl": '{{$poductUrl}}',
         "paymentPreference": [
             "KHALTI"
             ],
