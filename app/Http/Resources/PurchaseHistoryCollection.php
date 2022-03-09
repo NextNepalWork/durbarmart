@@ -13,6 +13,7 @@ class PurchaseHistoryCollection extends ResourceCollection
             'data' => $this->collection->map(function($data) {
                 $placeholder_img='frontend/images/placeholder.jpg';
                 return [
+                    'order_id' => $data->id,
                     'code' => $data->code,
                     'user' => [
                         'name' => $data->user->name,
