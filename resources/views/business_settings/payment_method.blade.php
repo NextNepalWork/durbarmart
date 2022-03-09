@@ -274,8 +274,10 @@
         </div>
     </div> --}}
 
-
-
+    @php
+        $khalti=\App\BusinessSetting::where('type','khalti_payment')->exists();
+        // dd($khalti);
+    @endphp
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
@@ -284,25 +286,47 @@
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="payment_method" value="khalti">
-                    <div class="form-group">
-                        <input type="hidden" name="types[]" value="KHALTI_KEY">
-                        <div class="col-lg-3">
-                            <label class="control-label">{{__('KHALTI KEY')}}</label>
+                    <input type="hidden" name="payment_method" value="khalti_payment">
+                    @if ($khalti)
+                    @php
+                        $khalti_credentials=\App\BusinessSetting::where('type','khalti_payment')->first()
+                    @endphp
+
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('KHALTI KEY')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="KHALTI_KEY" value="{{$khalti_credentials->khalti_key}}" placeholder="KHALTI KEY" required>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="KHALTI_KEY" value="{{  env('KHALTI_KEY') }}" placeholder="KHALTI KEY" required>
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('KHALTI SECRET')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="KHALTI_SECRET" value="{{$khalti_credentials->khalti_secret}}" placeholder="KHALTI SECRET" required>
+                            </div>
+                        </div> 
+                    @else
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('KHALTI KEY')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="KHALTI_KEY" value="" placeholder="KHALTI KEY" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="hidden" name="types[]" value="KHALTI_SECRET">
-                        <div class="col-lg-3">
-                            <label class="control-label">{{__('KHALTI SECRET')}}</label>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="KHALTI_SECRET" value="{{  env('KHALTI_SECRET') }}" placeholder="KHALTI SECRET" required>
-                        </div>
-                    </div>
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('KHALTI SECRET')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="KHALTI_SECRET" value="" placeholder="KHALTI SECRET" required>
+                            </div>
+                        </div> 
+                    @endif
+                    
 
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
