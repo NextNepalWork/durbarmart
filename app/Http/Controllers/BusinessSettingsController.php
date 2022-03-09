@@ -55,12 +55,17 @@ class BusinessSettingsController extends Controller
      */
     public function payment_method_update(Request $request)
     {
-        $khalti=BusinessSetting::where('type','khalti_payment')->first();
+        if(BusinessSetting::where('type','khalti_payment')->exists()){
+            $khalti=BusinessSetting::where('type','khalti_payment')->first();
+        }else{
+            $khalti=new BusinessSetting();
+        }
         $khalti->type=$request->payment_method;
         $khalti->value=1;
         $khalti->khalti_key=$request->KHALTI_KEY;
         $khalti->khalti_secret=$request->KHALTI_SECRET;
         $khalti->save();
+    
         // foreach ($request->types as $key => $type) {
         //     $this->overWriteEnvFile($type, $request[$type]);
         // }
