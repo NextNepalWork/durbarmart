@@ -79,7 +79,7 @@
                                     <div class="row">
                                         <div class="col-md-6 mx-auto">
                                             <div class="row">
-                                                @if(\App\BusinessSetting::where('type', 'paypal_payment')->first()->value == 1)
+                                                {{-- @if(\App\BusinessSetting::where('type', 'paypal_payment')->first()->value == 1)
                                                     <div class="col-6">
                                                         <label class="payment_option mb-4" data-toggle="tooltip" data-title="Paypal">
                                                             <input type="radio" id="" name="payment_option" value="paypal" checked>
@@ -158,7 +158,7 @@
                                                             </span>
                                                         </label>
                                                     </div>
-                                                @endif
+                                                @endif --}}
                                                 @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
                                                     @php
                                                         $digital = 0;
@@ -193,7 +193,7 @@
                                                         @endforeach
                                                     @endif
                                                 @endif
-                                                @if((\App\BusinessSetting::where('type', 'khalti')->count() > 0) && (\App\BusinessSetting::where('type', 'khalti')->first()->value == 1))
+                                                @if((\App\BusinessSetting::where('type', 'khalti_payment')->count() > 0) && (\App\BusinessSetting::where('type', 'khalti_payment')->first()->value == 1))
                                                     <div class="col-6">
                                                         <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
                                                             {{-- <button id="payment-button">Pay with Khalti</button> --}}
