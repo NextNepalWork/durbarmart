@@ -55,22 +55,28 @@ class BusinessSettingsController extends Controller
      */
     public function payment_method_update(Request $request)
     {
-        foreach ($request->types as $key => $type) {
-            $this->overWriteEnvFile($type, $request[$type]);
-        }
+        $khalti=BusinessSetting::where('type','khalti_payment')->first();
+        $khalti->type=$request->payment_method;
+        $khalti->value=1;
+        $khalti->khalti_key=$request->KHALTI_KEY;
+        $khalti->khalti_secret=$request->KHALTI_SECRET;
+        $khalti->save();
+        // foreach ($request->types as $key => $type) {
+        //     $this->overWriteEnvFile($type, $request[$type]);
+        // }
 
-        $business_settings = BusinessSetting::where('type', $request->payment_method.'_sandbox')->first();
-        // dd($business_settings->type);
-        if($business_settings != null){
-            if ($request->has($request->payment_method.'_sandbox')) {
-                $business_settings->value = 1;
-                $business_settings->save();
-            }
-            else{
-                $business_settings->value = 0;
-                $business_settings->save();
-            }
-        }
+        // $business_settings = BusinessSetting::where('type', $request->payment_method.'_sandbox')->first();
+        // // dd($business_settings->type);
+        // if($business_settings != null){
+        //     if ($request->has($request->payment_method.'_sandbox')) {
+        //         $business_settings->value = 1;
+        //         $business_settings->save();
+        //     }
+        //     else{
+        //         $business_settings->value = 0;
+        //         $business_settings->save();
+        //     }
+        // }
         
         flash("Settings updated successfully")->success();
         return back();
