@@ -2,6 +2,7 @@
 
 @extends('frontend.layouts.app')
 
+{{-- {{dd(env("KHALTI_KEY"))}} --}}
 
 @section('script')
     
@@ -12,10 +13,10 @@ $order = \App\Order::findOrFail(Session::get('order_id'));
 <script>
     var config = {
         // replace the publicKey with yours
-        "publicKey": "test_public_key_eb32162715ff4ac0b16fb0e82fc4dbed",
+        "publicKey": '{{env("KHALTI_KEY")}}',
         "productIdentity": '{{$order->code}}',
         "productName": '{{$order->code}}',
-        "productUrl": "http://localhost:8000/product/Pearl-Green-Tea1-ACSSP",
+        "productUrl": '{{url("track_your_order")}}',
         "paymentPreference": [
             "KHALTI"
             ],
