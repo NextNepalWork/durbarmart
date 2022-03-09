@@ -74,7 +74,7 @@
                                             <th>{{ __('Date') }}</th>
                                             <th>{{__('Amount')}}</th>
                                             <th>{{__('Payment Method')}}</th>
-                                            <th>{{__('Approval')}}</th>
+                                            {{-- <th>{{__('Approval')}}</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -85,7 +85,7 @@
                                                     <td>{{ date('d-m-Y', strtotime($wallet->created_at)) }}</td>
                                                     <td>{{ single_price($wallet->amount) }}</td>
                                                     <td>{{ ucfirst(str_replace('_', ' ', $wallet ->payment_method)) }}</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if ($wallet->offline_payment)
                                                             @if ($wallet->approval)
                                                                 {{ __('Approved') }}
@@ -95,7 +95,7 @@
                                                         @else
                                                             N/A
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         @else
