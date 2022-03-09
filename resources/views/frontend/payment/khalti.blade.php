@@ -4,9 +4,11 @@
 
 {{-- {{dd(env("KHALTI_KEY"))}} --}}
 
+
 @section('script')
     
 @php
+    $khalti=\App\BusinessSetting::where('type','khalti_payment')->where('value',1)->first();
     // $type = '';
     // $order = [];
     if(Session::get('payment_type') == 'wallet_payment'){
@@ -62,9 +64,32 @@
                             toastr.error('Error', data.responseText);
                         }
                     });
-                }else{
-                //if checkout
-                window.location = '{{url("checkout/order-confirmed")}}';
+                }
+                else{
+                    //if checkout
+                    // window.location = '{{url("checkout/order-confirmed")}}';
+                    $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        var actionType = "POST";
+                        var ajaxurl = '/checkout_done_khalti';
+                        $.ajax({
+                            type: actionType,
+                            url: ajaxurl,
+                            data: {
+                                "payment_details": payload,
+                            },
+                            dataType: 'json',
+                            beforeSend: function() {},
+                            success: function(data) {
+                                window.location = '{{url("checkout/order-confirmed")}}';
+                            },
+                            error: function(data) {
+                                toastr.error('Error', data.responseText);
+                            }
+                        });
                 }
                 
             },
