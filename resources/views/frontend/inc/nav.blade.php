@@ -1,3 +1,29 @@
+<style>
+    .dropdown-custom-category .dropdown-menu {
+        position: relative !important;
+        transform: unset !important;
+        max-height: 300px;
+        overflow-y: scroll;
+        border: 0;
+        box-shadow: rgb(237 237 237) 0px 8px 24px;
+        width: 100%;
+        margin-bottom: 10px;
+
+    }
+
+    .dropdown-custom-category .dropdown-menu .nav .nav-item {
+        text-align: left;
+    }
+
+    .dropdown-custom-category .dropdown-menu .nav .nav-link {
+        font-size: 0.7rem;
+        color: #767676 !important;
+    }
+
+    .dropdown-custom-category .dropdown-menu .nav {
+        padding: 5px 0px;
+    }
+</style>
 <nav class="navbar header navbar-expand-lg p-0">
     <div class="row m-0 w-100">
         <div class="col-12 p-0">
@@ -270,6 +296,49 @@
             </div>
             <div class="side-menu-list px-3">
                 <ul class="side-user-menu">
+                    <li class="dropdown-custom-category">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: rgb(72, 77, 103);">
+                            <i class="fa fa-eercast"></i>
+                            <span>Category</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="container d-block">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="nav flex-column p-0">
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link head font-weight-bold" data-toggle="collapse" href=".collapse1" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: rgb(72, 77, 103);"> <span><i class="fa fa-minus"></i></span> Category 1</a>
+                                                <div class="collapse collapse1">
+                                                    <a class="nav-item p-0">
+                                                        <a class="nav-link" href="under-construction.html" style="color: rgb(72, 77, 103);">Item 1</a>
+                                                    </a>
+                                                    <a class="nav-item p-0">
+                                                        <a class="nav-link" href="under-construction.html" style="color: rgb(72, 77, 103);">Item 2</a>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <li class="nav-item p-0">
+                                                <a class="nav-link head font-weight-bold" data-toggle="collapse" href=".collapse2" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: rgb(72, 77, 103);"> <span><i class="fa fa-minus"></i></span> Category 2</a>
+                                                <div class="collapse collapse2">
+                                                    <a class="nav-item p-0">
+                                                        <a class="nav-link" href="under-construction.html" style="color: rgb(72, 77, 103);">Item 1</a>
+                                                    </a>
+                                                    <a class="nav-item p-0">
+                                                        <a class="nav-link" href="under-construction.html" style="color: rgb(72, 77, 103);">Item 2</a>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+
+                                        </ul>
+                                    </div>
+
+                                    <!-- /.col-md-12  -->
+                                </div>
+                            </div>
+                            <!--  /.container  -->
+                        </div>
+                    </li>
                     <li>
                         <a href="{{ route('home') }}">
                             <i class="la la-home"></i>
