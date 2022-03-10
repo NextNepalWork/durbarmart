@@ -61,6 +61,15 @@ class BusinessSettingsController extends Controller
             $khalti=new BusinessSetting();
         }
         $khalti->type=$request->payment_method;
+
+        // $data = [
+        //     'value' => 1,
+        //     'khalti_key' => $request->KHALTI_KEY,
+        //     'khalti_secret' => $request->KHALTI_SECRET
+        // ];
+
+        // $khalti->value=json_encode($data);
+        
         $khalti->value=1;
         $khalti->khalti_key=$request->KHALTI_KEY;
         $khalti->khalti_secret=$request->KHALTI_SECRET;
