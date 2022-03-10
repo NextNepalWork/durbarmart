@@ -388,9 +388,9 @@
                                 <li class="{{ areActiveRoutes(['currency.index'])}}">
                                     <a class="nav-link" href="{{route('currency.index')}}">{{__('Currency')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['languages.index', 'languages.create', 'languages.store', 'languages.show', 'languages.edit'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['languages.index', 'languages.create', 'languages.store', 'languages.show', 'languages.edit'])}}">
                                     <a class="nav-link" href="{{route('languages.index')}}">{{__('Languages')}}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         @endif
@@ -499,7 +499,7 @@
                         </li>
                         @endif
 
-                        @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null)
+                        {{-- @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null)
                             <li>
                                 <a href="#">
                                     <i class="fa fa-link"></i>
@@ -523,7 +523,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endif
+                        @endif --}}
 
                         @if (\App\Addon::where('unique_identifier', 'offline_payment')->first() != null)
                             <li>
