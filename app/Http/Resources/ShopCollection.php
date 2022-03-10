@@ -20,14 +20,14 @@ class ShopCollection extends ResourceCollection
                 return [
                     'name' => $data->name,
                     'user' => [
-                        'name' => $a->get('name'),
+                        'name' => $a->first('name'),
                         // $data->user->name
                         
-                        'email' => $a->get('email'),
+                        'email' => $a->first('email'),
                         // $data->user->email
-                        'avatar' => file_exists($a->get('avatar')) ? $a->get('avatar') : $placeholder_img ,
+                        'avatar' => file_exists($a->first('avatar')) ? $a->first('avatar') : $placeholder_img ,
                         // $data->user->avatar
-                        'avatar_original' => file_exists($a->get('avatar_original')) ? $a->get('avatar_original') : $placeholder_img
+                        'avatar_original' => file_exists($a->first('avatar_original')) ? $a->first('avatar_original') : $placeholder_img
                         // $data->user->avatar_original
                     ],
                     'logo' => file_exists($data->logo) ? $data->logo : $placeholder_img,
