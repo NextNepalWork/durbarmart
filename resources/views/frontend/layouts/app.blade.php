@@ -101,7 +101,7 @@
 <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
 
 
-{{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
+@if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
 
@@ -111,10 +111,10 @@
       gtag('js', new Date());
       gtag('config', '{{ env('TRACKING_ID') }}');
     </script>
-@endif --}}
+@endif
 
-{{-- @if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1)
 <!-- Facebook Pixel Code -->
+@if (\App\BusinessSetting::where('type', 'facebook_pixel')->first()->value == 1)
 <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -131,8 +131,8 @@
   <img height="1" width="1" style="display:none"
        src="https://www.facebook.com/tr?id={{ env('FACEBOOK_PIXEL_ID') }}/&ev=PageView&noscript=1"/>
 </noscript>
+@endif
 <!-- End Facebook Pixel Code -->
-@endif --}}
 
 </head>
 <body>
