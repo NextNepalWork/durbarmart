@@ -24,6 +24,7 @@
         padding: 5px 0px;
     }
 </style>
+
 <nav class="navbar header navbar-expand-lg p-0">
     <div class="row m-0 w-100">
         <div class="col-12 p-0">
@@ -273,25 +274,25 @@
                     <i class="la la-close"></i>
                 </div>
                 @auth
-                <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
-                    @if (Auth::user()->avatar_original != null)
-                    <div class="image " style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
+                    <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
+                        @if (Auth::user()->avatar_original != null)
+                        <div class="image " style="background-image:url('{{ asset(Auth::user()->avatar_original) }}')"></div>
+                        @else
+                        <div class="image " style="background-image:url('{{ asset('frontend/images/user.png') }}')"></div>
+                        @endif
+                        <div class="name">{{ Auth::user()->name }}</div>
+                    </div>
+                    <div class="side-login px-3 pb-3">
+                        <a href="{{ route('logout') }}">{{__('Sign Out')}}</a>
+                    </div>
                     @else
-                    <div class="image " style="background-image:url('{{ asset('frontend/images/user.png') }}')"></div>
-                    @endif
-                    <div class="name">{{ Auth::user()->name }}</div>
-                </div>
-                <div class="side-login px-3 pb-3">
-                    <a href="{{ route('logout') }}">{{__('Sign Out')}}</a>
-                </div>
-                @else
-                <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
-                    <div class="image " style="background-image:url('{{ asset('frontend/images/icons/user-placeholder.jpg') }}')"></div>
-                </div>
-                <div class="side-login px-3 pb-3">
-                    <a href="{{ route('user.login') }}">{{__('Sign In')}}</a>
-                    <a href="{{ route('user.registration') }}">{{__('Registration')}}</a>
-                </div>
+                    <div class="widget-profile-box px-3 py-4 d-flex align-items-center">
+                        <div class="image " style="background-image:url('{{ asset('frontend/images/icons/user-placeholder.jpg') }}')"></div>
+                    </div>
+                    <div class="side-login px-3 pb-3">
+                        <a href="{{ route('user.login') }}">{{__('Sign In')}}</a>
+                        <a href="{{ route('user.registration') }}">{{__('Registration')}}</a>
+                    </div>
                 @endauth
             </div>
             <div class="side-menu-list px-3">
@@ -306,29 +307,25 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <ul class="nav flex-column p-0">
+                                            @foreach (\App\Category::all() as $key => $category)
                                             <li class="nav-item p-0">
-                                                <a class="nav-link head font-weight-bold" data-toggle="collapse" href=".collapse1" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: rgb(72, 77, 103);"> <span><i class="fa fa-minus"></i></span> Category 1</a>
-                                                <div class="collapse collapse1">
+                                                <a class="nav-link head font-weight-bold" data-toggle="collapse" href=".collapse{{$category->id}}" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: rgb(72, 77, 103);"> <span><i class="fa fa-minus"></i></span> {{$category->name}}</a>
+                                                <div class="collapse collapse{{$category->id}}">
+                                                    @foreach($category->subcategories as $subcategory)
                                                     <a class="nav-item p-0">
-                                                        <a class="nav-link" href="under-construction.html" style="color: rgb(72, 77, 103);">Item 1</a>
+                                                        <a class="nav-link head font-weight-bold" data-toggle="collapse1" href="{{ url('/') }}/search?subcategory={{ $subcategory->slug }}" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: rgb(72, 77, 103); padding-left: 20px;"> <span><i class="fa fa-minus"></i></span> {{$subcategory->name}}</a>
+                                                        <div class="collapse1 collapse{{$subcategory->id}}">
+                                                            @foreach($subcategory->subsubcategories as $subsubcategory)
+                                                            <a class="nav-item p-0">
+                                                                <a class="nav-link" href="{{ url('/') }}/search?subsubcategory={{ $subsubcategory->slug }}" style="color: rgb(72, 77, 103); padding-left: 40px;">{{$subsubcategory->name}}</a>
+                                                            </a>
+                                                            @endforeach
+                                                        </div>
                                                     </a>
-                                                    <a class="nav-item p-0">
-                                                        <a class="nav-link" href="under-construction.html" style="color: rgb(72, 77, 103);">Item 2</a>
-                                                    </a>
+                                                    @endforeach
                                                 </div>
                                             </li>
-                                            <li class="nav-item p-0">
-                                                <a class="nav-link head font-weight-bold" data-toggle="collapse" href=".collapse2" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: rgb(72, 77, 103);"> <span><i class="fa fa-minus"></i></span> Category 2</a>
-                                                <div class="collapse collapse2">
-                                                    <a class="nav-item p-0">
-                                                        <a class="nav-link" href="under-construction.html" style="color: rgb(72, 77, 103);">Item 1</a>
-                                                    </a>
-                                                    <a class="nav-item p-0">
-                                                        <a class="nav-link" href="under-construction.html" style="color: rgb(72, 77, 103);">Item 2</a>
-                                                    </a>
-                                                </div>
-                                            </li>
-
+                                            @endforeach
 
                                         </ul>
                                     </div>
@@ -345,18 +342,22 @@
                             <span>{{__('Home')}}</span>
                         </a>
                     </li>
+                    @auth
                     <li>
                         <a href="{{ route('dashboard') }}">
                             <i class="la la-dashboard"></i>
                             <span>{{__('Dashboard')}}</span>
                         </a>
                     </li>
+                    @endauth
+                    @auth
                     <li>
                         <a href="{{ route('purchase_history.index') }}">
                             <i class="la la-file-text"></i>
                             <span>{{__('Purchase History')}}</span>
                         </a>
                     </li>
+                    @endauth
                     @auth
                     @php
                     $conversation = \App\Conversation::where('sender_id', Auth::user()->id)->where('sender_viewed', '1')->get();
@@ -403,6 +404,7 @@
                             <span>{{__('Wishlist')}}</span>
                         </a>
                     </li>
+                    @auth
                     @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
                     <li>
                         <a href="{{ route('customer_products.index') }}">
@@ -411,6 +413,8 @@
                         </a>
                     </li>
                     @endif
+                    @endauth
+                    @auth
                     @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
                     <li>
                         <a href="{{ route('wallet.index') }}">
@@ -419,16 +423,20 @@
                         </a>
                     </li>
                     @endif
+                    @endauth
+                    @auth
                     <li>
                         <a href="{{ route('profile') }}">
                             <i class="la la-user"></i>
                             <span>{{__('Manage Profile')}}</span>
                         </a>
                     </li>
+                    @endauth
                     @php
                     $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
                     $club_point_addon = \App\Addon::where('unique_identifier', 'club_point')->first();
                     @endphp
+                    @auth
                     @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
                     <li>
                         <a href="{{ route('customer_refund_request') }}" class="{{ areActiveRoutesHome(['customer_refund_request'])}}">
@@ -439,6 +447,8 @@
                         </a>
                     </li>
                     @endif
+                    @endauth
+                    @auth
                     @if ($club_point_addon != null && $club_point_addon->activated == 1)
                     <li>
                         <a href="{{ route('earnng_point_for_user') }}" class="{{ areActiveRoutesHome(['earnng_point_for_user'])}}">
@@ -449,6 +459,8 @@
                         </a>
                     </li>
                     @endif
+                    @endauth
+                    @auth
                     <li>
                         <a href="{{ route('support_ticket.index') }}" class="{{ areActiveRoutesHome(['support_ticket.index', 'support_ticket.show'])}}">
                             <i class="la la-support"></i>
@@ -457,6 +469,7 @@
                             </span>
                         </a>
                     </li>
+                    @endauth
                 </ul>
                 @if (Auth::check() && Auth::user()->user_type == 'seller')
                 <div class="sidebar-widget-title py-0">
