@@ -1,3 +1,26 @@
+<style>
+    .dropdown-custom-category .dropdown-menu {
+    position: relative !important;
+    transform: unset !important;
+    max-height: 300px;
+    overflow-y: scroll;
+    border: 0;
+    box-shadow: rgb(237 237 237) 0px 8px 24px;
+
+    }
+
+    .dropdown-custom-category .dropdown-menu .nav .nav-item {
+        text-align: left;
+    }
+
+    .dropdown-custom-category .dropdown-menu .nav .nav-link {
+        font-size: 0.7rem;
+    }
+
+    .dropdown-custom-category .dropdown-menu .nav {
+        padding: 5px 0px;
+    }
+</style>
 <nav class="navbar header navbar-expand-lg p-0">
     <div class="row m-0 w-100">
         <div class="col-12 p-0">
