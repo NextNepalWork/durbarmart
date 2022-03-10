@@ -23,11 +23,11 @@ class ShopCollection extends ResourceCollection
                         'name' => (!empty($a)?$a->name:'empty'),
                         // $data->user->name
                         
-                        'email' => $a->email,
+                        'email' => (!empty($a)?$a->email:'empty'),
                         // $data->user->email
-                        'avatar' => file_exists($a->avatar) ? $a->avatar : $placeholder_img ,
+                        'avatar' => (!empty($a)?(file_exists($a->avatar) ? $a->avatar : $placeholder_img):$placeholder_img),
                         // $data->user->avatar
-                        'avatar_original' => file_exists($a->avatar_original) ? $a->avatar_original : $placeholder_img
+                        'avatar_original' => (!empty($a)?(file_exists($a->avatar_original) ? $a->avatar_original : $placeholder_img):$placeholder_img)
                         // $data->user->avatar_original
                     ],
                     'logo' => file_exists($data->logo) ? $data->logo : $placeholder_img,
