@@ -11,7 +11,7 @@ class ShopCollection extends ResourceCollection
         return [
             'data' => $this->collection->map(function($data) {
                 $placeholder_img='frontend/images/placeholder.jpg';
-                $a = \App\User::where('id',$data->user_id);
+                $a = \App\User::where('id',$data->user_id)->first();
                 // $a = $data->user;
                 // dd($data->user->name);
                 // echo '<pre>';
@@ -20,14 +20,14 @@ class ShopCollection extends ResourceCollection
                 return [
                     'name' => $data->name,
                     'user' => [
-                        'name' => $a->first('name'),
+                        'name' => (!empty($a)?$a->name:'empty'),
                         // $data->user->name
                         
-                        'email' => $a->first('email'),
+                        'email' => $a->email,
                         // $data->user->email
-                        'avatar' => file_exists($a->first('avatar')) ? $a->first('avatar') : $placeholder_img ,
+                        'avatar' => file_exists($a->avatar) ? $a->avatar : $placeholder_img ,
                         // $data->user->avatar
-                        'avatar_original' => file_exists($a->first('avatar_original')) ? $a->first('avatar_original') : $placeholder_img
+                        'avatar_original' => file_exists($a->avatar_original) ? $a->avatar_original : $placeholder_img
                         // $data->user->avatar_original
                     ],
                     'logo' => file_exists($data->logo) ? $data->logo : $placeholder_img,
