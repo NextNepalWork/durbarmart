@@ -29,7 +29,7 @@
     var type = '{{$type}}';
     var config = {
         // replace the publicKey with yours
-        "publicKey": "test_public_key_eb32162715ff4ac0b16fb0e82fc4dbed",
+        "publicKey": '{{$khalti->khalti_key}}',
         "productIdentity": '{{$orderCode}}',
         "productName": '{{$orderCode}}',
         "productUrl": '{{$poductUrl}}',
