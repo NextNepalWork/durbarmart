@@ -28,6 +28,7 @@
                                         <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}">
                                         <span class="cat-name">{{ __($category->name) }}</span>
                                     </a>
+                                    
                                     @if(count($category->subcategories)>0)
                                         <div class="sub-cat-menu c-scrollbar">
                                             <div class="c-preloader">
