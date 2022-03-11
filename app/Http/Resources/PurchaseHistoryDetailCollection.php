@@ -9,9 +9,9 @@ class PurchaseHistoryDetailCollection extends ResourceCollection
 {
     public function toArray($request)
     {
-        $product = Product::where('id',$data->product_id)->first();
         return [
             'data' => $this->collection->map(function($data) {
+        $product = Product::where('id',$data->product_id)->first();
                 return [
                     'product' => (isset($product))?$product->name:'Empty',
                     'variation' => $data->variation,
