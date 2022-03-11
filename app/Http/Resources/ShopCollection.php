@@ -18,6 +18,7 @@ class ShopCollection extends ResourceCollection
                 // print_r($data->user);
                 // echo '</pre>';
                 return [
+                    'id'=>$data->id,
                     'name' => $data->name,
                     'user' => [
                         'name' => $a->get('name'),
