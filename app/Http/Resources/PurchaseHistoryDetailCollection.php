@@ -11,7 +11,7 @@ class PurchaseHistoryDetailCollection extends ResourceCollection
         return [
             'data' => $this->collection->map(function($data) {
                 return [
-                    'product' => $data->product->name,
+                    'product' => (isset($data->product))?$data->product->name:'Empty',
                     'variation' => $data->variation,
                     'price' => $data->price,
                     'tax' => $data->tax,
