@@ -130,8 +130,8 @@
                         <a href="#" class="nav-box-link">
                       <i class="la la-search la-flip-horizontal d-inline-block nav-box-icon"></i>
                     </a>
-               </div>
-           </div> --}}
+                    </div>
+                    </div> --}}
                     <div class="d-none d-lg-inline-block">
                         <div class="nav-compare-box" id="compare">
                             <a href="{{ route('compare') }}" class="nav-box-link" style="padding-right: 20px;">
