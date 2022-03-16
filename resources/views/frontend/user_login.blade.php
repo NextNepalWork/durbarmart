@@ -87,8 +87,18 @@
                                         //     console.log(response);
                                         //     console.log(statusChangeCallback(response));
                                         // });
+                                        function checkLoginState() {
+                                            FB.getLoginStatus(function(response) {
+                                                statusChangeCallback(response);
+                                            });
+                                        }
                                     </script>
+                                    <fb:login-button 
+                                    scope="public_profile,email"
+                                    onlogin="checkLoginState();">
+                                  </fb:login-button>
                                     <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                                    
                                     @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
                                         <div class="or or--1 mt-3 text-center">
                                             <span>or</span>
