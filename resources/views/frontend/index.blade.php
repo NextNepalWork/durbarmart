@@ -181,6 +181,8 @@
 
                                                 @endif
                                             </a>
+                                            <span class="stock">Out Of Stock</span>
+
                                             <div class="product-btns clearfix">
                                                 <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
                                                     <i class="la la-heart-o"></i>
@@ -300,6 +302,23 @@
                                                     <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($customer_product->photos)[0]) }}" alt="{{ __($customer_product->name) }}">
                                                 @endif
                                                </a>
+                                               @php
+                                        $qty = 0;
+                                        if($product->variant_product){
+                                            foreach ($product->stocks as $key => $stock) {
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $product->current_stock ;
+                                        }
+                                        @endphp
+                                    @if($qty == 0)
+                                    <span class="stock">
+                                        Out of Stock
+                                    </span>
+                                    @endif
+
                                            </div>
 
                                            <div class="p-sm-3 p-2">

@@ -25,6 +25,23 @@
                                             @endif
                                                     
                                             </a>
+                                            @php
+                                        $qty = 0;
+                                        if($product->variant_product){
+                                            foreach ($product->stocks as $key => $stock) {
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $product->current_stock ;
+                                        }
+                                        @endphp
+                                    @if($qty == 0)
+                                    <span class="stock">
+                                        Out of Stock
+                                    </span>
+                                    @endif
+
                                             <div class="product-btns">
                                                 <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})">
                                                     <i class="la la-heart-o"></i>

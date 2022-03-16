@@ -19,6 +19,22 @@
                                         <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                                     @endif
                                 </a>
+                                @php
+                                        $qty = 0;
+                                        if($product->variant_product){
+                                            foreach ($product->stocks as $key => $stock) {
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $product->current_stock ;
+                                        }
+                                        @endphp
+                                    @if($qty == 0)
+                                    <span class="stock">
+                                        Out of Stock
+                                    </span>
+                                    @endif
                                 <div class="product-btns clearfix">
                                     <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
                                         <i class="la la-heart-o"></i>
