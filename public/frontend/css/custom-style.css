@@ -68,3 +68,14 @@ ul.inline-links > li > a {
 .hidden {
     display: none;
 }
+
+.stock {
+    display: block;
+    padding: 5px;
+    color: #fff;
+    background-color: var(--danger);
+    position: absolute;
+    top: 0px;
+    right: -5px;
+    font-size: 12px;
+}
