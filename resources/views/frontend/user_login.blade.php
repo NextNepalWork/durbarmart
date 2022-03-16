@@ -59,6 +59,36 @@
                                             <button type="submit" class="btn btn-styled btn-base-1 btn-md w-100">{{ __('Login') }}</button>
                                         </div>
                                     </form>
+                                    
+                                    <script>
+                                        window.fbAsyncInit = function() {
+                                            FB.init({
+                                                appId      : '339173414823294',
+                                                cookie     : true,
+                                                xfbml      : true,
+                                                version    : 'v13.0'
+                                            });
+                                            
+                                            FB.AppEvents.logPageView();   
+                                            
+                                        };
+                                    
+                                        (function(d, s, id){
+                                            var js, fjs = d.getElementsByTagName(s)[0];
+                                            if (d.getElementById(id)) {return;}
+                                            js = d.createElement(s); js.id = id;
+                                            js.src = "https://connect.facebook.net/en_US/sdk.js";
+                                            fjs.parentNode.insertBefore(js, fjs);
+                                        }
+                                        (document, 'script', 'facebook-jssdk'));
+
+                                        // FB.getLoginStatus(function(response) {
+                                        //     statusChangeCallback(response);
+                                        //     console.log(response);
+                                        //     console.log(statusChangeCallback(response));
+                                        // });
+                                    </script>
+                                    <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
                                     @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
                                         <div class="or or--1 mt-3 text-center">
                                             <span>or</span>
