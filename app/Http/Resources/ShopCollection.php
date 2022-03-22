@@ -10,6 +10,9 @@ class ShopCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->map(function($data) {
+<<<<<<< HEAD
+                $a = \App\User::where('id',$data->user_id);
+=======
                 $placeholder_img='frontend/images/placeholder.jpg';
                 $a = \App\User::where('id',$data->user_id)->first();
                 // $a = $data->user;
@@ -17,6 +20,7 @@ class ShopCollection extends ResourceCollection
                 // echo '<pre>';
                 // print_r($data->user);
                 // echo '</pre>';
+>>>>>>> eafe66ad9df5a0e59b44ee5e3fcc33455a853e31
                 return [
                     'id'=>$data->id,
                     'name' => $data->name,

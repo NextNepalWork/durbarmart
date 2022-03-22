@@ -14,7 +14,11 @@ class ProductCollection extends ResourceCollection
                 $photo=[];
                 $placeholder_img='frontend/images/placeholder.jpg';
                 
+<<<<<<< HEAD
+                if(!(isset($data->photos))){
+=======
                 if(!(isset($data->photos)) && empty($data->photos)){
+>>>>>>> eafe66ad9df5a0e59b44ee5e3fcc33455a853e31
                     array_push($photo,$placeholder_img);
                 }else{
                     // array_push($photo,$img);
