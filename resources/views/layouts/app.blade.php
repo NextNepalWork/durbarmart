@@ -160,7 +160,7 @@
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    {{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
+    @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133955404-1"></script>
 
         <script>
@@ -172,7 +172,7 @@
             gtag('js', new Date());
             gtag('config', @php env('TRACKING_ID') @endphp);
         </script>
-    @endif --}}
+    @endif
 
 
 </head>
