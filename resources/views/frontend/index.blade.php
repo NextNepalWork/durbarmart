@@ -1,455 +1,572 @@
 @extends('frontend.layouts.app')
 
 @section('content')
-    <section class="home-banner-area">
-        <div class="container">
-            <div class="row no-gutters position-relative">
-                <div class="col-lg-3 position-static order-2 order-lg-0">
-                    <div class="category-sidebar">
-                        <div class="all-category d-none d-lg-block">
-                            <span > <span class="pr-2"><i class="fa fa-bars" aria-hidden="true"></i></span> {{__('Categories')}}</span>
-                            <a href="{{ route('categories.all') }}">
-                                <span class="view_button d-none d-lg-inline-block text-white">{{__('View All')}} <i class="fa fa-angle-up"></i></span>
-                            </a>
-                        </div>
-                        <ul class="categories no-scrollbar">
-                            <li class="d-lg-none">
-                                <a href="{{ route('categories.all') }}">
-                                    <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/list.png') }}" width="30" alt="{{ __('All Category') }}">
-                                    <span class="cat-name">{{__('All')}} <br> {{__('Categories')}}</span>
-                                </a>
-                            </li>
-                            @foreach (\App\Category::all()->take(11) as $key => $category)
-                                @php
-                                    $brands = array();
-                                @endphp
-                                <li class="category-nav-element" data-id="{{ $category->id }}">
-                                    <a href="{{ route('products.category', $category->slug) }}">
-                                        <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}">
-                                        <span class="cat-name">{{ __($category->name) }}</span>
-                                    </a>
-                                    
-                                    @if(count($category->subcategories)>0)
-                                        <div class="sub-cat-menu c-scrollbar">
-                                            <div class="c-preloader">
-                                                <i class="fa fa-spin fa-spinner"></i>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-                
-
-                @php
-                    $num_todays_deal = count(filter_products(\App\Product::where('published', 1)->where('todays_deal', 1 ))->get());
-                @endphp
-
-                <div class="@if($num_todays_deal > 0) col-lg-9 @else col-lg-9 @endif order-1 order-lg-0">
-                    <div class="home-slide">
-                        <div class="home-slide">
-                            <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="true" data-slick-autoplay="true">
-                                @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
+@foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
                                     <div class="" style="height:275px;">
                                         <a href="{{ $slider->link }}" target="_blank">
                                         <img class="d-block w-100 h-100 lazyload" src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($slider->photo) }}" alt="{{ env('APP_NAME')}} promo">
                                         </a>
                                     </div>
                                 @endforeach
-                            </div>
-                        </div>
-                    </div>
-                 
-                </div>
-                <!-- <div class="trending-category  d-none d-lg-block">
-                        <ul>
-                            @foreach (\App\Category::where('featured', 1)->get()->take(7) as $key => $category)
-                                <li @if ($key == 0) class="active" @endif>
-                                    <div class="trend-category-single">
-                                        <a href="{{ route('products.category', $category->slug) }}" class="d-block">
-                                            <div class="name">{{ __($category->name) }}</div>
-                                            <div class="img">
-                                                <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="lazyload img-fit">
-                                            </div>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div> -->
-
-            </div>
-        </div>
-    </section>
-    
-    <section id="category" class="d-md-block d-none">
-      <div class="container">
-        <div class="grid-container slick-slider">
-            @foreach (\App\Category::where('featured', 1)->get() as $key => $category)
-                <div class="category_men_block">
-                    <a href="{{ route('products.category', $category->slug) }}">
-                    <div class="grid-item">
-                        <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid lazyload img-fit">
-                    </div>
-                    <div class="text_cate">
-                        <h3>{{ __($category->name) }}</h3>
-                    </div>
-                    </a>
-                </div>
-            @endforeach
-        </div>
-      </div>
-    </section>
-
-
-                <!-- @if($num_todays_deal > 0)
-                <div class="col-lg-2 d-none d-lg-block">
-                    <div class="flash-deal-box bg-white h-100">
-                        <div class="title text-center p-2 gry-bg">
-                            <h3 class="heading-6 mb-0">
-                                {{ __('Todays Deal') }}
-                                <span class="badge badge-danger">{{__('Hot')}}</span>
-                            </h3>
-                        </div>
-                        <div class="flash-content c-scrollbar c-height">
-                            @foreach (filter_products(\App\Product::where('published', 1)->where('todays_deal', '1'))->get() as $key => $product)
-                                @if ($product != null)
-                                    <a href="{{ route('product', $product->slug) }}" class="d-block flash-deal-item">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col">
-                                                <div class="img">
-                                                    <img class="lazyload img-fit" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->flash_deal_img) }}" alt="{{ __($product->name . '-' . $product->unit_price) }}">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="price">
-                                                    <span class="d-block">{{ home_discounted_base_price($product->id) }}</span>
-                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                        <del class="d-block">{{ home_base_price($product->id) }}</del>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                @endif -->
-
-    @php
-        $flash_deal = \App\FlashDeal::where('status', 1)->where('featured', 1)->first();
-        
-       
-    @endphp
-
-    @if($flash_deal != null && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date)
-    
-    <section class="mb-4">
-
+<div class="main-slider slider">
+    <div class="slider-item " style="background-image:url('images/slider/slideshow1-2.jpg')">
         <div class="container">
-            <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
-                <div class="section-title-1 clearfix ">
-                    <h3 class="heading-5 strong-700 mb-0 float-left">
-                        {{__('Flash Sale')}}
-                    </h3>
-                    <div class="flash-deal-box float-left">
-                        <div class="countdown countdown--style-1 countdown--style-1-v1 " data-countdown-date="{{ date('m/d/Y', $flash_deal->end_date) }}" data-countdown-label="show"></div>
-                    </div>
-                    <ul class="inline-links float-right">
-                        <li><a href="{{ route('flash-deals') }}" class="active">View More</a></li>
-                    </ul>
-                </div>
-                <div class="caorusel-box arrow-round gutters-5">
-                    <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                        @foreach ($flash_deal->flash_deal_products as $key => $flash_deal_product)
-                            @php
-                                $product = \App\Product::find($flash_deal_product->product_id);
-                            @endphp
-                            @if ($product != null && $product->published != 0)
-                                <div class="caorusel-card">
-                                    <div class="product-box-2 bg-white alt-box my-2">  
-                                        <div class="position-relative overflow-hidden">
-                                            <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center">
-                                                @if (!empty($product->featured_img))
-                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
-                                                @else
-                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
-
-                                                @endif
-                                            </a>
-                                            <span class="stock">Out Of Stock</span>
-
-                                            <div class="product-btns clearfix">
-                                                <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" tabindex="0">
-                                                    <i class="la la-heart-o"></i>
-                                                </button>
-                                                <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" tabindex="0">
-                                                    <i class="la la-refresh"></i>
-                                                </button>
-                                                <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" tabindex="0">
-                                                    <i class="la la-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                        <div class="p-md-3 p-2">
-                                            <div class="price-box">
-                                                @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                    <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                @endif
-                                                <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                            </div>
-                                            <div class="star-rating star-rating-sm mt-1">
-                                                {{ renderStarRating($product->rating) }}
-                                            </div>
-                                            <h2 class="product-title p-0">
-                                                <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{ __($product->name) }}</a>
-                                            </h2>
-
-                                            @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                                <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                    {{ __('Club Point') }}:
-                                                    <span class="strong-700 float-right">{{ $product->earn_point }}</span>
-                                                </div>
-                                            @endif
-                                        </div> 
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    
+            <div class="row">
+                <div class="col-lg-6 col-12 offset-lg-5 offset-md-3">
+                    <div class="slider-caption">
+                        <span class="lead">Winter Collection Sale </span>
+                        <h1 class="mt-2 mb-5"><span class="text-color">70% off </span>to everything</h1>
+                        <a href="shop.html" class="btn btn-main">Shop Now</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    @endif
-
-    <div class="mb-4">
-        <div class="container">
-            <div class="row gutters-10 ">
-                @foreach (\App\Banner::where('position', 1)->where('published', 1)->get() as $key => $banner)
-                    <div class="col-lg-{{ 12/count(\App\Banner::where('position', 1)->where('published', 1)->get()) }}">
-                        <div class="media-banner mb-3 mb-lg-0">
-                            <a href="{{ $banner->url }}" target="_blank" class="banner-container">
-                                <img src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
             </div>
         </div>
     </div>
-
-    {{-- <div class="mb-4 ">
+    {{-- <div class="slider-item" style="background-image:url('images/slider/slideshow1-3.jpg')">
         <div class="container">
-            <div class="row gutters-10">
-                @foreach (\App\FlashDeal::where('status',1)->get() as $key => $flashdeal)
-                    <div class="col-lg-4">
-                        <div class="media-banner mb-3 mb-lg-0">
-                            <a href="{{ route('flash-deal-details', $flashdeal->slug) }}" target="_blank" class="banner-container">
-                                <img src="{{ asset($flashdeal->banner) }}" data-src="{{ asset($flashdeal->banner) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
-                            </a>
-                        </div>
+            <div class="row">
+                <div class="col-lg-6 col-12 offset-lg-5 offset-md-3">
+                    <div class="slider-caption">
+                        <span class="lead">up to 70% off</span>
+                        <h1 class="mt-2 mb-5"><span class="text-color">Classic</span> Style</h1>
+                        <a href="shop.html" class="btn btn-main">Shop Now</a>
                     </div>
-                @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slider-item"
+        style="background-image:url('images/slider/slideshow1-1.jpg'); background-position:50%;background-repeat:no-repeat;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12 offset-lg-5 offset-md-3">
+                    <div class="slider-caption">
+                        <span class="lead">Trendy dress</span>
+                        <h1 class="mt-2 mb-5"><span class="text-color">Winter </span>Collection</h1>
+                        <a href="shop.html" class="btn btn-main">Shop Now</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div> --}}
-
-    <div id="section_featured">
-
+</div>
+<section id="category_section">
+    <div class="container mx-auto">
+        <div class="slick_category text-center">
+            <div class="category_men_block">
+                <a href="">
+                    <div class="grid-item">
+                        <img src="	https://cdn.shopify.com/s/files/1/0254/6089/9928/products/5559325807_2_6_1_360x.jpg?v=1609318832"
+                            alt="Women Clothing &amp; Fashion" class="img-fluid img-fit lazyloaded">
+                    </div>
+                    <div class="text_cate">
+                        <h3>Women Clothing &amp; Fashion</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="category_men_block">
+                <a href="">
+                    <div class="grid-item">
+                        <img src="https://cdn.shopify.com/s/files/1/0254/6089/9928/products/5231384632_2_6_11_180x.jpg?v=1609732512"
+                            alt="" class="img-fluid img-fit lazyloaded">
+                    </div>
+                    <div class="text_cate">
+                        <h3>Men Clothing &amp; Fashion</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="category_men_block">
+                <a href="">
+                    <div class="grid-item">
+                        <img src="https://cdn.shopify.com/s/files/1/0254/6089/9928/products/1466623512_2_4_3_180x.jpg?v=1609385503"
+                            class="img-fluid" alt="img">
+                    </div>
+                    <div class="text_cate">
+                        <h3>Baby &amp; Kids</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="category_men_block">
+                <a href="">
+                    <div class="grid-item">
+                        <img src="https://cdn.shopify.com/s/files/1/0254/6089/9928/products/8-11_360x.jpg?v=1620957676"
+                            alt="" class="img-fluid img-fit lazyloaded">
+                    </div>
+                    <div class="text_cate">
+                        <h3>Grocery &amp; Pets</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="category_men_block">
+                <a href="">
+                    <div class="grid-item">
+                        <img src="	https://cdn.shopify.com/s/files/1/0254/6089/9928/products/5559325807_2_6_1_360x.jpg?v=1609318832"
+                            alt="Women Clothing &amp; Fashion" class="img-fluid img-fit lazyloaded">
+                    </div>
+                    <div class="text_cate">
+                        <h3>Women Clothing &amp; Fashion</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="category_men_block">
+                <a href="">
+                    <div class="grid-item">
+                        <img src="https://cdn.shopify.com/s/files/1/0254/6089/9928/products/5231384632_2_6_11_180x.jpg?v=1609732512"
+                            alt="" class="img-fluid img-fit lazyloaded">
+                    </div>
+                    <div class="text_cate">
+                        <h3>Men Clothing &amp; Fashion</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="category_men_block">
+                <a href="">
+                    <div class="grid-item">
+                        <img src="https://cdn.shopify.com/s/files/1/0254/6089/9928/products/1466623512_2_4_3_180x.jpg?v=1609385503"
+                            class="img-fluid" alt="img">
+                    </div>
+                    <div class="text_cate">
+                        <h3>Baby &amp; Kids</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="category_men_block">
+                <a href="">
+                    <div class="grid-item">
+                        <img src="https://cdn.shopify.com/s/files/1/0254/6089/9928/products/8-11_360x.jpg?v=1620957676"
+                            alt="" class="img-fluid img-fit lazyloaded">
+                    </div>
+                    <div class="text_cate">
+                        <h3>Grocery &amp; Pets</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
-
-    <div id="section_best_selling">
-        
+</section>
+<section class="section products-main">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="title text-center">
+                    <h2>New arrivals</h2>
+                    <p>The best Online sales to shop these weekend</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5">
+                <div class="product">
+                    <div class="product-wrap">
+                        <a href="product-single.html"><img class="img-fluid w-100 mb-3 img-first"
+                                src="images/shop/products/322.jpg" alt="product-img"></a>
+                    </div>
+                    <span class="onsale">Sale</span>
+                    <div class="product-hover-overlay">
+                        <a href="#"><i class="tf-ion-android-cart"></i></a>
+                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title h5 mb-0"><a href="product-single.html">Floral Kirby</a></h2>
+                        <span class="price">
+                            $329.10
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5">
+                <div class="product">
+                    <div class="product-wrap">
+                        <a href="product-single.html"><img class="img-fluid w-100 mb-3 img-first"
+                                src="images/shop/products/111.jpg" alt="product-img"></a>
+                    </div>
+                    <div class="product-hover-overlay">
+                        <a href="#"><i class="tf-ion-android-cart"></i></a>
+                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title h5 mb-0"><a href="product-single.html">Open knit switer</a></h2>
+                        <span class="price">
+                            $29.10
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5">
+                <div class="product">
+                    <div class="product-wrap">
+                        <a href="product-single.html"><img class="img-fluid w-100 mb-3 img-first"
+                                src="images/shop/products/222.jpg" alt="product-img"></a>
+                    </div>
+                    <span class="onsale">Sale</span>
+                    <div class="product-hover-overlay">
+                        <a href="#"><i class="tf-ion-android-cart"></i></a>
+                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title h5 mb-0"><a href="product-single.html">Official trendy</a></h2>
+                        <span class="price">
+                            $350.00 – $355.00
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5">
+                <div class="product">
+                    <div class="product-wrap">
+                        <a href="product-single.html"><img class="img-fluid w-100 mb-3 img-first"
+                                src="images/shop/products/322.jpg" alt="product-img"></a>
+                    </div>
+                    <div class="product-hover-overlay">
+                        <a href="#"><i class="tf-ion-android-cart"></i></a>
+                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title h5 mb-0"><a href="product-single.html">Frock short</a></h2>
+                        <span class="price">
+                            $249
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5">
+                <div class="product">
+                    <div class="product-wrap">
+                        <a href="product-single.html"><img class="img-fluid w-100 mb-3 img-first"
+                                src="images/shop/products/444.jpg" alt="product-img"></a>
+                    </div>
+                    <div class="product-hover-overlay">
+                        <a href="#"><i class="tf-ion-android-cart"></i></a>
+                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title h5 mb-0"><a href="product-single.html">Sleeve dress</a></h2>
+                        <span class="price">
+                            $59.10
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5">
+                <div class="product">
+                    <div class="product-wrap">
+                        <a href="product-single.html"><img class="img-fluid w-100 mb-3 img-first"
+                                src="images/shop/products/322.jpg" alt="product-img"></a>
+                    </div>
+                    <div class="product-hover-overlay">
+                        <a href="#"><i class="tf-ion-android-cart"></i></a>
+                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title h5 mb-0"><a href="product-single.html">Stylish dress</a></h2>
+                        <span class="price">
+                            $99.00
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5 ">
+                <div class="product">
+                    <div class="product-wrap">
+                        <a href="product-single.html"><img class="img-fluid w-100 mb-3 img-first"
+                                src="images/shop/products/111.jpg" alt="product-img"></a>
+                    </div>
+                    <div class="product-hover-overlay">
+                        <a href="#"><i class="tf-ion-android-cart"></i></a>
+                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title h5 mb-0"><a href="product-single.html">Body suite</a></h2>
+                        <span class="price">
+                            $329.10
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-12 col-md-6 col-sm-6 mb-5 ">
+                <div class="product">
+                    <div class="product-wrap">
+                        <a href="product-single.html"><img class="img-fluid w-100 mb-3 img-first"
+                                src="images/shop/products/222.jpg" alt="product-img"></a>
+                    </div>
+                    <div class="product-hover-overlay">
+                        <a href="#"><i class="tf-ion-android-cart"></i></a>
+                        <a href="#"><i class="tf-ion-ios-heart"></i></a>
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title h5 mb-0"><a href="product-single.html">Sleeve linen shirt</a></h2>
+                        <span class="price">
+                            <del>60$</del>
+                            $50.10
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div id="section_home_categories">
-
+</section>
+<!-- /portfolio -->
+<section class="ads section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 offset-lg-6">
+                <div class="content">
+                    <span class="h5 deal">Deal of the day 50% Off</span>
+                    <h2 class="mt-3 text-white">Trendy Dress</h2>
+                    <p class="text-md mt-3 text-white">Hurry up! Limited time offer.Grab ot now!</p>
+                    <!-- syo-timer -->
+                    <!-- <div id="simple-timer" class="syotimer mb-5"></div> -->
+                    <a href="#" class="btn btn-main"><i class="ti-bag mr-2"></i>Shop Now </a>
+                </div>
+            </div>
+        </div>
     </div>
-
-    @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
-        @php
-            $customer_products = \App\CustomerProduct::where('status', '1')->where('published', '1')->take(10)->get();
-        @endphp
-       @if (count($customer_products) > 0)
-           <section class="mb-4">
-               <div class="container">
-                   <div class="px-2 py-4 p-md-4 bg-white shadow-sm">
-                       <div class="section-title-1 clearfix">
-                           <h3 class="heading-5 strong-700 mb-0 float-left">
-                               <span class="mr-4">{{__('Classified Ads')}}</span>
-                           </h3>
-                           <ul class="inline-links float-right">
-                               <li><a href="{{ route('customer.products') }}" class="active">{{__('View More')}}</a></li>
-                           </ul>
-                       </div>
-                       <div class="caorusel-box arrow-round">
-                           <div class="slick-carousel" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
-                               @foreach ($customer_products as $key => $customer_product)
-                                   <div class="product-card-2 card card-product my-2 mx-1 mx-sm-2 shop-cards shop-tech">
-                                       <div class="card-body p-0">
-                                           <div class="card-image">
-                                               <a href="{{ route('customer.product', $customer_product->slug) }}" class="d-block">
-                                                @if (empty($customer_product->photos))
-                                                    <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}"alt="{{ __($customer_product->name) }}">
-                                                @else
-                                                    <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($customer_product->photos)[0]) }}" alt="{{ __($customer_product->name) }}">
-                                                @endif
-                                               </a>
-                                               @php
-                                        $qty = 0;
-                                        if($product->variant_product){
-                                            foreach ($product->stocks as $key => $stock) {
-                                                $qty += $stock->qty;
-                                            }
-                                        }
-                                        else{
-                                            $qty = $product->current_stock ;
-                                        }
-                                        @endphp
-                                    @if($qty == 0)
-                                    <span class="stock">
-                                        Out of Stock
-                                    </span>
-                                    @endif
-
-                                           </div>
-
-                                           <div class="p-sm-3 p-2">
-                                               <div class="price-box">
-                                                   <span class="product-price strong-600">{{ single_price($customer_product->unit_price) }}</span>
-                                               </div>
-                                               <h2 class="product-title p-0 text-truncate-1">
-                                                   <a href="{{ route('customer.product', $customer_product->slug) }}">{{ __($customer_product->name) }}</a>
-                                               </h2>
-                                               <div>
-                                                   @if($customer_product->conditon == 'new')
-                                                       <span class="product-label label-hot">{{__('new')}}</span>
-                                                   @elseif($customer_product->conditon == 'used')
-                                                       <span class="product-label label-hot">{{__('Used')}}</span>
-                                                   @endif
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               @endforeach
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </section>
-       @endif
-   @endif
-
-    <div class="mb-4">
-        <div class="container">
-            <div class="row gutters-10 ">
-                @foreach (\App\Banner::where('position', 2)->where('published', 1)->get() as $key => $banner)
-                    <div class="col-lg-{{ 12/count(\App\Banner::where('position', 2)->where('published', 1)->get()) }}">
-                        <div class="media-banner mb-3 mb-lg-0">
-                            <a href="{{ $banner->url }}" target="_blank" class="banner-container">
-                                <img src="{{ asset('frontend/images/placeholder-rect.jpg') }}" data-src="{{ asset($banner->photo) }}" alt="{{ env('APP_NAME') }} promo" class="img-fluid lazyload">
+</section>
+<section class="section products-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 col-md-6">
+                <div class="flash_men my-4 my-md-0">
+                    <div class="special_offer_men p-4 text-center">
+                        <div class="special_header d-flex justify-content-between align-items-center">
+                            <div class="special_title">
+                                <h4>Special Offer</h4>
+                            </div>
+                            <div class="savings">
+                                <span class="savings-text">
+                                    <span class="font-weight-normal"> Save</span> <span
+                                        class="woocommerce-Price-amount amount font-weight-bold"><bdi><span
+                                                class="woocommerce-Price-currencySymbol">$</span>20.00</bdi></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="special_left">
+                            <a href="">
+                                <img src="https://clothingsnepal.com/uploads/product/201706220613191.jpg"
+                                    class="img-fluid" alt="">
+                                <h6>Game Console Controller + USB 3.0 Cable</h6>
                             </a>
                         </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-
-    <div id="section_best_sellers">
-
-    </div>
-
-    <!-- <section class="mb-3">
-        <div class="container">
-            <div class="row gutters-10">
-                <div class="col-lg-6">
-                    <div class="section-title-1 clearfix">
-                        <h3 class="heading-5 strong-700 mb-0 float-left">
-                            <span class="mr-4">{{__('Top 10 Catogories')}}</span>
-                        </h3>
-                        <ul class="float-right inline-links">
-                            <li>
-                                <a href="{{ route('categories.all') }}" class="active">{{__('View All Catogories')}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row gutters-5">
-                    <div class="mb-3 col-6">
-                                <a href="#" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="" data-src="" alt="" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">dfsf</div>
-                                        </div>
-                                        <div class="col-2 text-center">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
+                        <div class="special_price_le py-2">
+                            <h4> <span class="red_text">Rs79.00</span> <small><strike>Rs999</strike></small> </h4>
+                        </div>
+                        <div class="special_countdown">
+                            <div class="content_left">
+                                <h5 id="headline">Hurry Up! Offer ends in:</h5>
+                                <div id="countdown">
+                                    <ul class="d-flex align-items-center justify-content-around m-0 p-0">
+                                        <li class="d-flex"><span id="hours" class=""></span>:Hours</li>
+                                        <li class="d-flex"><span id="minutes" class=""></span>:Minutes</li>
+                                        <li class="d-flex"><span id="seconds" class=""></span>:Seconds</li>
+                                    </ul>
+                                </div>
                             </div>
-                        @foreach (\App\Category::where('top', 1)->get() as $category)
-                            <div class="mb-3 col-6">
-                                <a href="{{ route('products.category', $category->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->banner) }}" alt="{{ __($category->name) }}" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">{{ __($category->name) }}</div>
-                                        </div>
-                                        <div class="col-2 text-center">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="section-title-1 clearfix">
-                        <h3 class="heading-5 strong-700 mb-0 float-left">
-                            <span class="mr-4">{{__('Top 10 Brands')}}</span>
-                        </h3>
-                        <ul class="float-right inline-links">
-                            <li>
-                                <a href="{{ route('brands.all') }}" class="active">{{__('View All Brands')}}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row gutters-5">
-                        @foreach (\App\Brand::where('top', 1)->get() as $brand)
-                            <div class="mb-3 col-6">
-                                <a href="{{ route('products.brand', $brand->slug) }}" class="bg-white border d-block c-base-2 box-2 icon-anim pl-2">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col-3 text-center">
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($brand->logo) }}" alt="{{ __($brand->name) }}" class="img-fluid img lazyload">
-                                        </div>
-                                        <div class="info col-7">
-                                            <div class="name text-truncate pl-3 py-4">{{ __($brand->name) }}</div>
-                                        </div>
-                                        <div class="col-2 text-center">
-                                            <i class="la la-angle-right c-base-1"></i>
-                                        </div>
-                                    </div>
-                                </a>
+                    <div class="special_offer_men p-4 text-center">
+                        <div class="special_header d-flex justify-content-between align-items-center">
+                            <div class="special_title">
+                                <h4>Special Offer</h4>
                             </div>
-                        @endforeach
+                            <div class="savings">
+                                <span class="savings-text">
+                                    <span class="font-weight-normal"> Save</span> <span
+                                        class="woocommerce-Price-amount amount font-weight-bold"><bdi><span
+                                                class="woocommerce-Price-currencySymbol">$</span>20.00</bdi></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="special_left">
+                            <a href="">
+                                <img src="https://clothingsnepal.com/uploads/product/201605021457081.jpg"
+                                    class="img-fluid" alt="">
+                                <h6>Game Console Controller + USB 3.0 Cable</h6>
+                            </a>
+                        </div>
+                        <div class="special_price_le py-2">
+                            <h4> <span class="red_text">Rs79.00</span> <small><strike>Rs999</strike></small> </h4>
+                        </div>
+                        <div class="special_countdown">
+                            <div class="content_left">
+                                <h5 id="headline">Hurry Up! Offer ends in:</h5>
+                                <div id="countdown">
+                                    <ul class="d-flex align-items-center justify-content-around m-0 p-0">
+                                        <li class="d-flex"><span id="hours_a" class=""></span>:Hours</li>
+                                        <li class="d-flex"><span id="minutes_a" class=""></span>:Minutes</li>
+                                        <li class="d-flex"><span id="seconds_a" class=""></span>:Seconds</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-4 col-sm-6 col-md-6">
+                <div class="widget-featured-entries mt-5 mt-lg-0">
+                    <h4 class="mb-4 pb-3">Top Products</h4>
+                    <div class="media mb-3">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-1.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Keds - Kickstart Pom
+                                    Pom</a></h6>
+                            <p class="featured-entry-meta">$42.99</p>
+                        </div>
+                    </div>
+                    <div class="media mb-3">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-2.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Nike - Brasilia
+                                    Medium Backpack</a></h6>
+                            <p class="featured-entry-meta">$27.99</p>
+                        </div>
+                    </div>
+                    <div class="media mb-3">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-3.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Guess - GU7295</a>
+                            </h6>
+                            <p>$38.00</p>
+                        </div>
+                    </div>
+                    <div class="media mb-3">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-4.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Adidas Originals
+                                    Cap</a></h6>
+                            <p class="featured-entry-meta">$35.00</p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-5.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Big Star Flip
+                                    Tops</a></h6>
+                            <p class="featured-entry-meta">$10.60</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-md-6">
+                <div class="widget-featured-entries mt-5 mt-lg-0">
+                    <h4 class="mb-4 pb-3">Best Selling</h4>
+                    <div class="media mb-3">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-7.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Keds - Kickstart Pom
+                                    Pom</a></h6>
+                            <p class="featured-entry-meta">$42.99</p>
+                        </div>
+                    </div>
+                    <div class="media mb-3">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-8.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Nike - Brasilia
+                                    Medium Backpack</a></h6>
+                            <p class="featured-entry-meta">$27.99</p>
+                        </div>
+                    </div>
+                    <div class="media mb-3">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-1.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Guess - GU7295</a>
+                            </h6>
+                            <p>$38.00</p>
+                        </div>
+                    </div>
+                    <div class="media mb-3">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-2.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Adidas Originals
+                                    Cap</a></h6>
+                            <p class="featured-entry-meta">$35.00</p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="featured-entry-thumb" href="#">
+                            <img src="images/shop/widget/p-4.jpg" alt="Product thumb" width="64"
+                                class="img-fluid mr-3">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="featured-entry-title mb-0"><a href="product-single.html">Big Star Flip
+                                    Tops</a></h6>
+                            <p class="featured-entry-meta">$10.60</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section> -->
+    </div>
+</section>
+<section class="features border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6 col-md-6">
+                <div class="feature-block">
+                    <i class="tf-ion-android-bicycle"></i>
+                    <div class="content">
+                        <h5>Free Shipping</h5>
+                        <p>On all order over $39.00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-md-6">
+                <div class="feature-block">
+                    <i class="tf-wallet"></i>
+                    <div class="content">
+                        <h5>30 Days Return</h5>
+                        <p>Money back Guarantee</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-md-6">
+                <div class="feature-block">
+                    <i class="tf-key"></i>
+                    <div class="content">
+                        <h5>Secure Checkout</h5>
+                        <p>100% Protected by paypal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-md-6">
+                <div class="feature-block">
+                    <i class="tf-clock"></i>
+                    <div class="content">
+                        <h5>24/7 Support</h5>
+                        <p>All time customer support </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 @endsection
 
 @section('script')

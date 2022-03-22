@@ -51,39 +51,39 @@
 <link type="image/x-icon" href="{{ asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
 
 <!-- Fonts -->
-{{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
 <!-- Bootstrap -->
-{{-- <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" media="all"> --}}
+<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" media="all">
 
 <!-- Icons -->
-{{-- <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link rel="stylesheet" href="{{ asset('frontend/css/line-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'"> --}}
+<link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'">
+<link rel="stylesheet" href="{{ asset('frontend/css/line-awesome.min.css') }}" type="text/css" media="none" onload="if(media!='all')media='all'">
 
-{{-- <link type="text/css" href="{{ asset('frontend/css/bootstrap-tagsinput.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/jodit.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/slick.css') }}" rel="stylesheet" media="all"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/jssocials-theme-flat.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/intlTelInput.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
-{{-- <link type="text/css" href="{{ asset('css/spectrum.css')}}" rel="stylesheet" media="none" onload="if(media!='all')media='all'"> --}}
+<link type="text/css" href="{{ asset('frontend/css/bootstrap-tagsinput.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/jodit.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/slick.css') }}" rel="stylesheet" media="all">
+<link type="text/css" href="{{ asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/jssocials-theme-flat.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('frontend/css/intlTelInput.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+<link type="text/css" href="{{ asset('css/spectrum.css')}}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
 <!-- Global style (main) -->
-{{-- <link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/active-shop.css') }}" rel="stylesheet" media="all">
 
 {{-- martin edit css --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/martinedit.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/martinedit.css') }}" rel="stylesheet" media="all">
 
 
 
 
 
-{{-- <link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/main.css') }}" rel="stylesheet" media="all">
 
 {{-- style-new css --}}
-{{-- <link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/style-new.css') }}" rel="stylesheet" media="all">
 
 
 {{-- @if(\App\Language::where('code', Session::get('locale', Config::get('app.locale')))->first()->rtl == 1)
@@ -95,10 +95,10 @@
 <link href="{{ asset('frontend/css/colors/'.\App\GeneralSetting::first()->frontend_color.'.css')}}" rel="stylesheet" media="all">
 
 <!-- Custom style -->
-{{-- <link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all"> --}}
+<link type="text/css" href="{{ asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all">
 
 <!-- jQuery -->
-{{-- <script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/vendor/jquery.min.js') }}"></script>
 
 
 {{-- @if (\App\BusinessSetting::where('type', 'google_analytics')->first()->value == 1)
@@ -134,21 +134,13 @@
 @endif --}}
 <!-- End Facebook Pixel Code -->
 
-<link rel="stylesheet" href="{{asset('frontend/assets/plugins/custom-font/style.css')}}">
-<!-- bootstrap.min css -->
-<link rel="stylesheet" href="{{asset('frontend/assets/plugins/bootstrap/css/bootstrap.min.css')}}">
-<link rel="stylesheet" href="{{asset('frontend/assets/plugins/bootstrap-slider/bootstrap-slider.min.css')}}">
-<!-- Main Slider -->
-<link rel="stylesheet" href="{{asset('frontend/assets/plugins/slick-carousel/slick/slick.css')}}">
-<link rel="stylesheet" href="{{asset('frontend/assets/plugins/slick-carousel/slick/slick-theme.css')}}">
-<!-- Main Stylesheet -->
-<link rel="stylesheet" href="{{asset('frontend/assets/css/style.css')}}">
 
 </head>
-<body id="body">
+<body>
 
 
 <!-- MAIN WRAPPER -->
+<div class="body-wrap shop-default shop-cards shop-tech gry-bg">
 
     <!-- Header -->
     @include('frontend.inc.nav')
@@ -184,16 +176,17 @@
         </div>
     </div>
 
+</div><!-- END: body-wrap -->
 
 <!-- SCRIPTS -->
 <!-- <a href="#" class="back-to-top btn-back-to-top"></a> -->
 
 <!-- Core -->
-{{-- <script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script>
-<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/vendor/popper.min.js') }}"></script>
+<script src="{{ asset('frontend/js/vendor/bootstrap.min.js') }}"></script>
 
 <!-- Plugins: Sorted A-Z -->
-{{-- <script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
+<script src="{{ asset('frontend/js/jquery.countdown.min.js') }}"></script>
 <script src="{{ asset('frontend/js/select2.min.js') }}"></script>
 <script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
 <script src="{{ asset('frontend/js/sweetalert2.min.js') }}"></script>
@@ -204,39 +197,17 @@
 <script src="{{ asset('frontend/js/xzoom.min.js') }}"></script>
 <script src="{{ asset('frontend/js/fb-script.js') }}"></script>
 <script src="{{ asset('frontend/js/lazysizes.min.js') }}"></script>
-<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/intlTelInput.min.js') }}"></script>
 
 <!-- App JS -->
-{{-- <script src="{{ asset('frontend/js/active-shop.js') }}"></script>
-<script src="{{ asset('frontend/js/main.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/active-shop.js') }}"></script>
+<script src="{{ asset('frontend/js/main.js') }}"></script>
 
 {{-- script-new js --}}
-{{-- <script src="{{ asset('frontend/js/script-new.js') }}"></script> --}}
+<script src="{{ asset('frontend/js/script-new.js') }}"></script>
 
-	<!-- 
-    Essential Scripts
-    =====================================-->
-	<!-- Main jQuery -->
-	<script src="{{asset('frontend/assets/plugins/jquery/dist/jquery.min.js')}}"></script>
-	<!-- Bootstrap 4.3.1 -->
-	<script src="{{asset('frontend/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-	<!-- Count Down Js -->
-	<script src="{{asset('frontend/assets/plugins/SyoTimer/jquery.syotimer.min.js')}}"></script>
-	<script src="{{asset('frontend/assets/plugins/bootstrap-slider/bootstrap-slider.min.js')}}"></script>
-	<!-- Slick Slider -->
-	<script src="{{asset('frontend/assets/plugins/slick-carousel/slick/slick.min.js')}}"></script>
-	<!-- rating star -->
-	<script src="{{asset('frontend/assets/plugins/rating/rating.js')}}"></script>
-	<!-- Instagram Feed Js -->
-	<script src="{{asset('frontend/assets/plugins/instafeed-js/instafeed.min.js')}}"></script>
-	<!-- Google Mapl -->
-	<script src="../maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-	<script src="{{asset('frontend/assets/plugins/google-map/gmap.js')}}"></script>
-	<script src="https://use.fontawesome.com/f90dcc1da9.js"></script>
-	<!-- Main Js File -->
-	<script src="{{asset('frontend/assets/js/script.js')}}"></script>
 
-{{-- <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script> --}}
+<script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 
 <script>
     function showFrontendAlert(type, message){
