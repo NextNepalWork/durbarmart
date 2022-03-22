@@ -79,7 +79,7 @@
                                     <div class="row">
                                         <div class="col-md-6 mx-auto">
                                             <div class="row">
-                                                @if(\App\BusinessSetting::where('type', 'paypal_payment')->first()->value == 1)
+                                                {{-- @if(\App\BusinessSetting::where('type', 'paypal_payment')->first()->value == 1)
                                                     <div class="col-6">
                                                         <label class="payment_option mb-4" data-toggle="tooltip" data-title="Paypal">
                                                             <input type="radio" id="" name="payment_option" value="paypal" checked>
@@ -158,7 +158,7 @@
                                                             </span>
                                                         </label>
                                                     </div>
-                                                @endif
+                                                @endif --}}
                                                 @if(\App\BusinessSetting::where('type', 'cash_payment')->first()->value == 1)
                                                     @php
                                                         $digital = 0;
@@ -193,15 +193,17 @@
                                                         @endforeach
                                                     @endif
                                                 @endif
-
-                                                {{-- <div class="col-6">
-                                                    <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
-                                                        <input type="radio" id="" name="payment_option" value="khalti">
-                                                        <span>
-                                                            <img loading="lazy" src="{{ asset('frontend/images/icons/cards/paytm.jpg')}}" class="img-fluid">
-                                                        </span>
-                                                    </label>
-                                                </div> --}}
+                                                @if((\App\BusinessSetting::where('type', 'khalti_payment')->count() > 0) && (\App\BusinessSetting::where('type', 'khalti_payment')->first()->value == 1))
+                                                    <div class="col-6">
+                                                        <label class="payment_option mb-4" data-toggle="tooltip" data-title="khalti">
+                                                            {{-- <button id="payment-button">Pay with Khalti</button> --}}
+                                                            <input type="radio" id="" name="payment_option" value="khalti">
+                                                            <span>
+                                                                <img loading="lazy" src="{{ asset('frontend/images/icons/cards/khalti.png')}}" class="img-fluid">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -225,7 +227,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <button id="payment-button">Pay with Khalti</button>
+
                             <div class="row align-items-center pt-4">
                                 <div class="col-6">
                                     <a href="{{ route('home') }}" class="link link--style-3">
@@ -233,6 +235,7 @@
                                         {{__('Return to shop')}}
                                     </a>
                                 </div>
+
                                 <div class="col-6 text-right">
                                     <button type="button" onclick="submitOrder(this)" class="btn btn-styled btn-base-1">{{__('Complete Order')}}</button>
                                 </div>
@@ -261,20 +264,20 @@
             $('#checkout-form').submit();
         }
     </script>
-    <script>
+    {{-- <script>
         var config = {
             // replace the publicKey with yours
             "publicKey": "test_public_key_eb32162715ff4ac0b16fb0e82fc4dbed",
             "productIdentity": "1234567890",
-            "productName": "Dragon",
-            "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+            "productName": "Pearl Green Tea",
+            "productUrl": "http://localhost:8000/product/Pearl-Green-Tea1-ACSSP",
             "paymentPreference": [
                 "KHALTI"
                 ],
             "eventHandler": {
                 onSuccess (payload) {
                     // hit merchant api for initiating verfication
-                    console.log('payload');
+                    console.log(payload);
                 },
                 onError (error) {
                     console.log(error);
@@ -286,10 +289,10 @@
         };
 
         var checkout = new KhaltiCheckout(config);
-        var btn = document.getElementById("payment-button");
-        btn.onclick = function () {
+        // var btn = document.getElementById("payment-button");
+        // btn.onclick = function () {
             // minimum transaction amount must be 10, i.e 1000 in paisa.
             checkout.show({amount: 1000});
-        }
-    </script>
+        // }
+    </script> --}}
 @endsection

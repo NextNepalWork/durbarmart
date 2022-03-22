@@ -1,5 +1,8 @@
 @extends('frontend.layouts.app')
-
+{{-- @php
+    
+dd($flash_deals->flash_deal_products);
+@endphp --}}
 @section('content')
 <div class="breadcrumb-area">
     <div class="container">

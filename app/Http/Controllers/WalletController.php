@@ -11,6 +11,7 @@ use App\Http\Controllers\PaytmController;
 use Auth;
 use Session;
 use App\Wallet;
+use Response;
 
 class WalletController extends Controller
 {
@@ -62,6 +63,10 @@ class WalletController extends Controller
             $paytm = new PaytmController;
             return $paytm->index();
         }
+        elseif($request->payment_option == 'khalti'){
+            $khalti = new KhaltiController;
+            return $khalti->walletKhalti();
+        }
     }
 
     public function wallet_payment_done($payment_data, $payment_details){
@@ -70,9 +75,7 @@ class WalletController extends Controller
         $user->save();
 
         $wallet = new Wallet;
-        $wallet->user_id = $user->id;
-        $wallet->amount = $payment_data['amount'];
-        $wallet->payment_method = $payment_data['payment_method'];
+         
         $wallet->payment_details = $payment_details;
         $wallet->save();
 
@@ -123,5 +126,34 @@ class WalletController extends Controller
             return 1;
         }
         return 0;
+    }
+    public function wallet_payment_done_khalti(){
+        $payment_data = Session::get('payment_data');
+        $payment_details = $_POST['payment_details'];
+        $user = Auth::user();
+        $user->balance = $user->balance + $payment_data['amount'];
+        $user->save();
+
+        $wallet = new Wallet;
+         
+        $wallet->user_id = Auth::user()->id;
+        $wallet->amount = $payment_data['amount'];
+        $wallet->payment_method = 'khalti';
+        $wallet->payment_details = json_encode($payment_details);
+        $wallet->save();
+
+        // $wallet = Wallet::create([
+        //     // 'user_id' => Auth::user()->id,
+        //     'amount' => $payment_data['amount'],
+        //     'payment_method' => 'khalti',
+        //     'payment_details' => $payment_details,
+        // ]);
+
+        Session::forget('payment_data');
+        Session::forget('payment_type');
+
+        return Response::json('true');
+        flash(__('Payment completed'))->success();
+        return redirect()->route('wallet.index');
     }
 }

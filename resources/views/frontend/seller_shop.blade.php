@@ -67,6 +67,7 @@
                                 @else
                                     {{ renderStarRating(0) }}
                                 @endif
+                                Total Reviews ({{$total}})
                             </div>
                             <div class="location alpha-6">{{ $shop->address }}</div>
                         </div>

@@ -2,8 +2,9 @@
 
 @section('content')
 
+
 <div class="row">
-    <div class="col-lg-6">
+    {{-- <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">{{__('Paypal Credential')}}</h3>
@@ -271,8 +272,12 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
+    @php
+        $khalti=\App\BusinessSetting::where('type','khalti_payment')->exists();
+        // dd($khalti);
+    @endphp
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
@@ -281,34 +286,48 @@
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="payment_method" value="khalti">
-                    <div class="form-group">
-                        <input type="hidden" name="types[]" value="KHALTI_PUBLIC_KEY">
-                        <div class="col-lg-3">
-                            <label class="control-label">{{__('PUBLIC KEY')}}</label>
+                    <input type="hidden" name="payment_method" value="khalti_payment">
+                    @if ($khalti)
+                    @php
+                        $khalti_credentials=\App\BusinessSetting::where('type','khalti_payment')->first()
+                    @endphp
+
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('KHALTI KEY')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="KHALTI_KEY" value="{{$khalti_credentials->khalti_key}}" placeholder="KHALTI KEY" required>
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="KHALTI_PUBLIC_KEY" value="{{  env('KHALTI_PUBLIC_KEY') }}" placeholder="PUBLIC KEY" required>
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('KHALTI SECRET')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="KHALTI_SECRET" value="{{$khalti_credentials->khalti_secret}}" placeholder="KHALTI SECRET" required>
+                            </div>
+                        </div> 
+                    @else
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('KHALTI KEY')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="KHALTI_KEY" value="" placeholder="KHALTI KEY" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="hidden" name="types[]" value="KHALTI_SECRET_KEY">
-                        <div class="col-lg-3">
-                            <label class="control-label">{{__('SECRET KEY')}}</label>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="KHALTI_SECRET_KEY" value="{{  env('KHALTI_SECRET_KEY') }}" placeholder="SECRET KEY" required>
-                        </div>
-                    </div>
-                    {{-- <div class="form-group">
-                        <input type="hidden" name="types[]" value="MERCHANT_EMAIL">
-                        <div class="col-lg-3">
-                            <label class="control-label">{{__('MERCHANT EMAIL')}}</label>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" name="MERCHANT_EMAIL" value="{{  env('MERCHANT_EMAIL') }}" placeholder="MERCHANT EMAIL" required>
-                        </div>
-                    </div> --}}
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label class="control-label">{{__('KHALTI SECRET')}}</label>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" name="KHALTI_SECRET" value="" placeholder="KHALTI SECRET" required>
+                            </div>
+                        </div> 
+                    @endif
+                    
+
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
                             <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
@@ -319,8 +338,9 @@
         </div>
     </div>
 
+
 </div>
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
@@ -361,6 +381,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection

@@ -8,6 +8,7 @@ use App\BusinessSetting;
 use App\Category;
 use Artisan;
 use CoreComponentRepository;
+use Illuminate\Routing\Route;
 
 class BusinessSettingsController extends Controller
 {
@@ -54,23 +55,43 @@ class BusinessSettingsController extends Controller
      */
     public function payment_method_update(Request $request)
     {
-        foreach ($request->types as $key => $type) {
-                $this->overWriteEnvFile($type, $request[$type]);
+        if(BusinessSetting::where('type','khalti_payment')->exists()){
+            $khalti=BusinessSetting::where('type','khalti_payment')->first();
+        }else{
+            $khalti=new BusinessSetting();
         }
+        $khalti->type=$request->payment_method;
 
-        $business_settings = BusinessSetting::where('type', $request->payment_method.'_sandbox')->first();
-        // dd($business_settings->type);
-        if($business_settings != null){
-            if ($request->has($request->payment_method.'_sandbox')) {
-                $business_settings->value = 1;
-                $business_settings->save();
-            }
-            else{
-                $business_settings->value = 0;
-                $business_settings->save();
-            }
-        }
+        // $data = [
+        //     'value' => 1,
+        //     'khalti_key' => $request->KHALTI_KEY,
+        //     'khalti_secret' => $request->KHALTI_SECRET
+        // ];
 
+        // $khalti->value=json_encode($data);
+        
+        $khalti->value=1;
+        $khalti->khalti_key=$request->KHALTI_KEY;
+        $khalti->khalti_secret=$request->KHALTI_SECRET;
+        $khalti->save();
+    
+        // foreach ($request->types as $key => $type) {
+        //     $this->overWriteEnvFile($type, $request[$type]);
+        // }
+
+        // $business_settings = BusinessSetting::where('type', $request->payment_method.'_sandbox')->first();
+        // // dd($business_settings->type);
+        // if($business_settings != null){
+        //     if ($request->has($request->payment_method.'_sandbox')) {
+        //         $business_settings->value = 1;
+        //         $business_settings->save();
+        //     }
+        //     else{
+        //         $business_settings->value = 0;
+        //         $business_settings->save();
+        //     }
+        // }
+        
         flash("Settings updated successfully")->success();
         return back();
     }
@@ -172,8 +193,10 @@ class BusinessSettingsController extends Controller
     public function overWriteEnvFile($type, $val)
     {
         $path = base_path('.env');
+        
         if (file_exists($path)) {
             $val = '"'.trim($val).'"';
+            
             if(is_numeric(strpos(file_get_contents($path), $type)) && strpos(file_get_contents($path), $type) >= 0){
                 file_put_contents($path, str_replace(
                     $type.'="'.env($type).'"', $type.'='.$val, file_get_contents($path)

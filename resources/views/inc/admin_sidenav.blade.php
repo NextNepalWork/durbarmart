@@ -388,9 +388,9 @@
                                 <li class="{{ areActiveRoutes(['currency.index'])}}">
                                     <a class="nav-link" href="{{route('currency.index')}}">{{__('Currency')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['languages.index', 'languages.create', 'languages.store', 'languages.show', 'languages.edit'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['languages.index', 'languages.create', 'languages.store', 'languages.show', 'languages.edit'])}}">
                                     <a class="nav-link" href="{{route('languages.index')}}">{{__('Languages')}}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         @endif
@@ -499,7 +499,7 @@
                         </li>
                         @endif
 
-                        @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null)
+                        {{-- @if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null)
                             <li>
                                 <a href="#">
                                     <i class="fa fa-link"></i>
@@ -523,7 +523,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endif
+                        @endif --}}
 
                         @if (\App\Addon::where('unique_identifier', 'offline_payment')->first() != null)
                             <li>
@@ -672,14 +672,14 @@
                                 </a>
                             </li>
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
                             <li class="{{ areActiveRoutes(['addons.index', 'addons.create'])}}">
                                 <a class="nav-link" href="{{ route('addons.index') }}">
                                     <i class="fa fa-wrench"></i>
                                     <span class="menu-title">{{__('Addon Manager')}}</span>
                                 </a>
                             </li>
-                        @endif
+                        @endif --}}
 
                     </ul>
                 </div>

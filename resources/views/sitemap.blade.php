@@ -13,6 +13,7 @@
             <priority>0.8</priority>
             {{-- sub category --}}
              {{-- $subcategories=\App\Subcategory::where('category_id',$category->id)->get(); --}}
+             {{-- {{dd($category->sub_categories_xml)}} --}}
              @if (isset($category->sub_categories_xml) && !($category->sub_categories_xml->isEmpty()))
              
                 @foreach ($category->sub_categories_xml as $subcategory)

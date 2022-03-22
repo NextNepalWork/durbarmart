@@ -19,6 +19,7 @@ use App\Coupon;
 use App\CouponUsage;
 use App\User;
 use App\Address;
+use Illuminate\Support\Facades\Response;
 use Session;
 
 class CheckoutController extends Controller
@@ -32,48 +33,52 @@ class CheckoutController extends Controller
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
     {
+        // dd($request->payment_option);
         if ($request->payment_option != null) {
             
             
             $orderController = new OrderController;
             $orderController->store($request);
-            // dd($orderController);
             $request->session()->put('payment_type', 'cart_payment');
-
+            // dd($request->session()->put('payment_type', 'cart_payment'));
 
             if($request->session()->get('order_id') != null){
                 if($request->payment_option == 'paypal'){
                     $paypal = new PaypalController;
                     return $paypal->getCheckout();
                 }
-                elseif ($request->payment_option == 'stripe') {
-                    $stripe = new StripePaymentController;
-                    return $stripe->stripe();
+                elseif($request->payment_option == 'khalti'){
+                    $khalti = new KhaltiController;
+                    return $khalti->khalti();
                 }
-                elseif ($request->payment_option == 'sslcommerz') {
-                    $sslcommerz = new PublicSslCommerzPaymentController;
-                    return $sslcommerz->index($request);
-                }
-                elseif ($request->payment_option == 'instamojo') {
-                    $instamojo = new InstamojoController;
-                    return $instamojo->pay($request);
-                }
-                elseif ($request->payment_option == 'razorpay') {
-                    $razorpay = new RazorpayController;
-                    return $razorpay->payWithRazorpay($request);
-                }
-                elseif ($request->payment_option == 'paystack') {
-                    $paystack = new PaystackController;
-                    return $paystack->redirectToGateway($request);
-                }
-                elseif ($request->payment_option == 'voguepay') {
-                    $voguePay = new VoguePayController;
-                    return $voguePay->customer_showForm();
-                }
-                elseif ($request->payment_option == 'paytm') {
-                    $paytm = new PaytmController;
-                    return $paytm->index();
-                }
+                // elseif ($request->payment_option == 'stripe') {
+                //     $stripe = new StripePaymentController;
+                //     return $stripe->stripe();
+                // }
+                // elseif ($request->payment_option == 'sslcommerz') {
+                //     $sslcommerz = new PublicSslCommerzPaymentController;
+                //     return $sslcommerz->index($request);
+                // }
+                // elseif ($request->payment_option == 'instamojo') {
+                //     $instamojo = new InstamojoController;
+                //     return $instamojo->pay($request);
+                // }
+                // elseif ($request->payment_option == 'razorpay') {
+                //     $razorpay = new RazorpayController;
+                //     return $razorpay->payWithRazorpay($request);
+                // }
+                // elseif ($request->payment_option == 'paystack') {
+                //     $paystack = new PaystackController;
+                //     return $paystack->redirectToGateway($request);
+                // }
+                // elseif ($request->payment_option == 'voguepay') {
+                //     $voguePay = new VoguePayController;
+                //     return $voguePay->customer_showForm();
+                // }
+                // elseif ($request->payment_option == 'paytm') {
+                //     $paytm = new PaytmController;
+                //     return $paytm->index();
+                // }
                 elseif ($request->payment_option == 'cash_on_delivery') {
                     $request->session()->put('cart', collect([]));
                     // $request->session()->forget('order_id');
@@ -469,4 +474,79 @@ class CheckoutController extends Controller
         $order = Order::findOrFail(Session::get('order_id'));
         return view('frontend.order_confirmed', compact('order'));
     }
+    public function checkout_done_khalti(){
+        // $payment_data = Session::get('payment_data');
+        $payment_details = $_POST['payment_details'];
+
+        $order = Order::findOrFail(Session::get('order_id'));
+        $order->payment_status = 'paid';
+        $order->payment_details=json_encode($payment_details);
+
+        // $order->payment_details = $payment_details;
+        $order->save();
+
+        if (\App\Addon::where('unique_identifier', 'affiliate_system')->first() != null && \App\Addon::where('unique_identifier', 'affiliate_system')->first()->activated) {
+            $affiliateController = new AffiliateController;
+            $affiliateController->processAffiliatePoints($order);
+        }
+
+        if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated) {
+            $clubpointController = new ClubPointController;
+            $clubpointController->processClubPoints($order);
+        }
+
+        if(\App\Addon::where('unique_identifier', 'seller_subscription')->first() == null || !\App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated){
+            if (BusinessSetting::where('type', 'category_wise_commission')->first()->value != 1) {
+                $commission_percentage = BusinessSetting::where('type', 'vendor_commission')->first()->value;
+                foreach ($order->orderDetails as $key => $orderDetail) {
+                    $orderDetail->payment_status = 'paid';
+                    $orderDetail->save();
+                    if($orderDetail->product->user->user_type == 'seller'){
+                        $seller = $orderDetail->product->user->seller;
+                        $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100 + $orderDetail->tax + $orderDetail->shipping_cost;
+                        $seller->save();
+                    }
+                }
+            }
+            else{
+                foreach ($order->orderDetails as $key => $orderDetail) {
+                    $orderDetail->payment_status = 'paid';
+                    $orderDetail->save();
+                    if($orderDetail->product->user->user_type == 'seller'){
+                        $commission_percentage = $orderDetail->product->category->commision_rate;
+                        $seller = $orderDetail->product->user->seller;
+                        $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price*(100-$commission_percentage))/100  + $orderDetail->tax + $orderDetail->shipping_cost;
+                        $seller->save();
+                    }
+                }
+            }
+        }
+        else {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->payment_status = 'paid';
+                $orderDetail->save();
+                if($orderDetail->product->user->user_type == 'seller'){
+                    $seller = $orderDetail->product->user->seller;
+                    $seller->admin_to_pay = $seller->admin_to_pay + $orderDetail->price + $orderDetail->tax + $orderDetail->shipping_cost;
+                    $seller->save();
+                }
+            }
+        }
+
+        $order->commission_calculated = 1;
+        $order->save();
+
+        // Session::forget('payment_data');
+        Session::forget('payment_type');
+        Session::put('cart', collect([]));
+        // Session::forget('order_id');
+        Session::forget('delivery_info');
+        Session::forget('coupon_id');
+        Session::forget('coupon_discount');
+
+        return Response::json('true');
+        flash(__('Payment completed'))->success();
+        return redirect()->route('order_confirmed');
+    }
+
 }

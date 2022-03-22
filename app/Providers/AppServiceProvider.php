@@ -23,9 +23,9 @@ class AppServiceProvider extends ServiceProvider
             error_reporting(0);
         }
 
-        if(env('APP_ENV') !== "local"){
-            URL::forceScheme('https');
-        }
+        // if(env('APP_ENV') !== "local"){
+        //     URL::forceScheme('https');
+        // }
     }
 
     /**

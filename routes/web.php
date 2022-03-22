@@ -24,7 +24,10 @@ Route::get('clear', function () {
     Artisan::call('config:clear');
     Artisan::call('config:cache');
 });
-
+Route::get('clear', function () {
+    Artisan::call('config:clear');
+	return back();
+})->name('configClear');
 
 Auth::routes(['verify' => true]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
@@ -162,7 +165,9 @@ Route::group(['middleware' => ['user', 'verified']], function(){
 
 	Route::get('/wallet', 'WalletController@index')->name('wallet.index');
 	Route::post('/recharge', 'WalletController@recharge')->name('wallet.recharge');
-
+	Route::post('/wallet_payment_done_khalti', 'WalletController@wallet_payment_done_khalti')->name('wallet_payment_done_khalti');
+	Route::post('/checkout_done_khalti', 'CheckoutController@checkout_done_khalti')->name('checkout_done_khalti');
+	
 	Route::resource('support_ticket','SupportTicketController');
 	Route::post('support_ticket/reply','SupportTicketController@seller_store')->name('support_ticket.seller_store');
 
