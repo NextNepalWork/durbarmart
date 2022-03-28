@@ -37,7 +37,7 @@ class ProductDetailCollection extends ResourceCollection
                         'avatar_original' =>file_exists($data->user->avatar_original) ? $data->user->avatar_original : $placeholder_img,
                         
                         'shop_name' => $data->added_by == 'admin' ? '' : $data->user->shop->name,
-                        'shop_logo' => $data->added_by == 'admin' ? '' : $data->user->shop->logo,
+                        'shop_logo' => $data->added_by == 'admin' ? '' : (file_exists($data->user->shop->logo)?$data->user->shop->logo:''),
                         'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)?strval($data->user->shop->id):'')
                     ],
                     'category' => [
