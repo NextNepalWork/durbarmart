@@ -29,6 +29,7 @@ class ProductDetailCollection extends ResourceCollection
                 return [
                     'id' => (integer) $data->id,
                     'name' => $data->name,
+                    'variant_product' => $data->variant_product,
                     'added_by' => $data->added_by,
                     'user' => [
                         'name' => $data->user->name,
