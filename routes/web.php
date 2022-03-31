@@ -34,6 +34,10 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::post('/language', 'LanguageController@changeLanguage')->name('language.change');
 Route::post('/currency', 'CurrencyController@changeCurrency')->name('currency.change');
 
+
+Route::get('auth/facebook/callback','SocialController@handleProviderCallback');
+Route::get('auth/facebook/redirect','SocialController@redirectToProvider');
+
 Route::get('/social-login/redirect/{provider}', 'Auth\LoginController@redirectToProvider')->name('social.login');
 Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');
 Route::get('/users/login', 'HomeController@login')->name('user.login');

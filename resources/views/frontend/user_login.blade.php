@@ -59,45 +59,6 @@
                                             <button type="submit" class="btn btn-styled btn-base-1 btn-md w-100">{{ __('Login') }}</button>
                                         </div>
                                     </form>
-                                    
-                                    <script>
-                                        window.fbAsyncInit = function() {
-                                            FB.init({
-                                                appId      : '339173414823294',
-                                                cookie     : true,
-                                                xfbml      : true,
-                                                version    : 'v13.0'
-                                            });
-                                            
-                                            FB.AppEvents.logPageView();   
-                                            
-                                        };
-                                    
-                                        (function(d, s, id){
-                                            var js, fjs = d.getElementsByTagName(s)[0];
-                                            if (d.getElementById(id)) {return;}
-                                            js = d.createElement(s); js.id = id;
-                                            js.src = "https://connect.facebook.net/en_US/sdk.js";
-                                            fjs.parentNode.insertBefore(js, fjs);
-                                        }
-                                        (document, 'script', 'facebook-jssdk'));
-
-                                        // FB.getLoginStatus(function(response) {
-                                        //     statusChangeCallback(response);
-                                        //     console.log(response);
-                                        //     console.log(statusChangeCallback(response));
-                                        // });
-                                        function checkLoginState() {
-                                            FB.getLoginStatus(function(response) {
-                                                console.log(response);
-                                                // statusChangeCallback(response);
-                                            });
-                                        }
-                                    </script>
-                                    <fb:login-button 
-                                    scope="public_profile,email"
-                                    onlogin="checkLoginState();">
-                                  </fb:login-button>
                                     <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
                                     
                                     @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
@@ -106,13 +67,20 @@
                                         </div>
                                         <div>
                                         @if (\App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1)
-                                            <a href="{{ route('social.callback', ['provider' => 'facebook']) }}" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 mb-3">
+                                        <a class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 mb-3" href="{{url('auth/facebook/redirect')}}" type="button"> 
+                                            <i class="icon fa fa-facebook-f"></i>Facebook
+                                        </a>
+                                            {{-- <a href="{{ route('social.callback', ['provider' => 'facebook']) }}" class="btn btn-styled btn-block btn-facebook btn-icon--2 btn-icon-left px-4 mb-3">
                                                 <i class="icon fa fa-facebook"></i> {{__('Login with Facebook')}}
-                                            </a>
+                                            </a> --}}
                                         @endif
                                         @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1)
-                                            <a href="{{ route('social.login', ['provider' => 'google']) }}" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 mb-3">
+                                            {{-- <a href="{{ route('social.login', ['provider' => 'google']) }}" class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 mb-3">
                                                 <i class="icon fa fa-google"></i> {{__('Login with Google')}}
+                                            </a> --}}
+                                            <a class="btn btn-styled btn-block btn-google btn-icon--2 btn-icon-left px-4 mb-3" href="{{url('auth/google/redirect')}}" type="button"> 
+                                                <i class="icon fa fa-google-plus"></i>Google
+                            
                                             </a>
                                         @endif
                                         @if (\App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
