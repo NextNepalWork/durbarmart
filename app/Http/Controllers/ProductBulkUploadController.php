@@ -12,6 +12,7 @@ use App\User;
 use Auth;
 use App\ProductsImport;
 use App\ProductsExport;
+use App\CategoriesImport;
 use PDF;
 use Excel;
 
@@ -90,6 +91,16 @@ class ProductBulkUploadController extends Controller
         return $pdf->download('user.pdf');
 
     }
+
+    public function bulk_category_upload(Request $request)
+    {
+        if($request->hasFile('bulk_file')){
+            Excel::import(new CategoriesImport, request()->file('bulk_file'));
+        }
+        flash('Categories exported successfully')->success();
+        return back();
+    }
+
 
     public function bulk_upload(Request $request)
     {

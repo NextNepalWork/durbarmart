@@ -85,6 +85,7 @@ class ProductDetailCollection extends ResourceCollection
                     'shipping_type' => $data->shipping_type,
                     'shipping_cost' => (double) $data->shipping_cost,
                     'number_of_sales' => (integer) $data->num_of_sale,
+                    'reviews' => Review::where(['product_id' => $data->id])->get(),
                     'rating' => (double) $data->rating,
                     'rating_count' => (integer) Review::where(['product_id' => $data->id])->count(),
                     'description' => $data->description,
