@@ -247,6 +247,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 	//Product Bulk Upload
 	Route::get('/product-bulk-upload/index', 'ProductBulkUploadController@index')->name('product_bulk_upload.index');
+	Route::post('/bulk-category-upload', 'ProductBulkUploadController@bulk_category_upload')->name('bulk_category_upload');
 	Route::post('/bulk-product-upload', 'ProductBulkUploadController@bulk_upload')->name('bulk_product_upload');
 	Route::get('/product-csv-download/{type}', 'ProductBulkUploadController@import_product')->name('product_csv.download');
 	Route::get('/vendor-product-csv-download/{id}', 'ProductBulkUploadController@import_vendor_product')->name('import_vendor_product.download');

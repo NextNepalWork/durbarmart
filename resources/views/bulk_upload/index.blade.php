@@ -36,6 +36,25 @@
 
     <div class="panel">
         <div class="panel-heading">
+            <h1 class="panel-title"><strong>{{__('Upload Category File')}}</strong></h1>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" action="{{ route('bulk_category_upload') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <input type="file" class="form-control" name="bulk_file" required>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary" type="submit">{{__('Upload CSV')}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">
             <h1 class="panel-title"><strong>{{__('Upload Product File')}}</strong></h1>
         </div>
         <div class="panel-body">
