@@ -48,18 +48,24 @@
                                 </div>
                             </div>
                             <div class="p-md-3 p-2">
-                                <div class="price-box">
+                                <h2 class="product-title p-0">
+                                    <a href="{{ route('product', $product->slug) }}" class="text-truncate">{{ __($product->name) }}</a>
+                                </h2>
+                                    <span class="product-price strong-600" style="font-size: 15px">{{ home_discounted_base_price($product->id) }}</span>
+                                <div class="price-box d-flex align-items-center">
                                     @if(home_base_price($product->id) != home_discounted_base_price($product->id))
                                         <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
                                     @endif
-                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
+                                    @if (! $product->discount == 0)
+                                        <div>
+                                            {{ ($product->discount_type == 'amount')?'  Rs.':'' }} -{{ ($product->discount) }}{{ !($product->discount_type == 'amount')?' %':'' }}
+        
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="star-rating star-rating-sm mt-1">
                                     {{ renderStarRating($product->rating) }}
                                 </div>
-                                <h2 class="product-title p-0">
-                                    <a href="{{ route('product', $product->slug) }}" class="text-truncate">{{ __($product->name) }}</a>
-                                </h2>
 
                                 @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
                                     <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
