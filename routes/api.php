@@ -84,6 +84,9 @@ Route::prefix('v1')->group(function () {
     Route::get('policies/seller', 'Api\PolicyController@sellerPolicy')->name('policies.seller');
     Route::get('policies/support', 'Api\PolicyController@supportPolicy')->name('policies.support');
     Route::get('policies/return', 'Api\PolicyController@returnPolicy')->name('policies.return');
+    
+    Route::get('policies/terms', 'Api\PolicyController@terms')->name('policies.terms');
+    Route::get('policies/privacy', 'Api\PolicyController@privacy')->name('policies.privacy');
 
     Route::get('user/info/{id}', 'Api\UserController@info')->middleware('auth:api');
     Route::post('user/info/update', 'Api\UserController@updateName')->middleware('auth:api');

@@ -15,7 +15,20 @@ use Auth;
 class CategoriesImport implements ToModel, WithHeadingRow, WithValidation
 {
     public function model(array $row)
-    {
+    {       
+        $cat = '';
+        $sub_cat = '';
+        $sub_sub_cat = '';
+        foreach($row as $a => $b){
+            $explode = explode('/',$b);
+            $cat = $explode['1'];
+            $sub_cat = (isset($explode[2]) && !empty($explode[2]))?$explode[2]:'';     
+            $sub_sub_cat = (isset($explode[3]) && !empty($explode[3]))?$explode[3]:'';
+            $all = [
+                $cat,$sub_cat,$sub_sub_cat
+            ];
+        }
+        dd($all);
         return new Product([
            'name'     => $row['name'],
            'added_by'    => Auth::user()->user_type == 'seller' ? 'seller' : 'admin',
