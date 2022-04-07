@@ -1,4 +1,13 @@
 @extends('frontend.layouts.app')
+<style>
+    li.nav-item{
+        margin:0px !important;
+        line-height: 43px !important;
+    }
+    li.nav-item .active {
+        color:blue;
+    }
+</style>
 
 @section('content')
 
@@ -33,7 +42,7 @@
 
                         <!-- Order history table -->
                         <div class="card no-border mt-4">
-                            <div class="card-header">
+                            <div class="card-header pb-0">
                                 <form id="sort_orders" action="" method="GET">
                                     <div class="row">
                                         <div class="col-md-3">
@@ -46,7 +55,7 @@
                                                 <option value="unpaid" @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{__('Un-Paid')}}</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
+                                        {{-- <div class="col-md-3">
                                             <select class="form-control mb-3 selectpicker" data-placeholder="{{__('Filter by Payment Status')}}" name="delivery_status" onchange="sort_orders()">
                                                 <option value="">{{__('Filter by Deliver Status')}}</option>
                                                 <option value="pending" @isset($delivery_status) @if($delivery_status == 'pending') selected @endif @endisset>{{__('Pending')}}</option>
@@ -54,11 +63,30 @@
                                                 <option value="on_delivery" @isset($delivery_status) @if($delivery_status == 'on_delivery') selected @endif @endisset>{{__('On delivery')}}</option>
                                                 <option value="delivered" @isset($delivery_status) @if($delivery_status == 'delivered') selected @endif @endisset>{{__('Delivered')}}</option>
                                             </select>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </form>
                             </div>
-                            <div class="card-body table-responsive">
+                            <form class="" id="sort_orders2" action="" method="GET">
+                                <input type="hidden" id="delivery_status2" name="delivery_status">
+                                <ul class="nav nav-tabs">
+                                    <li role="presentation" class="nav-item sort_order2_li"><a
+                                            class="@if (!@isset($delivery_status)) active @endif" href="javascript:void(0);">All</a></li>
+                                    <li role="presentation"
+                                        class="nav-item sort_order2_li "
+                                        value="pending"><a class="@isset($delivery_status) @if ($delivery_status == 'pending') active @endif @endisset" href="javascript:void(0);">Pending</a></li>
+                                    <li role="presentation"
+                                        class="nav-item sort_order2_li "
+                                        value="on_review"><a class="@isset($delivery_status) @if ($delivery_status == 'on_review') active @endif @endisset" href="javascript:void(0);">On Review</a></li>
+                                    <li role="presentation"
+                                        class="nav-item sort_order2_li "
+                                        value="on_delivery"><a class="@isset($delivery_status) @if ($delivery_status == 'on_delivery') active @endif @endisset" href="javascript:void(0);">On Delivery</a></li>
+                                    <li role="presentation"
+                                        class="nav-item sort_order2_li "
+                                        value="delivered"><a class="@isset($delivery_status) @if ($delivery_status == 'delivered') active @endif @endisset" href="javascript:void(0);">Delivered</a></li>
+                                </ul>
+                            </form>
+                            <div class="card-body table-responsive pt-0">
                                 @if (count($orders) > 0)
                                     <table class="table table-sm table-hover ">
                                     <thead>
@@ -177,6 +205,13 @@
             $('.c-preloader').hide();
         });
         }
+
+        $(document).ready(function() {
+            $('.sort_order2_li').on('click', function() {
+                $('#delivery_status2').val($(this).attr('value'));
+                $('#sort_orders2').submit();
+            })
+        })
     </script>
 @endsection
 

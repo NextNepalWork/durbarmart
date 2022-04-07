@@ -244,7 +244,7 @@ $meta_description = \App\SeoSetting::first()->description;
                         </div>
                         <div class="col-xl-7 offset-xl-1">
                             <div class="row no-gutters">
-                                <div class="col-lg-3 col-md-6 col-6">
+                                <div class="col-lg-6 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Sort by')}}</label>
@@ -257,20 +257,26 @@ $meta_description = \App\SeoSetting::first()->description;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-6">
+                                <div class="col-lg-6 col-md-6 col-6">
+                                    @php
+                                        $product_brand=\App\Models\Product::get('brand_id')->toArray();
+                                    @endphp
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Brands')}}</label>
                                             <select class="form-control sortSelect" data-placeholder="{{__('All Brands')}}" name="brand" onchange="filter()">
                                                 <option value="">{{__('All Brands')}}</option>
                                                 @foreach (\App\Brand::all() as $brand)
+                                                {{-- @if (in_array($brand->id,$product_brand))
+                                                    {{dd('hi')}}
+                                                @endif --}}
                                                 <option value="{{ $brand->slug }}" @isset($brand_id) @if ($brand_id==$brand->id) selected @endif @endisset>{{ $brand->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-6">
+                                {{-- <div class="col-lg-3 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Sellers')}}</label>
@@ -284,8 +290,8 @@ $meta_description = \App\SeoSetting::first()->description;
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-6">
+                                </div> --}}
+                                {{-- <div class="col-lg-3 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Locations')}}</label>
@@ -297,7 +303,7 @@ $meta_description = \App\SeoSetting::first()->description;
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

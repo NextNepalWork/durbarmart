@@ -26,8 +26,19 @@
                 <li>
                     <a href="{{ route('product', $product->slug) }}">
                         <div class="d-flex search-product align-items-center">
-                            <div class="image" style="background-image:url('{{ asset($product->thumbnail_img) }}');">
-                            </div>
+                            @if (!empty($product->thumbnail_img))
+                                @if (file_exists($product->thumbnail_img))
+                                    <div class="image" style="background-image:url('{{ asset($product->thumbnail_img) }}');">
+                                    </div>
+                                @else
+                                    <div class="image" style="background-image:url('{{ asset('frontend/images/placeholder.jpg') }}');">
+                                    </div>
+                                @endif
+                            @else
+                                <div class="image" style="background-image:url('{{ asset('frontend/images/placeholder.jpg') }}');">
+                                </div>
+                            @endif
+                            
                             <div class="w-100 overflow--hidden">
                                 <div class="product-name text-truncate">
                                     {{ __($product->name) }}

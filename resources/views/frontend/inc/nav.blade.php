@@ -69,30 +69,41 @@
                     <div class="searchbar d-md-block d-none" style="border-radius:10px">
                         <form action="{{ route('search') }}" method="GET">
                             <div class="d-flex position-relative">
-                                {{-- <div class="d-lg-none search-box-back">
-                                            <button class="" type="button"><i class="la la-long-arrow-left"></i></button>
-                                                   </div> --}}
+
                                 <div class="w-100">
-                                    {{-- <input type="text" aria-label="Search" id="search" name="q" class="w-100" placeholder="{{__('I am shopping for...')}}" autocomplete="off"> --}}
                                     <input class="search_input" type="text" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off" />
                                 </div>
-                                {{-- <div class="form-group category-select d-none d-xl-block">
-                                   <select class="form-control selectpicker" name="category">
-                            <option value="">{{__('All Categories')}}</option>
-                                @foreach (\App\Category::all() as $key => $category)
-                                <option value="{{ $category->slug }}" @isset($category_id) @if ($category_id==$category->id)
-                                    selected
-                                    @endif
-                                    @endisset
-                                    >{{ __($category->name) }}</option>
-                                @endforeach
-                                </select>
-                            </div> --}}
-                            <button type="submit" class="search_icon" style="border-radius: 0 10px 10px 0px;"><i class="fa fa-search"></i></button>
-                            {{-- <button class="d-none d-lg-block" type="submit">
-                        <i class="la la-search la-flip-horizontal"></i>
-                             </button> --}}
-                            <div class="typed-search-box d-none">
+                                <button type="submit" class="search_icon" style="border-radius: 0 10px 10px 0px;"><i class="fa fa-search"></i></button>
+                                
+                                <div class="typed-search-box d-none">
+                                    <div class="search-preloader">
+                                        <div class="loader">
+                                            <div></div>
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                    <div class="search-nothing d-none">
+                                    </div>
+                                    <div id="search-content">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                <!-- search end  -->
+                <!-- search mobile new star  -->
+                <div class="search_mobile_men d-md-none d-block">
+                    <button class="search_icon_new">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <div class="sub_search">
+                        <form action="{{ route('search') }}" method="GET" class="d-flex m-0">
+                            <input class="search_input input_box" type="text" aria-label="Search" id="search_mob" name="q" placeholder="Search..." autocomplete="off" />
+                            <button class="search_top" type="submit">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                            <div class="type-search-box d-none">
                                 <div class="search-preloader">
                                     <div class="loader">
                                         <div></div>
@@ -102,24 +113,9 @@
                                 </div>
                                 <div class="search-nothing d-none">
                                 </div>
-                                <div id="search-content">
+                                <div id="mob_search-content">
                                 </div>
                             </div>
-                    </div>
-                    </form>
-                </div>
-                <!-- search end  -->
-                <!-- search mobile new star  -->
-                <div class="search_mobile_men d-md-none d-block">
-                    <button class="search_icon_new" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                    <div class="sub_search">
-                        <form action="{{ route('search') }}" method="GET" class="d-flex m-0">
-                            <input class="search_input input_box" type="text" aria-label="Search" id="search" name="q" placeholder="Search..." autocomplete="off" />
-                            <button class="search_top" type="submit">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
                         </form>
                     </div>
                 </div>
