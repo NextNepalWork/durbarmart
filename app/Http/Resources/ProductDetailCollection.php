@@ -29,6 +29,7 @@ class ProductDetailCollection extends ResourceCollection
                 return [
                     'id' => (integer) $data->id,
                     'name' => $data->name,
+                    'variant_product' => $data->variant_product,
                     'added_by' => $data->added_by,
                     'user' => [
                         'name' => $data->user->name,
@@ -37,8 +38,8 @@ class ProductDetailCollection extends ResourceCollection
                         'avatar_original' =>file_exists($data->user->avatar_original) ? $data->user->avatar_original : $placeholder_img,
                         
                         'shop_name' => $data->added_by == 'admin' ? '' : $data->user->shop->name,
-                        'shop_logo' => $data->added_by == 'admin' ? '' : $data->user->shop->logo,
-                        'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)?$data->user->shop->id:'')
+                        'shop_logo' => $data->added_by == 'admin' ? '' : (file_exists($data->user->shop->logo)?$data->user->shop->logo:''),
+                        'shop_id' => $data->added_by == 'admin' ? '' :  (($data->user->shop)?strval($data->user->shop->id):'')
                     ],
                     'category' => [
                         'name' => $data->category->name,
@@ -84,6 +85,7 @@ class ProductDetailCollection extends ResourceCollection
                     'shipping_type' => $data->shipping_type,
                     'shipping_cost' => (double) $data->shipping_cost,
                     'number_of_sales' => (integer) $data->num_of_sale,
+                    'reviews' => Review::where(['product_id' => $data->id])->get(),
                     'rating' => (double) $data->rating,
                     'rating_count' => (integer) Review::where(['product_id' => $data->id])->count(),
                     'description' => $data->description,
@@ -106,11 +108,14 @@ class ProductDetailCollection extends ResourceCollection
 
     protected function convertToChoiceOptions($data){
         $result = array();
-        foreach ($data as $key => $choice) {
-            $item['name'] = $choice->attribute_id;
-            $item['title'] = Attribute::find($choice->attribute_id)->name;
-            $item['options'] = $choice->values;
-            array_push($result, $item);
+        if(isset($data) && !empty($data)){
+            foreach ($data as $key => $choice) {
+                $item['name'] = $choice->attribute_id;
+                $item['title'] = Attribute::find($choice->attribute_id)->name;
+                $item['options'] = $choice->values;
+                array_push($result, $item);
+            }
+
         }
         return $result;
     }

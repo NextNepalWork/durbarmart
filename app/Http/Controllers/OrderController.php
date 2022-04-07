@@ -537,12 +537,17 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id);
         $order->delivery_viewed = '0';
         $order->save();
-        if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller') {
+        if (Auth::user()->user_type == 'admin') {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->delivery_status = $request->status;
+                $orderDetail->save();
+            }
+        } elseif(Auth::user()->user_type == 'seller'){
             foreach ($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail) {
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
             }
-        } else {
+        }else {
             foreach ($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail) {
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
@@ -598,11 +603,19 @@ class OrderController extends Controller
         $order->payment_status_viewed = '0';
         $order->save();
 
-        if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller') {
+        if (Auth::user()->user_type == 'admin') {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                $orderDetail->payment_status = $request->status;
+                $orderDetail->save();
+            }
+        }
+        elseif(Auth::user()->user_type == 'seller'){
+
             foreach ($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail) {
                 $orderDetail->payment_status = $request->status;
                 $orderDetail->save();
             }
+        
         } else {
             foreach ($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail) {
                 $orderDetail->payment_status = $request->status;
