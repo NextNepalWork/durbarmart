@@ -185,7 +185,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if (\App\BusinessSetting::where('type', 'classified_product')->first()->value)
+                            {{-- @if (\App\BusinessSetting::where('type', 'classified_product')->first()->value)
                                 <div class="col-md-6">
                                     <div class="form-box bg-white mt-4">
                                         <div class="form-box-title px-3 py-2 clearfix ">
@@ -234,7 +234,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
 
