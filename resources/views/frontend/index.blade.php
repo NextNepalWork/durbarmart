@@ -273,7 +273,7 @@
 
     </div>
 
-    @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
+    {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
         @php
             $customer_products = \App\CustomerProduct::where('status', '1')->where('published', '1')->take(10)->get();
         @endphp
@@ -345,7 +345,7 @@
                </div>
            </section>
        @endif
-   @endif
+   @endif --}}
 
     <div class="mb-4">
         <div class="container">

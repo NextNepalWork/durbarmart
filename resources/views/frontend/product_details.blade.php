@@ -604,7 +604,7 @@
                             </h3>
                         </div>
                         <div class="caorusel-box arrow-round gutters-5">
-                            <div class="slick-carousel" data-slick-items="3" data-slick-xl-items="2" data-slick-lg-items="3"  data-slick-md-items="2" data-slick-sm-items="1" data-slick-xs-items="1"  data-slick-rows="1">
+                            <div class="slick-carousel" data-slick-items="3" data-slick-xl-items="2" data-slick-lg-items="3"  data-slick-md-items="2" data-slick-sm-items="2" data-slick-xs-items="2"  data-slick-rows="1">
                                 @foreach (filter_products(\App\Product::where('subcategory_id', $detailedProduct->subcategory_id)->where('id', '!=', $detailedProduct->id))->limit(10)->get() as $key => $related_product)
                                  <div class="caorusel-card my-1">
                                     <div class="row no-gutters product-box-2 align-items-center">
@@ -630,12 +630,19 @@
                                                     {{ renderStarRating($related_product->rating) }}
                                                 </div>
                                                 <div class="clearfix">
-                                                    <div class="price-box float-left">
-                                                        @if(home_base_price($related_product->id) != home_discounted_base_price($related_product->id))
-                                                            <del class="old-product-price strong-400">{{ home_base_price($related_product->id) }}</del>
-                                                        @endif
-                                                        <span class="product-price strong-600">{{ home_discounted_base_price($related_product->id) }}</span>
-                                                    </div>
+                                                        <span class="product-price strong-600" style="font-size: 15px">{{ home_discounted_base_price($related_product->id) }}</span>
+
+                                                        <div class="price-box d-flex align-items-center">
+                                                            @if(home_base_price($related_product->id) != home_discounted_base_price($related_product->id))
+                                                                <del class="old-product-price strong-400">{{ home_base_price($related_product->id) }}</del>
+                                                            @endif
+                                                            @if (! $related_product->discount == 0)
+                                                                <div>
+                                                                    {{ ($related_product->discount_type == 'amount')?'  Rs.':'' }} -{{ ($related_product->discount) }}{{ !($related_product->discount_type == 'amount')?' %':'' }}
+                                
+                                                                </div>
+                                                            @endif
+                                                        </div>
                                                     @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
                                                         <div class="float-right club-point bg-soft-base-1 border-light-base-1 border">
                                                             {{ __('Club Point') }}:
@@ -654,7 +661,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-3 d-none d-xl-block">
+                <div class="col-xl-3 d-xl-block">
                     <div class="seller-info-box mb-3">
                         <div class="sold-by position-relative">
                             @if ($detailedProduct->added_by == 'seller' && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1 && $detailedProduct->user->seller->verification_status == 1)
