@@ -259,7 +259,8 @@ $meta_description = \App\SeoSetting::first()->description;
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-6">
                                     @php
-                                        $product_brand=\App\Models\Product::get('brand_id')->toArray();
+                                        $product_brand=\App\Product::pluck('brand_id')->toArray();
+                                        
                                     @endphp
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
@@ -267,10 +268,10 @@ $meta_description = \App\SeoSetting::first()->description;
                                             <select class="form-control sortSelect" data-placeholder="{{__('All Brands')}}" name="brand" onchange="filter()">
                                                 <option value="">{{__('All Brands')}}</option>
                                                 @foreach (\App\Brand::all() as $brand)
-                                                {{-- @if (in_array($brand->id,$product_brand))
-                                                    {{dd('hi')}}
-                                                @endif --}}
-                                                <option value="{{ $brand->slug }}" @isset($brand_id) @if ($brand_id==$brand->id) selected @endif @endisset>{{ $brand->name }}</option>
+                                                    @if (in_array($brand->id,$product_brand))
+                                                        <option value="{{ $brand->slug }}" @isset($brand_id) @if ($brand_id==$brand->id) selected @endif @endisset>{{ $brand->name }}</option>
+                                                        
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
