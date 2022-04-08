@@ -34,7 +34,7 @@
         </ul>
     </div>
     <div class="row mt-5">
-        <div class="offset-lg-2 col-lg-4 col-sm-6">
+        {{-- <div class="offset-lg-2 col-lg-4 col-sm-6">
             <div class="form-inline">
                 <select class="form-control selectpicker form-control-sm"  data-minimum-results-for-search="Infinity" id="update_payment_status">
                     <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{__('Unpaid')}}</option>
@@ -42,14 +42,18 @@
                 </select>
                 <label class="my-2" >{{__('Payment Status')}}</label>
             </div>
-        </div>
+        </div> --}}
         <div class="col-lg-4 col-sm-6">
             <div class="form-inline">
                 <select class="form-control selectpicker form-control-sm"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                    <option value="pending" @if ($status == 'pending') selected @endif>{{__('Pending')}}</option>
+                    {{-- <option value="pending" @if ($status == 'pending') selected @endif>{{__('Pending')}}</option>
                     <option value="on_review" @if ($status == 'on_review') selected @endif>{{__('On review')}}</option>
                     <option value="on_delivery" @if ($status == 'on_delivery') selected @endif>{{__('On delivery')}}</option>
-                    <option value="delivered" @if ($status == 'delivered') selected @endif>{{__('Delivered')}}</option>
+                    <option value="delivered" @if ($status == 'delivered') selected @endif>{{__('Delivered')}}</option> --}}
+                    <option selected disabled></option>
+                    <option value="ready" @if ($status == 'ready') selected @endif>{{__('Ready To Ship')}}</option>
+                    <option value="cancel" @if ($status == 'cancel') selected @endif>{{__('Cancel')}}</option>
+
                 </select>
                 <label class="my-2" >{{__('Delivery Status')}}</label>
             </div>

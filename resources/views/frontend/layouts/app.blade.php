@@ -277,8 +277,17 @@
         search();
     });
 
+    $('#search_mob').on('keyup', function(){
+        MobSearch();
+    });
+
+    $('#search_mob').on('focus', function(){
+        MobSearch();
+    });
+
     function search(){
         var search = $('#search').val();
+        
         if(search.length > 0){
             $('body').addClass("typed-search-box-shown");
 
@@ -302,6 +311,35 @@
         else {
             $('.typed-search-box').addClass('d-none');
             $('body').removeClass("typed-search-box-shown");
+        }
+    }
+
+    function MobSearch(){
+        var search = $('#search_mob').val();
+        
+        if(search.length > 0){
+            $('body').addClass("type-search-box-shown");
+
+            $('.type-search-box').removeClass('d-none');
+            $('.search-preloader').removeClass('d-none');
+            $.post('{{ route('search.ajax') }}', { _token: '{{ @csrf_token() }}', search:search}, function(data){
+                if(data == '0'){
+                    // $('.type-search-box').addClass('d-none');
+                    $('#mob_search-content').html(null);
+                    $('.type-search-box .search-nothing').removeClass('d-none').html('Sorry, nothing found for <strong>"'+search+'"</strong>');
+                    $('.search-preloader').addClass('d-none');
+
+                }
+                else{
+                    $('.type-search-box .search-nothing').addClass('d-none').html(null);
+                    $('#mob_search-content').html(data);
+                    $('.search-preloader').addClass('d-none');
+                }
+            });
+        }
+        else {
+            $('.type-search-box').addClass('d-none');
+            $('body').removeClass("type-search-box-shown");
         }
     }
 

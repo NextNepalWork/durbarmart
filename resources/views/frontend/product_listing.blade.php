@@ -244,7 +244,7 @@ $meta_description = \App\SeoSetting::first()->description;
                         </div>
                         <div class="col-xl-7 offset-xl-1">
                             <div class="row no-gutters">
-                                <div class="col-lg-3 col-md-6 col-6">
+                                <div class="col-lg-6 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Sort by')}}</label>
@@ -257,20 +257,27 @@ $meta_description = \App\SeoSetting::first()->description;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-6">
+                                <div class="col-lg-6 col-md-6 col-6">
+                                    @php
+                                        $product_brand=\App\Product::pluck('brand_id')->toArray();
+                                        
+                                    @endphp
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Brands')}}</label>
                                             <select class="form-control sortSelect" data-placeholder="{{__('All Brands')}}" name="brand" onchange="filter()">
                                                 <option value="">{{__('All Brands')}}</option>
                                                 @foreach (\App\Brand::all() as $brand)
-                                                <option value="{{ $brand->slug }}" @isset($brand_id) @if ($brand_id==$brand->id) selected @endif @endisset>{{ $brand->name }}</option>
+                                                    @if (in_array($brand->id,$product_brand))
+                                                        <option value="{{ $brand->slug }}" @isset($brand_id) @if ($brand_id==$brand->id) selected @endif @endisset>{{ $brand->name }}</option>
+                                                        
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-6">
+                                {{-- <div class="col-lg-3 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Sellers')}}</label>
@@ -284,8 +291,8 @@ $meta_description = \App\SeoSetting::first()->description;
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-6">
+                                </div> --}}
+                                {{-- <div class="col-lg-3 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Locations')}}</label>
@@ -297,7 +304,7 @@ $meta_description = \App\SeoSetting::first()->description;
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -312,10 +319,18 @@ $meta_description = \App\SeoSetting::first()->description;
                                 <div class="product-box-2 bg-white alt-box my-md-2">
                                     <div class="position-relative overflow-hidden">
                                         <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
-                                            @if (empty($product->photos))
-                                            <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
+                                            @if (!empty($product->photos))
+                                                @if (file_exists(json_decode($product->photos)[0]))
+                                                
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                                    
+                                                @else
+                                                
+                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
+                                                    
+                                                @endif
                                             @else
-                                            <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
+                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
                                             @endif
                                         </a>
                                         <div class="product-btns clearfix">

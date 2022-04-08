@@ -63,15 +63,15 @@
                         </span>
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="{{ route('seller.digitalproducts') }}" class="{{ areActiveRoutesHome(['seller.digitalproducts', 'seller.digitalproducts.upload', 'seller.digitalproducts.edit'])}}">
                         <i class="la la-diamond"></i>
                         <span class="category-name">
                             {{__('Digital Products')}}
                         </span>
                     </a>
-                </li>
-                @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
+                </li> --}}
+                {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
                 <li>
                     <a href="{{ route('customer_products.index') }}" class="{{ areActiveRoutesHome(['customer_products.index', 'customer_products.create', 'customer_products.edit'])}}">
                         <i class="la la-diamond"></i>
@@ -80,7 +80,7 @@
                         </span>
                     </a>
                 </li>
-                @endif
+                @endif --}}
                 @if (\App\Addon::where('unique_identifier', 'pos_system')->first() != null && \App\Addon::where('unique_identifier', 'pos_system')->first()->activated)
                     @if (\App\BusinessSetting::where('type', 'pos_activation_for_seller')->first() != null && \App\BusinessSetting::where('type', 'pos_activation_for_seller')->first()->value != 0)
                         <li>
