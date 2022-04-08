@@ -124,8 +124,7 @@ $meta_description = \App\SeoSetting::first()->description;
                         </div>
                         <div class="bg-white sidebar-box mb-3">
                             @php
-                                $product_brand=\App\Product::pluck('brand_id')->toArray();
-                                
+                                $product_brand=$brands->pluck('brand_id')->toArray();
                             @endphp
                             <div class="box-title text-center">
                                 {{__('Filter by Brands')}}

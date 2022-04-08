@@ -564,12 +564,12 @@ class HomeController extends Controller
             $products = $products->where('colors', 'like', '%'.$str.'%');
             $selected_color = $request->color;
         }
-
+        $brands = filter_products($products)->where('brand_id','!=',null)->get('brand_id');
+// dd($a); 
         $products = filter_products($products)->paginate(12)->appends(request()->query());
+        // dd($products);
 
-        
-
-        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id'));
+        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','brands'));
     }
 
     public function product_content(Request $request){
