@@ -70,9 +70,11 @@ class SellerController extends Controller
         if($user->save()){
             $seller = new Seller;
             $seller->user_id = $user->id;
+            $seller->verification_status = 1;
             if($seller->save()){
                 $shop = new Shop;
                 $shop->user_id = $user->id;
+                $shop->name = $request->shop_name;
                 $shop->slug = 'demo-shop-'.$user->id;
                 $shop->save();
                 flash(__('Seller has been inserted successfully'))->success();
@@ -104,7 +106,8 @@ class SellerController extends Controller
     public function edit($id)
     {
         $seller = Seller::findOrFail(decrypt($id));
-        return view('sellers.edit', compact('seller'));
+        $shop = Shop::where('user_id',($seller->user_id))->first();
+        return view('sellers.edit', compact('seller','shop'));
     }
 
     /**
@@ -125,8 +128,12 @@ class SellerController extends Controller
         }
         if($user->save()){
             if($seller->save()){
-                flash(__('Seller has been updated successfully'))->success();
-                return redirect()->route('sellers.index');
+                $shop = Shop::where('user_id',$seller->user_id)->first();
+                $shop->name = $request->shop_name;
+                if($shop->save()){
+                    flash(__('Seller has been updated successfully'))->success();
+                    return redirect()->route('sellers.index');
+                }
             }
         }
 

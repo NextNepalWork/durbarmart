@@ -424,6 +424,9 @@
                                 <li class="nav-item">
                                     <a href="#tab_default_1" data-toggle="tab" class="nav-link text-uppercase strong-600 active show">{{__('Description')}}</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="#tab_default_5" data-toggle="tab" class="nav-link text-uppercase strong-600">{{__('Additional Info')}}</a>
+                                </li>
                                 @if($detailedProduct->video_link != null)
                                     <li class="nav-item">
                                         <a href="#tab_default_2" data-toggle="tab" class="nav-link text-uppercase strong-600">{{__('Video')}}</a>
@@ -448,6 +451,18 @@
                                                 <div class="mw-100 overflow--hidden">
                                        
                                                     <?php echo $detailedProduct->description; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab_default_5">
+                                    <div class="py-2 px-4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="mw-100 overflow--hidden">
+                                       
+                                                    <?php echo $detailedProduct->extra_desc; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -608,7 +623,7 @@
                                 @foreach (filter_products(\App\Product::where('subcategory_id', $detailedProduct->subcategory_id)->where('id', '!=', $detailedProduct->id))->limit(10)->get() as $key => $related_product)
                                  <div class="caorusel-card my-1">
                                     <div class="row no-gutters product-box-2 align-items-center">
-                                        <div class="col-12">
+                                        <div class="col-12">    
                                             <div class="position-relative overflow-hidden h-100">
                                                 <a href="{{ route('product', $related_product->slug) }}" class="d-block product-image h-100 text-center">
                                                     @if(is_array(json_decode($related_product->photos)) && count(json_decode($related_product->photos)) > 0)

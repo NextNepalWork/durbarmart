@@ -7,8 +7,32 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'name','added_by', 'user_id', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'video_provider', 'video_link', 'unit_price',
-        'purchase_price', 'unit', 'slug', 'colors', 'choice_options', 'variations', 'current_stock', 'made_in_nepal'
+        'name',
+        'added_by', 
+        'user_id', 
+        'category_id', 
+        'subcategory_id', 
+        'subsubcategory_id', 
+        'brand_id', 
+        'video_provider', 
+        'video_link', 
+        'unit_price',
+        'purchase_price', 
+        'unit', 
+        'slug', 
+        'colors', 
+        'choice_options', 
+        'variations', 
+        'current_stock', 
+        'made_in_nepal',
+        'meta_title',
+        'meta_description',
+        'description',
+        'extra_desc',
+        'photos',
+        'thumbnail_img',
+        'featured_img',
+        'flash_deal_img'
       ];
     public function category(){
     	return $this->belongsTo(Category::class);

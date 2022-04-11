@@ -91,7 +91,17 @@
                                 </a>
                             </td>
                             @if($type == 'Seller')
-                                <td>{{ $product->user->name }}</td>
+                                <td>
+                                    @if (App\User::where('id',$product->user_id)->count() > 0)
+                                    @php
+                                        $user = App\User::where('id',$product->user_id)->first();
+                                    @endphp
+                                    {{ $user->name }}
+                                    @else
+                                        User Not Found
+                                    @endif
+                                   
+                                </td>
                             @endif
                             <td>{{ $product->num_of_sale }} {{ __('times') }}</td>
                             @php

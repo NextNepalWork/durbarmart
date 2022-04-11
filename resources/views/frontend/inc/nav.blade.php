@@ -644,7 +644,7 @@
                         @endphp
                         <li class="category-nav-element" data-id="{{ $category->id }}">
                             <a href="{{ route('products.category', $category->slug) }}">
-                                <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}">
+                                <img class="cat-imag lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}">
                                 <span class="cat-name">{{ __($category->name) }}</span>
                             </a>
                             @if(count($category->subcategories)>0)
@@ -741,7 +741,7 @@
                 </div>
             </div>
             @endif
-            <!-- <div class="sidebar-widget-title py-0">
+            {{-- <!-- <div class="sidebar-widget-title py-0">
                   <span>Categories</span>
               </div>
               <ul class="side-seller-menu">
@@ -753,7 +753,7 @@
                       </a>
                   </li>
                   @endforeach
-              </ul> -->
+              </ul> --> --}}
         </div>
     </div>
 </div>

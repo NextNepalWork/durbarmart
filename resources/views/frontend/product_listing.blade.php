@@ -1,32 +1,35 @@
 @extends('frontend.layouts.app')
 
 @if(isset($subsubcategory_id))
-@php
-$meta_title = \App\SubSubCategory::find($subsubcategory_id)->meta_title;
-$meta_description = \App\SubSubCategory::find($subsubcategory_id)->meta_description;
-@endphp
+    @php
+        $meta_title = \App\SubSubCategory::find($subsubcategory_id)->meta_title;
+        $meta_description = \App\SubSubCategory::find($subsubcategory_id)->meta_description;
+    @endphp
 @elseif (isset($subcategory_id))
-@php
-$meta_title = \App\SubCategory::find($subcategory_id)->meta_title;
-$meta_description = \App\SubCategory::find($subcategory_id)->meta_description;
-@endphp
+    @php
+        $meta_title = \App\SubCategory::find($subcategory_id)->meta_title;
+        $meta_description = \App\SubCategory::find($subcategory_id)->meta_description;
+    @endphp
 @elseif (isset($category_id))
-@php
-$meta_title = \App\Category::find($category_id)->meta_title;
-$meta_description = \App\Category::find($category_id)->meta_description;
-@endphp
-@elseif (isset($brand_id))
-@php
-$meta_title = \App\Brand::find($brand_id)->meta_title;
-$meta_description = \App\Brand::find($brand_id)->meta_description;
-@endphp
+    @php
+        $meta_title = \App\Category::find($category_id)->meta_title;
+        $meta_description = \App\Category::find($category_id)->meta_description;
+    @endphp
+@elseif (isset($brand_id) && !empty($brand_id))
+    @php
+        $meta_title = \App\Brand::find($brand_id)->meta_title;
+        $meta_description = \App\Brand::find($brand_id)->meta_description;
+    @endphp
 @else
-@php
-$meta_title = env('APP_NAME');
-$meta_description = \App\SeoSetting::first()->description;
-@endphp
+    @php
+        $meta_title = env('APP_NAME');
+        $meta_description = \App\SeoSetting::first()->description;
+    @endphp
 @endif
-
+{{-- @php
+    $meta_title = '';
+    $meta_description = '';
+@endphp --}}
 @section('meta_title'){{ $meta_title }}@stop
 @section('meta_description'){{ $meta_description }}@stop
 
@@ -333,7 +336,12 @@ $meta_description = \App\SeoSetting::first()->description;
                                 <div class="product-box-2 bg-white alt-box my-md-2">
                                     <div class="position-relative overflow-hidden">
                                         <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
-                                            @if (!empty($product->photos))
+                                            @if (empty($product->featured_img))
+                                            <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                        @else
+                                            <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
+                                        @endif
+                                            {{-- @if (!empty($product->photos))
                                                 @if (file_exists(json_decode($product->photos)[0]))
                                                 
                                                     <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
@@ -345,7 +353,7 @@ $meta_description = \App\SeoSetting::first()->description;
                                                 @endif
                                             @else
                                                 <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
-                                            @endif
+                                            @endif --}}
                                         </a>
                                         <div class="product-btns clearfix">
                                             <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">
