@@ -126,6 +126,34 @@
                             </div>
                         </div>
                         <div class="bg-white sidebar-box mb-3">
+                            @php
+                                $product_brand=$brands->pluck('brand_id')->toArray();
+                            @endphp
+                            <div class="box-title text-center">
+                                {{__('Filter by Brands')}}
+                            </div>
+                            <div class="box-content">
+                                
+                                    <select class="form-control sortSelect" data-placeholder="{{__('All Brands')}}" name="brand" onchange="filter()">
+                                        <option value="">{{__('All Brands')}}</option>
+                                        @foreach (\App\Brand::all() as $brand)
+                                            @if (in_array($brand->id,$product_brand))
+                                                <option value="{{ $brand->slug }}" @isset($brand_id) @if ($brand_id==$brand->id) selected @endif @endisset>{{ $brand->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    {{-- @foreach (\App\Brand::all() as $key=>$brand)
+                                        @if (in_array($brand->id,$product_brand))
+                                            <div class="checkbox">
+                                                <input type="radio" id="brand_{{$brand->id}}" name="brand" value="{{ $brand->id }}"  onchange="filter()">
+                                                <label class="text-dark" for="brand_{{$brand->id}}">{{ $brand->name }}</label>
+                                            </div>
+                                        @endif
+                                    @endforeach --}}
+                                
+                            </div>
+                        </div>
+                        <div class="bg-white sidebar-box mb-3">
                             <div class="box-title text-center">
                                 {{__('Price range')}}
                             </div>
@@ -158,6 +186,8 @@
                             </div>
                         </div>
 
+                        @if ($all_colors != null)
+                            
                         <div class="bg-white sidebar-box mb-3">
                             <div class="box-title text-center">
                                 {{__('Filter by color')}}
@@ -174,6 +204,9 @@
                                 </ul>
                             </div>
                         </div>
+                            
+                        @endif
+
 
                         @foreach ($attributes as $key => $attribute)
                         @if (\App\Attribute::find($attribute['id']) != null)
@@ -227,7 +260,7 @@
                     @endisset
 
                     <div class="sort-by-bar row no-gutters bg-white mb-3 px-3 pt-2">
-                        <div class="col-xl-4 d-flex d-xl-block justify-content-between align-items-end ">
+                        <div class="col-xl-7 d-flex d-xl-block justify-content-between align-items-end ">
                             <div class="sort-by-box flex-grow-1">
                                 <div class="form-group">
                                     <label>{{__('Search')}}</label>
@@ -245,9 +278,9 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="col-xl-7 offset-xl-1">
+                        <div class="col-xl-4 offset-xl-1">
                             <div class="row no-gutters">
-                                <div class="col-lg-6 col-md-6 col-6">
+                                <div class="col-lg-12 col-md-12 col-12">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
                                             <label>{{__('Sort by')}}</label>
@@ -260,26 +293,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-6">
-                                    @php
-                                        $product_brand=\App\Product::pluck('brand_id')->toArray();
-                                        
-                                    @endphp
-                                    <div class="sort-by-box px-1">
-                                        <div class="form-group">
-                                            <label>{{__('Brands')}}</label>
-                                            <select class="form-control sortSelect" data-placeholder="{{__('All Brands')}}" name="brand" onchange="filter()">
-                                                <option value="">{{__('All Brands')}}</option>
-                                                @foreach (\App\Brand::all() as $brand)
-                                                    @if (in_array($brand->id,$product_brand))
-                                                        <option value="{{ $brand->slug }}" @isset($brand_id) @if ($brand_id==$brand->id) selected @endif @endisset>{{ $brand->name }}</option>
-                                                        
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 {{-- <div class="col-lg-3 col-md-6 col-6">
                                     <div class="sort-by-box px-1">
                                         <div class="form-group">
