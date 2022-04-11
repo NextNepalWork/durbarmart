@@ -25,7 +25,12 @@
                                 @endphp
                                 <li class="category-nav-element" data-id="{{ $category->id }}">
                                     <a href="{{ route('products.category', $category->slug) }}">
-                                        <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}">
+                                        @if($category->icon != '')
+                                            <img class="cat-image lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}">
+                                        @else
+                                            <img class="cat-image" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($category->icon) }}" width="30" alt="{{ __($category->name) }}">
+
+                                        @endif
                                         <span class="cat-name">{{ __($category->name) }}</span>
                                     </a>
                                     

@@ -111,14 +111,14 @@
                                             <a class="nav-link" href="{{route('products.seller')}}">{{__('Seller Products')}}</a>
                                         </li>
                                     @endif
-                                    @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
+                                    {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
                                         <li class="{{ areActiveRoutes(['classified_products'])}}">
                                             <a class="nav-link" href="{{route('classified_products')}}">{{__('Classified Products')}}</a>
                                         </li>
-                                    @endif
-                                    <li class="{{ areActiveRoutes(['digitalproducts.index', 'digitalproducts.create', 'digitalproducts.edit'])}}">
+                                    @endif --}}
+                                    {{-- <li class="{{ areActiveRoutes(['digitalproducts.index', 'digitalproducts.create', 'digitalproducts.edit'])}}">
                                         <a class="nav-link" href="{{route('digitalproducts.index')}}">{{__('Digital Products')}}</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="{{ areActiveRoutes(['product_bulk_upload.index'])}}">
                                         <a class="nav-link" href="{{route('product_bulk_upload.index')}}">{{__('Bulk Import')}}</a>
                                     </li>
@@ -288,9 +288,9 @@
                                 <li class="{{ areActiveRoutes(['customers.index'])}}">
                                     <a class="nav-link" href="{{ route('customers.index') }}">{{__('Customer list')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['customer_packages.index', 'customer_packages.create', 'customer_packages.edit'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['customer_packages.index', 'customer_packages.create', 'customer_packages.edit'])}}">
                                     <a class="nav-link" href="{{ route('customer_packages.index') }}">{{__('Classified Packages')}}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         @endif

@@ -4,15 +4,285 @@ namespace App;
 
 use App\Product;
 use App\User;
-use Maatwebsite\Excel\Concerns\ToModel;
+use App\Seller;
+use App\Shop;
+// use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Auth;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Validators\Failure;
 
-class ProductsImport implements ToModel, WithHeadingRow, WithValidation
+class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,SkipsOnFailure 
 {
-    public function model(array $row)
+    private $user;
+
+    public function __construct()
     {
+        $this->user = User::select('id');
+        $this->category = Category::select('id');
+        $this->subcategory = SubCategory::select('id');
+        $this->subsubcategory = SubSubCategory::select('id');
+        $this->subsubsubcategory = SubSubSubCategory::select('id');
+        $this->subsubsubsubcategory = SubSubSubSubCategory::select('id');
+        $this->brand_id = Brand::select('id');
+    }
+    public function onFailure(Failure ...$failures)
+    {
+        // Handle the failures how you'd like.
+    }
+    public function collection(Collection $row)
+    {   
+        // dd($this->user->where('id',1)->count());
+       
+        
+        // foreach($row as $c => $d){
+        //     foreach($d as $a => $b){
+        //         echo '<pre>';
+        //         print_r($a);
+        //         echo '</pre>';
+        //     }
+       
+        // }
+        // dd($row);
+        $vendor_exists = 0;
+        // foreach($row[1] as $a => $b){x`
+        foreach($row as $c => $d){
+            // dd($row);
+            $images = [];
+            $product = [
+                'name' => '',
+                'added_by' => '',
+                'user_id' => '',
+                'category_id' => '',
+                'subcategory_id' => '',
+                'subsubcategory_id' => '',
+                'subsubsubcategory_id' => '',
+                'subsubsubsubcategory_id' => '',
+                'brand_id' => '',
+                'unit' => '',
+                'unit_price' => '',
+                'video_provider' => '',
+                'video_link' => '',
+                'current_stock' => '',
+                'meta_title' => '',
+                'meta_description' => '',
+                'description' => '',
+                'extra_desc' => '',
+                'slug' => '',
+                'published' => '',
+                'photos' => '',
+                'thumbnail_img' => '',
+                'featured_img' => '',
+                'flash_deal_img' => '',
+    
+            ];
+            
+            foreach($d as $a => $b){
+           
+                if($a == 'handle' && $b != ''){
+                    $product['name'] = $b;
+                    $product['slug'] = str_replace(' ','-',strtolower(trim($b)));
+                }
+                elseif($a == 'vendor' && $b != ''){
+                    $user = User::where('name',trim($b))->count();
+                    // dd(trim($b));
+                    if($user > 0){
+                        $vendor_exists = 1;
+                    }else{
+                        $user = User::create([
+                            'user_type' => 'seller',
+                            'name' => trim($b),
+                            'email' => null,
+                        ]);
+                        $seller = Seller::create([
+                            'user_id' => $user->id,
+                            'verification_status' => 1,
+                        ]);
+                        $shop = Shop::create([
+                            'user_id' => $user->id,
+                            'name' => trim($b),
+                            'slug' => str_replace(' ','-',strtolower(trim($b)))
+                        ]);
+                        $vendor_exists = 1;
+                    }
+                    $user =User::where('name',trim($b))->first()->toArray();
+                    $product['user_id'] = $user['id'];
+                    
+                }
+                elseif($a == 'first' && $b != ''){
+                    $category_id = Category::where('name',trim(trim(str_replace("'", "", $b))))->count();
+                    if(($category_id <= 0)){
+                        echo 'a';
+                        $category_id = Category::create([
+                            'name' => trim($b),
+                            'slug' => str_replace(' ','-',strtolower(trim($b))),
+                            'meta_title' => trim($b),
+                            'meta_description' => trim($b)
+                        ]);
+                    }
+                    // dd($category_id);
+                    $category_id = $this->category->where('name',trim($b))->first()->toArray();
+                    $product['category_id'] = $category_id['id'];               
+                }
+                elseif($a == 'second' && $b != ''){
+                    $subcategory = SubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->count();
+                    if(($subcategory <= 0)){
+                        $subcategory = SubCategory::create([
+                            'name' => trim(str_replace("'", "", $b)),
+                            'category_id' => $product['category_id'],
+                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $b)))),
+                            'meta_title' => trim(str_replace("'", "", $b)),
+                            'meta_description' => trim($b)
+                        ]);
+                    }
+                    $subcategory = SubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->first();
+                    $z = $subcategory->id;
+                    $product['subcategory_id'] = $z;
+                   
+                }
+                elseif($a == 'third' && $b != ''){
+                    $subsubcategory = SubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->count();
+                                    
+                    if(($subsubcategory == 0)){
+                        echo 'asdf';
+                        $subsubcategory = SubSubCategory::create([
+                            'name' => trim($b),
+                            'sub_category_id' => $product['subcategory_id'],
+                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $b)))),
+                            'meta_title' => trim($b),
+                            'meta_description' => trim($b)
+                        ]);
+                    }
+                    // dd($subsubcategory);
+                    $subsubcategory = SubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->first()->toArray();
+                    $product['subsubcategory_id'] = $subsubcategory['id'];
+                    
+                
+                }
+                elseif($a == 'fourth' && $b != ''){
+                    $subsubsubcategory = SubSubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->count();
+                    if(($subsubsubcategory <= 0)){
+                        $subsubcategory = SubSubSubCategory::create([
+                            'name' => trim($b),
+                            'sub_sub_category_id' => $product['subsubcategory_id'],
+                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $b)))),
+                            'meta_title' => trim($b),
+                            'meta_description' => trim($b)
+                        ]);
+                    }
+                    $subsubsubcategory = SubSubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->first()->toArray();
+                    $product['subsubsubcategory_id'] = $subsubsubcategory['id'];    
+                }
+                elseif($a == 'fifth' && $b != ''){
+                    $subsubsubsubcategory = SubSubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->count();
+                    if(($subsubsubsubcategory <= 0)){
+                        $subsubcategory = SubSubSubCategory::create([
+                            'name' => trim($b),
+                            'sub_sub_sub_category_id' => $product['subsubsubcategory_id'],
+                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $b)))),
+                            'meta_title' => trim($b),
+                            'meta_description' => trim($b)
+                        ]);
+                    }
+                    $subsubsubsubcategory = SubSubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->first()->toArray();
+                    $product['subsubsubsubcategory_id'] = $subsubsubsubcategory['id'];
+                }
+                elseif($a == 'brand' && $b != ''){
+                    // $product['brand_id'] = $b;
+                    $brand_id = $this->brand_id->where('name',trim($b))->count();
+                    if(!($brand_id > 0)){
+                        $brand_id = Brand::create([
+                            'name' => trim($b)
+                        ]);
+                    }
+                    $brand_id = $this->brand_id->where('name',trim($b))->first()->toArray();
+                    $product['brand_id'] = $brand_id['id'];
+                }
+                elseif($a == 'variant_inventory_qty' && $b != ''){
+                    $product['current_stock'] = $b;
+                }
+                elseif($a == 'variant_price' && $b != ''){
+                    $product['unit_price'] = $b;
+                }
+                elseif($a == 'video_provider' && $b != ''){
+                    $product['video_provider'] = $b;
+                }
+                elseif($a == 'video_link' && $b != ''){
+                    $product['video_link'] = $b;
+                }
+                elseif($a == 'seo_title' && $b != ''){
+                    $product['meta_title'] = $b;
+                }
+                elseif($a == 'seo_description' && $b != ''){
+                    $product['meta_description'] = $b;
+                }
+                elseif($a == 'description' && $b != ''){
+                    $product['description'] = $b;
+                }
+                elseif($a == 'body_html' && $b != ''){
+                    $product['extra_desc'] = $b;
+                }
+                elseif($a == 'added_by' && $b != ''){
+                    $product['added_by'] = $b;
+                }
+                elseif($a == 'mainimage' && $b != ''){
+                // dd($a);
+                    $product['featured_img'] = $b;
+                    $product['thumbnail_img'] = $b;
+                    $product['flash_deal_img'] = $b; 
+                    array_push($images,$b);            
+                }
+                elseif($a == 'image2' && $b != ''){
+                    array_push($images,$b);
+                }
+                elseif($a == 'image3' && $b != ''){
+                    array_push($images,$b);
+                }
+                elseif($a == 'image4' && $b != ''){
+                    array_push($images,$b);
+                }
+                elseif($a == 'image5' && $b != ''){
+                    array_push($images,$b);
+                }
+                elseif($a == 'image6' && $b != ''){
+                    array_push($images,$b);
+                }
+                elseif($a == 'image7' && $b != ''){
+                    array_push($images,$b);
+                }
+                elseif($a == 'image8' && $b != ''){
+                    array_push($images,$b);
+                }
+
+                // if(count($images) == 0){
+                    // $images = [$product['featured_img']];
+                    // dd($product['featured_img']);
+                    // array_push($images,$product['featured_img']);
+                // } 
+                $product['photos'] = json_encode($images);     
+                
+                
+            
+                $product['published'] = 1;
+                $product['choice_options'] = json_encode(array());
+                $product['colors'] =json_encode(array());
+                // dd($product);
+            }
+            Product::create($product);
+            $product = [];
+            $images = [];
+        }
+        // dd($row,$product);
+        // if($vendor_exists == 1){
+           
+        // }
+        
+        // return Product::create($product);
+        return true;
+        dd($row);
         return new Product([
            'name'     => $row['name'],
            'added_by'    => Auth::user()->user_type == 'seller' ? 'seller' : 'admin',

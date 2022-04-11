@@ -220,6 +220,7 @@ class HomeController extends Controller
     }
 
     public function load_featured_section(){
+        
         return view('frontend.partials.featured_products_section');
     }
 
@@ -400,7 +401,12 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->q;
-        $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
+        // dd($request->brand);
+        $brand_id = '';
+        if($request->brand != ''){
+            $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
+
+        }
         $sort_by = $request->sort_by;
 
         $location_id = (Location::where('id', $request->location)->first() != null) ? Location::where('id', $request->location)->first()->id : null;
@@ -454,6 +460,7 @@ class HomeController extends Controller
             $products = Product::where($conditions);
         }
 
+        // dd($products->get());
         if($min_price != null && $max_price != null){
             $products = $products->where('unit_price', '>=', $min_price)->where('unit_price', '<=', $max_price);
         }
@@ -483,7 +490,6 @@ class HomeController extends Controller
                     break;
             }
         }
-        
         $non_paginate_products = filter_products($products)->get();
 
 
@@ -564,7 +570,7 @@ class HomeController extends Controller
             $products = $products->where('colors', 'like', '%'.$str.'%');
             $selected_color = $request->color;
         }
-
+// dd($products->get());
         $products = filter_products($products)->paginate(12)->appends(request()->query());
 
         

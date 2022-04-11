@@ -424,6 +424,9 @@
                                 <li class="nav-item">
                                     <a href="#tab_default_1" data-toggle="tab" class="nav-link text-uppercase strong-600 active show">{{__('Description')}}</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="#tab_default_5" data-toggle="tab" class="nav-link text-uppercase strong-600">{{__('Additional Info')}}</a>
+                                </li>
                                 @if($detailedProduct->video_link != null)
                                     <li class="nav-item">
                                         <a href="#tab_default_2" data-toggle="tab" class="nav-link text-uppercase strong-600">{{__('Video')}}</a>
@@ -448,6 +451,18 @@
                                                 <div class="mw-100 overflow--hidden">
                                        
                                                     <?php echo $detailedProduct->description; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab_default_5">
+                                    <div class="py-2 px-4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="mw-100 overflow--hidden">
+                                       
+                                                    <?php echo $detailedProduct->extra_desc; ?>
                                                 </div>
                                             </div>
                                         </div>
