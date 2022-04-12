@@ -51,6 +51,13 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
         // foreach($row[1] as $a => $b){x`
         foreach($row as $c => $d){
             // dd($row);
+            $cat_id = '';
+            $subcat_id = '';
+            $subsubcat_id = '';
+            $subsubsubcat_id = '';
+            $subsubsubsubcat_id = '';
+            $subsubsubsubsubcat_id = '';
+
             $images = [];
             $product = [
                 'name' => '',
@@ -115,7 +122,6 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 elseif($a == 'first' && $b != ''){
                     $category_id = Category::where('name',trim(trim(str_replace("'", "", $b))))->count();
                     if(($category_id <= 0)){
-                        echo 'a';
                         $category_id = Category::create([
                             'name' => trim($b),
                             'slug' => str_replace(' ','-',strtolower(trim($b))),
@@ -125,10 +131,11 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     }
                     // dd($category_id);
                     $category_id = $this->category->where('name',trim($b))->first()->toArray();
-                    $product['category_id'] = $category_id['id'];               
+                    $product['category_id'] = $category_id['id'];       
+                    $cat_id = $category_id['id'];    
                 }
                 elseif($a == 'second' && $b != ''){
-                    $subcategory = SubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->count();
+                    $subcategory = SubCategory::select('id')->where('category_id',$cat_id)->where('name',trim(str_replace("'", "", $b)))->count();
                     if(($subcategory <= 0)){
                         $subcategory = SubCategory::create([
                             'name' => trim(str_replace("'", "", $b)),
@@ -138,16 +145,16 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                             'meta_description' => trim($b)
                         ]);
                     }
-                    $subcategory = SubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->first();
+                    $subcategory = SubCategory::select('id')->where('category_id',$cat_id)->where('name',trim(str_replace("'", "", $b)))->first();
                     $z = $subcategory->id;
                     $product['subcategory_id'] = $z;
+                    $subcat_id = $z;  
                    
                 }
                 elseif($a == 'third' && $b != ''){
-                    $subsubcategory = SubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->count();
-                                    
+                    $subsubcategory = SubSubCategory::select('id')->where('sub_category_id',$subcat_id)->where('name',trim(str_replace("'", "", $b)))->count();
+                          
                     if(($subsubcategory == 0)){
-                        echo 'asdf';
                         $subsubcategory = SubSubCategory::create([
                             'name' => trim($b),
                             'sub_category_id' => $product['subcategory_id'],
@@ -157,13 +164,15 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                         ]);
                     }
                     // dd($subsubcategory);
-                    $subsubcategory = SubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->first()->toArray();
+                    $subsubcategory = SubSubCategory::select('id')->where('sub_category_id',$subcat_id)->where('name',trim(str_replace("'", "", $b)))->first()->toArray();
                     $product['subsubcategory_id'] = $subsubcategory['id'];
-                    
+                              
+                    $subsubcat_id = $subsubcategory['id'];
                 
                 }
                 elseif($a == 'fourth' && $b != ''){
-                    $subsubsubcategory = SubSubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->count();
+                    // dd('as');
+                    $subsubsubcategory = SubSubSubCategory::select('id')->where('sub_sub_category_id',$subsubcat_id)->where('name',trim(str_replace("'", "", $b)))->count();
                     if(($subsubsubcategory <= 0)){
                         $subsubcategory = SubSubSubCategory::create([
                             'name' => trim($b),
@@ -173,13 +182,15 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                             'meta_description' => trim($b)
                         ]);
                     }
-                    $subsubsubcategory = SubSubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->first()->toArray();
-                    $product['subsubsubcategory_id'] = $subsubsubcategory['id'];    
+                    $subsubsubcategory = SubSubSubCategory::select('id')->where('sub_sub_category_id',$subsubcat_id)->where('name',trim(str_replace("'", "", $b)))->first()->toArray();
+                    $product['subsubsubcategory_id'] = $subsubsubcategory['id'];  
+                    $subsubsubcat_id = $subsubsubcategory['id'];  
+                
                 }
                 elseif($a == 'fifth' && $b != ''){
-                    $subsubsubsubcategory = SubSubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->count();
+                    $subsubsubsubcategory = SubSubSubSubCategory::select('id')->where('sub_sub_sub_category_id',$subsubsubcat_id)->where('name',trim(str_replace("'", "", $b)))->count();
                     if(($subsubsubsubcategory <= 0)){
-                        $subsubcategory = SubSubSubCategory::create([
+                        $subsubcategory = SubSubSubSubCategory::create([
                             'name' => trim($b),
                             'sub_sub_sub_category_id' => $product['subsubsubcategory_id'],
                             'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $b)))),
@@ -187,8 +198,12 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                             'meta_description' => trim($b)
                         ]);
                     }
-                    $subsubsubsubcategory = SubSubSubCategory::select('id')->where('name',trim(str_replace("'", "", $b)))->first()->toArray();
+                    $subsubsubsubcategory = SubSubSubSubCategory::select('id')->where('sub_sub_sub_category_id',$subsubsubcat_id)->where('name',trim(str_replace("'", "", $b)))->first()->toArray();
                     $product['subsubsubsubcategory_id'] = $subsubsubsubcategory['id'];
+                         
+                    
+                    // $subsubcat_id = '';
+                    // $subsubcat_id = '';   
                 }
                 elseif($a == 'brand' && $b != ''){
                     // $product['brand_id'] = $b;

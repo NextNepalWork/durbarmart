@@ -13,6 +13,8 @@ class Product extends Model
         'category_id', 
         'subcategory_id', 
         'subsubcategory_id', 
+        'subsubsubcategory_id', 
+        'subsubsubsubcategory_id', 
         'brand_id', 
         'video_provider', 
         'video_link', 
