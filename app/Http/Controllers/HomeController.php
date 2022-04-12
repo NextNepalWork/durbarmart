@@ -25,6 +25,8 @@ use App\Coupon;
 use App\Http\Controllers\SearchController;
 use App\Location;
 use App\State;
+use App\SubSubSubCategory;
+use App\SubSubSubSubCategory;
 use ImageOptimizer;
 use Cookie;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
@@ -428,12 +430,16 @@ class HomeController extends Controller
         $category_id = (Category::where('slug', $request->category)->first() != null) ? Category::where('slug', $request->category)->first()->id : null;
         $subcategory_id = (SubCategory::where('slug', $request->subcategory)->first() != null) ? SubCategory::where('slug', $request->subcategory)->first()->id : null;
         $subsubcategory_id = (SubSubCategory::where('slug', $request->subsubcategory)->first() != null) ? SubSubCategory::where('slug', $request->subsubcategory)->first()->id : null;
+        $subsubsubcategory_id = (SubSubSubCategory::where('slug', $request->subsubsubcategory)->first() != null) ? SubSubSubCategory::where('slug', $request->subsubsubcategory)->first()->id : null;
+        $subsubsubsubcategory_id = (SubSubSubSubCategory::where('slug', $request->subsubsubsubcategory)->first() != null) ? SubSubSubSubCategory::where('slug', $request->subsubsubsubcategory)->first()->id : null;
+        
         $min_price = $request->min_price;
         $max_price = $request->max_price;
         $seller_id = $request->seller_id;
 
         $conditions = ['published' => 1];
-
+// dd($conditions);
+        // dd($products->get(),SubSubCategory::where('id',$subsubcategory_id)->first(),$conditions);
         if($brand_id != null){
             $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
         }
@@ -445,7 +451,12 @@ class HomeController extends Controller
         }
         if($subsubcategory_id != null){
             $conditions = array_merge($conditions, ['subsubcategory_id' => $subsubcategory_id]);
-
+        }
+        if($subsubsubcategory_id != null){
+            $conditions = array_merge($conditions, ['subsubsubcategory_id' => $subsubsubcategory_id]);
+        }
+        if($subsubsubsubcategory_id != null){
+            $conditions = array_merge($conditions, ['subsubsubsubcategory_id' => $subsubsubsubcategory_id]);
         }
         if($seller_id != null){
             $conditions = array_merge($conditions, ['user_id' => Seller::findOrFail($seller_id)->user->id]);
@@ -460,7 +471,6 @@ class HomeController extends Controller
             $products = Product::where($conditions);
         }
 
-        // dd($products->get());
         if($min_price != null && $max_price != null){
             $products = $products->where('unit_price', '>=', $min_price)->where('unit_price', '<=', $max_price);
         }
@@ -570,12 +580,12 @@ class HomeController extends Controller
             $products = $products->where('colors', 'like', '%'.$str.'%');
             $selected_color = $request->color;
         }
-// dd($products->get());
+        $brands = filter_products($products)->where('brand_id','!=',null)->get('brand_id');
+// dd($a); 
         $products = filter_products($products)->paginate(12)->appends(request()->query());
+        // dd($products);
 
-        
-
-        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id'));
+        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','brands'));
     }
 
     public function product_content(Request $request){

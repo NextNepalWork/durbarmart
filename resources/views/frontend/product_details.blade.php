@@ -33,6 +33,61 @@
 @endsection
 
 @section('content')
+<!-- Breadcrumbs -->
+<section id="breadcrumb-wrapper" class="position-relative bg-light">
+    {{-- <div class="image">
+        <img src="{{asset('frontend/assets/images/banner/1.jpg')}}" alt="breadcrumb-image" class="img-fluid">
+    </div> --}}
+
+   <div class="container">
+    <ol class="breadcrumb mt-3 py-3">
+        <li>
+            <a class="text-dark font-weight-bold" href="{{ route('home') }}">Home</a>
+        </li>
+        @php
+            $category=\App\Category::where('id',$detailedProduct->category_id)->first();
+            $sub_category=\App\SubCategory::where('id',$detailedProduct->subcategory_id)->first();
+            $sub_sub=\App\SubSubCategory::where('id',$detailedProduct->subsubcategory_id)->first();
+            $sub_sub_sub=\App\SubSubSubCategory::where('id',$detailedProduct->subsubsubcategory_id)->first();
+            $sub_sub_sub_sub=\App\SubSubSubSubCategory::where('id',$detailedProduct->subsubsubsubcategory_id)->first();
+    //    dd($detailedProduct);
+        @endphp
+        <li>
+            <a class="text-dark font-weight-bold"  href="{{ route('products.category',$category->slug) }}">{{$category->name}}</a>
+        </li>
+        @if ($sub_category!=null)
+            <li>
+                <a class="text-dark font-weight-bold" href="{{ route('products.subcategory',$sub_category->slug) }}">{{$sub_category->name}}</a>
+            </li>
+            @if ($sub_sub!=null)
+                <li>
+                    <a class="text-dark font-weight-bold" href="{{ route('products.subsubcategory',$sub_sub->slug) }}">{{$sub_sub->name}}</a>
+                </li>
+                @if ($sub_sub_sub!=null)
+                    <li>
+                        <a class="text-dark font-weight-bold" href="{{ route('products.subsubsubcategory',$sub_sub_sub->slug) }}">{{$sub_sub_sub->name}}</a>
+                    </li>
+                    @if ($sub_sub_sub_sub!=null)
+                        <li>
+                            <a class="text-dark font-weight-bold" href="{{ route('products.subsubsubsubcategory',$sub_sub_sub_sub->slug) }}">{{$sub_sub_sub_sub->name}}</a>
+                        </li>
+        
+                    @endif
+    
+                @endif
+
+            @endif
+        @endif
+
+        <li>
+            <a class="text-dark font-weight-bold" href="{{ route('product',$detailedProduct->slug) }}">{{$detailedProduct->name}}</a>
+        </li>
+    </ol>
+
+
+   </div>
+</section>
+<!-- Breadcrumbs Ends -->
     <!-- SHOP GRID WRAPPER -->
     <section class="product-details-area gry-bg">
         <div class="container">

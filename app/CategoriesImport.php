@@ -36,12 +36,12 @@ class CategoriesImport implements ToCollection, WithValidation
             // ]);
             if (isset($explode[1]) && !empty($explode[1])) {
                 $cat = $explode['1'];
-                if(Category::where('name',$cat)->count() == 0){
+                if(Category::where('name',trim(trim(str_replace("'", "", $cat))))->count() == 0){
                     $cat_upload = Category::create([
-                        'name' => $cat,
+                        'name' => trim(trim(str_replace("'", "", $cat))),
                         'slug' => str_replace(' ','-',strtolower(trim($cat))),
-                        'meta_title' => $cat,
-                        'meta_description' => $cat
+                        'meta_title' => trim(trim(str_replace("'", "", $cat))),
+                        'meta_description' => trim(trim(str_replace("'", "", $cat)))
                     ]);
                 }
             }
@@ -54,14 +54,14 @@ class CategoriesImport implements ToCollection, WithValidation
             if (isset($explode[2]) && !empty($explode[2])) {
                 $sub_cat = $explode[2];
                 // dd($cat_upload);
-                if(SubCategory::where('name',$sub_cat)->count() == 0){
-                    $cat_upload = Category::where('name',$cat)->first();
+                if(SubCategory::where('name',(trim(str_replace("'", "", $sub_cat))))->count() == 0){
+                    $cat_upload = Category::where('name',(trim(str_replace("'", "", $cat))))->first();
                     $sub_cat_upload = SubCategory::create([
-                        'name' => $sub_cat,
+                        'name' => (trim(str_replace("'", "", $sub_cat))),
                         'category_id' =>  $cat_upload->id,
                         'slug' => str_replace(' ','-',strtolower(trim($sub_cat))),
-                        'meta_title' => $sub_cat,
-                        'meta_description' => $sub_cat
+                        'meta_title' => (trim(str_replace("'", "", $sub_cat))),
+                        'meta_description' => (trim(str_replace("'", "", $sub_cat)))
                     ]);
                 }
                 // else{
@@ -70,14 +70,14 @@ class CategoriesImport implements ToCollection, WithValidation
             }
             if (isset($explode[3]) && !empty($explode[3])) {
                 $sub_sub_cat = $explode[3];
-                if(SubSubCategory::where('name',$sub_sub_cat)->count() == 0){
-                    $sub_cat_upload = SubCategory::where('name',$sub_cat)->first();
+                if(SubSubCategory::where('name',(trim(str_replace("'", "", $sub_sub_cat))))->count() == 0){
+                    $sub_cat_upload = SubCategory::where('name',(trim(str_replace("'", "", $sub_cat))))->first();
                     $sub_cat_upload = SubSubCategory::create([
-                        'name' => $sub_sub_cat,
+                        'name' => (trim(str_replace("'", "", $sub_sub_cat))),
                         'sub_category_id' =>  $sub_cat_upload->id,
                         'slug' => str_replace(' ','-',strtolower(trim($sub_sub_cat))),
-                        'meta_title' => $sub_sub_cat,
-                        'meta_description' => $sub_sub_cat
+                        'meta_title' => (trim(str_replace("'", "", $sub_sub_cat))),
+                        'meta_description' => (trim(str_replace("'", "", $sub_sub_cat)))
                     ]);
                 }
                 // else{
@@ -86,14 +86,14 @@ class CategoriesImport implements ToCollection, WithValidation
             }
             if (isset($explode[4]) && !empty($explode[4])) {
                 $sub_sub_sub_cat = $explode[4];
-                if(SubSubSubCategory::where('name',$sub_sub_sub_cat)->count() == 0){
-                    $sub_cat_upload = SubSubCategory::where('name',$sub_sub_cat)->first();
+                if(SubSubSubCategory::where('name',(trim(str_replace("'", "", $sub_sub_sub_cat))))->count() == 0){
+                    $sub_cat_upload = SubSubCategory::where('name',(trim(str_replace("'", "", $sub_sub_cat))))->first();
                     $sub_cat_upload = SubSubSubCategory::create([
-                        'name' => $sub_sub_sub_cat,
+                        'name' => (trim(str_replace("'", "", $sub_sub_sub_cat))),
                         'sub_sub_category_id' =>  $sub_cat_upload->id,
                         'slug' => str_replace(' ','-',strtolower(trim($sub_sub_sub_cat))),
-                        'meta_title' => $sub_sub_sub_cat,
-                        'meta_description' => $sub_sub_sub_cat
+                        'meta_title' => (trim(str_replace("'", "", $sub_sub_sub_cat))),
+                        'meta_description' => (trim(str_replace("'", "", $sub_sub_sub_cat)))
                     ]);
                 }
                 // else{
@@ -102,14 +102,14 @@ class CategoriesImport implements ToCollection, WithValidation
             }
             if (isset($explode[5]) && !empty($explode[5])) {
                 $sub_sub_sub_sub_cat = $explode[5];
-                if(SubSubSubSubCategory::where('name',$sub_sub_sub_sub_cat)->count() == 0){
-                    $sub_cat_upload = SubSubSubCategory::where('name',$sub_sub_sub_cat)->first();
+                if(SubSubSubSubCategory::where('name',(trim(str_replace("'", "", $sub_sub_sub_sub_cat))))->count() == 0){
+                    $sub_cat_upload = SubSubSubCategory::where('name',(trim(str_replace("'", "", $sub_sub_sub_cat))))->first();
                     $sub_cat_upload = SubSubSubSubCategory::create([
-                        'name' => $sub_sub_sub_sub_cat,
+                        'name' => (trim(str_replace("'", "", $sub_sub_sub_sub_cat))),
                         'sub_sub_sub_category_id' =>  $sub_cat_upload->id,
                         'slug' => str_replace(' ','-',strtolower(trim($sub_sub_sub_sub_cat))),
-                        'meta_title' => $sub_sub_sub_sub_cat,
-                        'meta_description' => $sub_sub_sub_sub_cat
+                        'meta_title' => (trim(str_replace("'", "", $sub_sub_sub_sub_cat))),
+                        'meta_description' => (trim(str_replace("'", "", $sub_sub_sub_sub_cat)))
                     ]);
                 }
                 // else{
