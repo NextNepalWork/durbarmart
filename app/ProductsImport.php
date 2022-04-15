@@ -94,30 +94,34 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     $product['slug'] = str_replace(' ','-',strtolower(trim($b)));
                 }
                 elseif($a == 'vendor' && $b != ''){
-                    $user = User::where('name',trim($b))->count();
-                    // dd(trim($b));
-                    if($user > 0){
-                        $vendor_exists = 1;
+                    if($product['added_by'] = 'seller'){
+                        $user = User::where('name',trim($b))->count();
+                        // dd(trim($b));
+                        if($user > 0){
+                            $vendor_exists = 1;
+                        }else{
+                            $user = User::create([
+                                'user_type' => 'seller',
+                                'name' => trim($b),
+                                'email' => null,
+                            ]);
+                            $seller = Seller::create([
+                                'user_id' => $user->id,
+                                'verification_status' => 1,
+                            ]);
+                            $shop = Shop::create([
+                                'user_id' => $user->id,
+                                'name' => trim($b),
+                                'slug' => str_replace(' ','-',strtolower(trim($b)))
+                            ]);
+                            $vendor_exists = 1;
+                        }
+                        $user =User::where('name',trim($b))->first()->toArray();
+                        $product['user_id'] = $user['id'];    
                     }else{
-                        $user = User::create([
-                            'user_type' => 'seller',
-                            'name' => trim($b),
-                            'email' => null,
-                        ]);
-                        $seller = Seller::create([
-                            'user_id' => $user->id,
-                            'verification_status' => 1,
-                        ]);
-                        $shop = Shop::create([
-                            'user_id' => $user->id,
-                            'name' => trim($b),
-                            'slug' => str_replace(' ','-',strtolower(trim($b)))
-                        ]);
-                        $vendor_exists = 1;
+                        $product['user_id'] = $b;
                     }
-                    $user =User::where('name',trim($b))->first()->toArray();
-                    $product['user_id'] = $user['id'];
-                    
+                                    
                 }
                 elseif($a == 'first' && $b != ''){
                     $category_id = Category::where('name',trim(trim(str_replace("'", "", $b))))->count();
@@ -243,7 +247,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 elseif($a == 'added_by' && $b != ''){
                     $product['added_by'] = $b;
                 }
-                elseif($a == 'mainimage' && $b != ''){
+                elseif($a == 'image_src' && $b != ''){
                 // dd($a);
                     $product['featured_img'] = $b;
                     $product['thumbnail_img'] = $b;
