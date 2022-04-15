@@ -89,7 +89,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
             
             foreach($d as $a => $b){
            
-                if($a == 'handle' && $b != ''){
+                if($a == 'title' && $b != ''){
                     $product['name'] = $b;
                     $product['slug'] = str_replace(' ','-',strtolower(trim($b)));
                 }
