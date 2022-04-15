@@ -32,6 +32,7 @@ class Product extends Model
         'description',
         'extra_desc',
         'photos',
+        'published',
         'thumbnail_img',
         'featured_img',
         'flash_deal_img'
