@@ -39,6 +39,7 @@
                 </div>
             </div>
             <div class="panel-footer text-right">
+                <a class="btn btn-primary" href="{{route('sellers.index')}}">Back</a>     
                 <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
             </div>
         </form>
