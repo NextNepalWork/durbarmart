@@ -276,6 +276,14 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     array_push($images,$b);
                 }
 
+                elseif($a == 'status'){
+                    if($b == 'active'){
+                        $product['published'] = 1;
+                    }else{
+                        $product['published'] = 0;
+                    }
+                    
+                }
                 // if(count($images) == 0){
                     // $images = [$product['featured_img']];
                     // dd($product['featured_img']);
@@ -283,9 +291,8 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 // } 
                 $product['photos'] = json_encode($images);     
                 
-                
             
-                $product['published'] = 1;
+                
                 $product['choice_options'] = json_encode(array());
                 $product['colors'] =json_encode(array());
                 // dd($product);
