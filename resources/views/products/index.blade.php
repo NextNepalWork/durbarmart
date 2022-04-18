@@ -18,6 +18,7 @@
         <h3 class="panel-title pull-left pad-no">{{ __($type.' Products') }}</h3>
         <div class="pull-right clearfix">
             <form class="" id="sort_products" action="" method="GET">
+                
                 @if($type == 'Seller')
                     <div class="box-inline pad-rgt pull-left">
                         <div class="select" style="min-width: 200px;">
@@ -46,7 +47,24 @@
                                 placeholder="Type & Enter">
                         </div>
                     </div>
+                    @if($type == 'Seller')
+
+                    <div class="box-inline pad-rgt pull-left">
+                        <div class="select" style="min-width: 200px;">
+                            <select class="form-control sortSelect" data-placeholder="{{__('All Sellers')}}" name="seller" onchange="sort_products()">
+                                <option value="">{{__('All Sellers')}}</option>
+                                @foreach (\App\Seller::all() as $key => $seller)
+                                    @if ($seller->user != null && $seller->user->shop != null)
+                                        <option value="{{ $seller->user->id }}">{{ $seller->user->shop->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+
                 </form>
+        
                 <button class="btn btn-primary" id="bulkDelBtn" onclick="deleteBulkData();">Delete</button>
             </div>
         </div>
@@ -194,6 +212,9 @@
             //$('#container').removeClass('mainnav-lg').addClass('mainnav-sm');
         });
 
+        // function filter() {
+        //     $('#search-form').submit();
+        // }
         function update_todays_deal(el) {
             if (el.checked) {
                 var status = 1;

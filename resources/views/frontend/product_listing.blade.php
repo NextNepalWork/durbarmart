@@ -260,7 +260,7 @@
                     @endisset
 
                     <div class="sort-by-bar row no-gutters bg-white mb-3 px-3 pt-2">
-                        <div class="col-xl-7 d-flex d-xl-block justify-content-between align-items-end ">
+                        {{-- <div class="col-xl-7 d-flex d-xl-block justify-content-between align-items-end ">
                             <div class="sort-by-box flex-grow-1">
                                 <div class="form-group">
                                     <label>{{__('Search')}}</label>
@@ -277,8 +277,8 @@
                                     <i class="la la-filter la-2x"></i>
                                 </button>
                             </div>
-                        </div>
-                        <div class="col-xl-4 offset-xl-1">
+                        </div> --}}
+                        {{-- <div class="col-xl-4 offset-xl-1"> --}}
                             <div class="row no-gutters">
                                 <div class="col-lg-12 col-md-12 col-12">
                                     <div class="sort-by-box px-1">
@@ -323,7 +323,7 @@
                                     </div>
                                 </div> --}}
                             </div>
-                        </div>
+                        {{-- </div> --}}
                     </div>
                     <input type="hidden" name="min_price" value="">
                     <input type="hidden" name="max_price" value="">
