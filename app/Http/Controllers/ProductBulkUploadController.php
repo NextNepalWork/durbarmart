@@ -13,6 +13,9 @@ use Auth;
 use App\ProductsImport;
 use App\ProductsExport;
 use App\CategoriesImport;
+use App\Seller;
+use App\SellersImport;
+
 use PDF;
 use Excel;
 
@@ -98,6 +101,15 @@ class ProductBulkUploadController extends Controller
             Excel::import(new CategoriesImport, request()->file('bulk_file'));
         }
         flash('Categories exported successfully')->success();
+        return back();
+    }
+
+    public function bulk_seller_upload(Request $request)
+    {
+        if($request->hasFile('bulk_file')){
+            Excel::import(new SellersImport, request()->file('bulk_file'));
+        }
+        flash('Sellers exported successfully')->success();
         return back();
     }
 

@@ -86,7 +86,7 @@ Route::get('/customer-product/{slug}', 'CustomerProductController@customer_produ
 Route::get('/customer-packages', 'HomeController@premium_package_index')->name('customer_packages_list_show');
 
 
-Route::get('/product/{slug}', 'HomeController@product')->name('product');
+Route::get('/products/{slug}', 'HomeController@product')->name('product');
 Route::get('/products', 'HomeController@listing')->name('products');
 Route::get('/search?category={category_slug}', 'HomeController@search')->name('products.category');
 Route::get('/search?subcategory={subcategory_slug}', 'HomeController@search')->name('products.subcategory');
@@ -250,6 +250,10 @@ Route::group(['middleware' => ['auth']], function () {
 	//Product Bulk Upload
 	Route::get('/product-bulk-upload/index', 'ProductBulkUploadController@index')->name('product_bulk_upload.index');
 	Route::post('/bulk-category-upload', 'ProductBulkUploadController@bulk_category_upload')->name('bulk_category_upload');
+
+	Route::post('/bulk-seller-upload', 'ProductBulkUploadController@bulk_seller_upload')->name('bulk_seller_upload');
+
+
 	Route::post('/bulk-product-upload', 'ProductBulkUploadController@bulk_upload')->name('bulk_product_upload');
 	Route::get('/product-csv-download/{type}', 'ProductBulkUploadController@import_product')->name('product_csv.download');
 	Route::get('/vendor-product-csv-download/{id}', 'ProductBulkUploadController@import_vendor_product')->name('import_vendor_product.download');
