@@ -40,6 +40,7 @@
                 <tr>
                     <th>#</th>
                     <th>{{__('Name')}}</th>
+                    <th>{{__('Shop Name')}}</th>
                     <th>{{__('Phone')}}</th>
                     <th>{{__('Email Address')}}</th>
                     <th>{{__('Verification Info')}}</th>
@@ -55,6 +56,11 @@
                         <tr>
                             <td>{{ ($key+1) + ($sellers->currentPage() - 1)*$sellers->perPage() }}</td>
                             <td>{{$seller->user->name}}</td>
+                            <td>
+                                @if ($seller->user != null && $seller->user->shop != null)
+                                {{$seller->user->shop->name}}
+                                @endif
+                            </td>
                             <td>{{$seller->user->phone}}</td>
                             <td>{{$seller->user->email}}</td>
                             <td>

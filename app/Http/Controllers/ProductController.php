@@ -76,6 +76,12 @@ class ProductController extends Controller
             $products = $products->orderBy($col_name, $query);
             $sort_type = $request->type;
         }
+        if ($request->seller != null) {
+            
+            $products = $products
+                ->where('user_id', $request->seller);
+            
+        }
 
         $products = $products->orderBy('created_at', 'desc')->paginate(15);
         $type = 'Seller';
