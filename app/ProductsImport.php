@@ -91,6 +91,9 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
            
                 if($a == 'title' && $b != ''){
                     $product['name'] = $b;
+                    // $product['slug'] = str_replace(' ','-',strtolower(trim($b)));
+                }
+                elseif($a == 'handle' && $b != ''){
                     $product['slug'] = str_replace(' ','-',strtolower(trim($b)));
                 }
                 elseif($a == 'vendor' && $b != ''){
