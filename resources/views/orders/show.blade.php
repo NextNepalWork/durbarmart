@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="panel">
     	<div class="panel-body">
     		<div class="invoice-masthead">
@@ -20,9 +19,10 @@
                 @php
                     $delivery_status = $order->orderDetails->first()->delivery_status;
                     $payment_status = $order->orderDetails->first()->payment_status;
+                    $delivery_id = $order->where('id',$order->id)->first()->delivery_id;
                 @endphp
-                <div class="col-lg-offset-6 col-lg-3">
-                    <label for=update_payment_status"">{{__('Payment Status')}}</label>
+                <div class="col-lg-offset-3 col-lg-3">
+                    <label for="update_payment_status">{{__('Payment Status')}}</label>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_payment_status">
                         <option value="paid" @if ($payment_status == 'paid') selected @endif>{{__('Paid')}}</option>
                         <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{__('Unpaid')}}</option>
@@ -40,6 +40,16 @@
 						<option value="cancel" @if ($delivery_status == 'cancel') selected @endif>{{__('Cancel')}}</option>
                     </select>
                 </div>
+				<div class="col-lg-3">
+                    <label for="assign_delivery_boy">{{__('Delivery Boy')}}</label>
+                    <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="assign_delivery_boy">
+						<option value="" disabled></option>
+						@foreach(\App\DeliveryBoy::all() as $delivery_boy)
+                        	<option value="{{$delivery_boy->id}}" @if ($delivery_id == $delivery_boy->id) selected @endif>{{$delivery_boy->first_name}}</option>
+						@endforeach
+                    </select>
+                </div>
+				
             </div>
             <hr>
 			{{-- @endif --}}
@@ -263,6 +273,14 @@
             var status = $('#update_payment_status').val();
             $.post('{{ route('orders.update_payment_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
                 showAlert('success', 'Payment status has been updated');
+            });
+        });
+
+		$('#assign_delivery_boy').on('change', function(){
+            var order_id = {{ $order->id }};
+            var status = $('#assign_delivery_boy').val();
+            $.post('{{ route('orders.assign_delivery_boy') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
+                showAlert('success', 'Delivery Boy has been assigned');
             });
         });
     </script>

@@ -233,6 +233,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/orders/details', 'OrderController@order_details')->name('orders.details');
 	Route::post('/orders/update_delivery_status', 'OrderController@update_delivery_status')->name('orders.update_delivery_status');
 	Route::post('/orders/update_payment_status', 'OrderController@update_payment_status')->name('orders.update_payment_status');
+	Route::post('/orders/assign_delivery_boy', 'OrderController@assign_delivery_boy')->name('orders.assign_delivery_boy');
 	Route::get('seller-orders', 'OrderController@seller_orders')->name('orders.seller');
 
 
