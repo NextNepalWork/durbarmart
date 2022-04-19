@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\DeliveryBoy;
 use App\Models\Country;
 use App\Upload;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -14,6 +16,7 @@ class DeliveryBoyController extends Controller
     private $avatarDest = 'deliveryboy/avatar/';
     private $drivingLicenseDest = 'deliveryboy/driving_license/';
     private $rcDest = 'deliveryboy/rc_book/';
+
     public function index(Request $request)
     {
         $col_name = null;
@@ -43,6 +46,7 @@ class DeliveryBoyController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(),[
             'first_name' => ['required'],
             'middle_name' => ['nullable'],
@@ -75,7 +79,6 @@ class DeliveryBoyController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         if($validator->passes()){
-            
             $input = $request->except("_token");
             $input["password"] = Hash::make($request->password);
             if ($request->hasFile("avatar")) {
@@ -90,6 +93,18 @@ class DeliveryBoyController extends Controller
                 $rc = Upload::image($request, "vechile_rc_book_no", $this->rcDest);
                 $rcName = $input["vechile_rc_book_no"] = $rc["imageName"];
             }
+            $user = [
+                'user_type' => 'delivery',
+                'name' => $request->first_name,
+                'email' => $request->email,
+                'email_verified_at' => Carbon::now(),
+                'password' =>  Hash::make($request->password),
+                'avatar' => $input["avatar"],
+                'postal_code' => $request->zip_code,
+            ];
+
+            $user = User::create($user);
+            $input['user_id'] = $user->id;
             DeliveryBoy::create($input);
             if ($request->hasFile("avatar")) {
                 $avatar["image"]->move($this->avatarDest, $avatarName);
