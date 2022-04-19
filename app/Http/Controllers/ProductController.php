@@ -43,7 +43,7 @@ class ProductController extends Controller
             $sort_search = $request->search;
         }
 
-        $products = $products->where('digital', 0)->orderBy('created_at', 'desc')->paginate(15);
+        $products = $products->where('digital', 0)->orderBy('created_at', 'desc')->paginate(1000);
 
         return view('products.index', compact('products', 'type', 'col_name', 'query', 'sort_search'));
     }
@@ -59,6 +59,8 @@ class ProductController extends Controller
         $query = null;
         $seller_id = null;
         $sort_search = null;
+        $status=3;
+        $vendor_id=null;
         $products = Product::where('added_by', 'seller');
         if ($request->has('user_id') && $request->user_id != null) {
             $products = $products->where('user_id', $request->user_id);
@@ -80,13 +82,21 @@ class ProductController extends Controller
             
             $products = $products
                 ->where('user_id', $request->seller);
+            $vendor_id=$request->seller;
+            
+        }
+        if ($request->status != null) {
+            
+            $products = $products
+                ->where('published', $request->status);
+            $status=$request->status;
             
         }
 
-        $products = $products->orderBy('created_at', 'desc')->paginate(15);
+        $products = $products->orderBy('created_at', 'desc')->paginate(1000);
         $type = 'Seller';
 
-        return view('products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search'));
+        return view('products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search','status','vendor_id'));
     }
 
     /**
