@@ -22,7 +22,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="box-inline pad-rgt pull-left">
+                    {{-- <div class="box-inline pad-rgt pull-left">
                         <div class="select" style="min-width: 300px;">
                             <select class="form-control demo-select2" name="delivery_status" id="delivery_status"
                                 onchange="sort_orders()">
@@ -37,7 +37,7 @@
                                     @endisset>{{ __('Delivered') }}</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="box-inline pad-rgt pull-left">
                         <div class="" style="min-width: 200px;">
                             <input type="text" class="form-control" id="search" name="search"
@@ -69,6 +69,12 @@
                     <li role="presentation"
                         class="sort_order2_li @isset($delivery_status) @if ($delivery_status == 'delivered') active @endif @endisset"
                         value="delivered"><a href="javascript:void(0);">Delivered</a></li>
+                        <li role="presentation"
+                        class="nav-item sort_order2_li "
+                        value="ready"><a class="@isset($delivery_status) @if ($delivery_status == 'ready') active @endif @endisset" href="javascript:void(0);">Ready To Ship</a></li>
+                    <li role="presentation"
+                        class="nav-item sort_order2_li "
+                        value="cancel"><a class="@isset($delivery_status) @if ($delivery_status == 'cancel') active @endif @endisset" href="javascript:void(0);">Cancelled</a></li>
                 </ul>
             </form>
             <table class="table table-striped res-table mar-no" cellspacing="0" width="100%">
