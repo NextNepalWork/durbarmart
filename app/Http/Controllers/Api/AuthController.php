@@ -127,6 +127,7 @@ class AuthController extends Controller
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
             )->toDateTimeString(),
+            'message'=>'Login Successful',
             'status'=>200,
             'user' => [
                 'id' => $user->id,
