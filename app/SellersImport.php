@@ -79,7 +79,7 @@ class SellersImport implements ToCollection, WithHeadingRow, WithValidation,Skip
 
             $x = str_replace('-',' ',$d['vendor_shop_name']);
                     
-            $y = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $x));
+            $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
             
             $z = preg_replace('!\s+!', ' ', $y);
 

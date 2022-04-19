@@ -46,11 +46,15 @@
                         </div>
                     </div>
                 </form>
+
+
+
                 <button class="btn btn-primary" id="bulkDelBtn" onclick="deleteBulkData();">Delete</button>
                 <button class="btn btn-primary" id="bulkDownloadBtn" onclick="downloadBulkInvoice();">Download
                     Invoice</button>
             </div>
         </div>
+
         <div class="panel-body">
             <form class="" id="sort_orders2" action="" method="GET">
                 <input type="hidden" id="delivery_status2" name="delivery_status">
@@ -60,18 +64,22 @@
                     <li role="presentation"
                         class="sort_order2_li @isset($delivery_status) @if ($delivery_status == 'pending') active @endif @endisset"
                         value="pending"><a href="javascript:void(0);">Pending</a></li>
-                    <li role="presentation"
+                    {{-- <li role="presentation"
                         class="sort_order2_li @isset($delivery_status) @if ($delivery_status == 'on_review') active @endif @endisset"
-                        value="on_review"><a href="javascript:void(0);">On Review</a></li>
+                        value="on_review"><a href="javascript:void(0);">On Review</a></li> --}}
+                    
+                    <li role="presentation"
+                        class="nav-item sort_order2_li "
+                        value="ready"><a class="@isset($delivery_status) @if ($delivery_status == 'ready') active @endif @endisset" href="javascript:void(0);">Ready To Ship</a></li>
+                    <li role="presentation"
+                        class="nav-item sort_order2_li "
+                        value="shipped"><a class="@isset($delivery_status) @if ($delivery_status == 'shipped') active @endif @endisset" href="javascript:void(0);">Shipped</a></li>
                     <li role="presentation"
                         class="sort_order2_li @isset($delivery_status) @if ($delivery_status == 'on_delivery') active @endif @endisset"
                         value="on_delivery"><a href="javascript:void(0);">On Delivery</a></li>
                     <li role="presentation"
                         class="sort_order2_li @isset($delivery_status) @if ($delivery_status == 'delivered') active @endif @endisset"
                         value="delivered"><a href="javascript:void(0);">Delivered</a></li>
-                        <li role="presentation"
-                        class="nav-item sort_order2_li "
-                        value="ready"><a class="@isset($delivery_status) @if ($delivery_status == 'ready') active @endif @endisset" href="javascript:void(0);">Ready To Ship</a></li>
                     <li role="presentation"
                         class="nav-item sort_order2_li "
                         value="cancel"><a class="@isset($delivery_status) @if ($delivery_status == 'cancel') active @endif @endisset" href="javascript:void(0);">Cancelled</a></li>

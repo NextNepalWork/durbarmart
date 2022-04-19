@@ -103,6 +103,7 @@ class ShopController extends Controller
             $shop->slug = preg_replace('/\s+/', '-', $request->name).'-'.$shop->id;
 
             if($shop->save()){
+                $user->sendEmailVerificationNotification();
                 auth()->login($user, false);
                 flash(__('Your Shop has been created successfully!'))->success();
                 return redirect()->route('shops.index');
