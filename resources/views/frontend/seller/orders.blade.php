@@ -74,18 +74,22 @@
                                     <li role="presentation"
                                         class="nav-item sort_order2_li "
                                         value="pending"><a class="@isset($delivery_status) @if ($delivery_status == 'pending') active @endif @endisset" href="javascript:void(0);">Pending</a></li>
+                                    {{-- <li role="presentation"
+                                        class="nav-item sort_order2_li "
+                                        value="on_review"><a class="@isset($delivery_status) @if ($delivery_status == 'on_review') active @endif @endisset" href="javascript:void(0);">On Review</a></li> --}}
                                     <li role="presentation"
                                         class="nav-item sort_order2_li "
-                                        value="on_review"><a class="@isset($delivery_status) @if ($delivery_status == 'on_review') active @endif @endisset" href="javascript:void(0);">On Review</a></li>
+                                        value="ready"><a class="@isset($delivery_status) @if ($delivery_status == 'ready') active @endif @endisset" href="javascript:void(0);">Ready To Ship</a></li>
+                                    <li role="presentation"
+                                        class="nav-item sort_order2_li "
+                                        value="shipped"><a class="@isset($delivery_status) @if ($delivery_status == 'shipped') active @endif @endisset" href="javascript:void(0);">Shipped</a></li>
                                     <li role="presentation"
                                         class="nav-item sort_order2_li "
                                         value="on_delivery"><a class="@isset($delivery_status) @if ($delivery_status == 'on_delivery') active @endif @endisset" href="javascript:void(0);">On Delivery</a></li>
                                     <li role="presentation"
                                         class="nav-item sort_order2_li "
                                         value="delivered"><a class="@isset($delivery_status) @if ($delivery_status == 'delivered') active @endif @endisset" href="javascript:void(0);">Delivered</a></li>
-                                    <li role="presentation"
-                                        class="nav-item sort_order2_li "
-                                        value="ready"><a class="@isset($delivery_status) @if ($delivery_status == 'ready') active @endif @endisset" href="javascript:void(0);">Ready To Ship</a></li>
+                                    
                                     <li role="presentation"
                                         class="nav-item sort_order2_li "
                                         value="cancel"><a class="@isset($delivery_status) @if ($delivery_status == 'cancel') active @endif @endisset" href="javascript:void(0);">Cancelled</a></li>

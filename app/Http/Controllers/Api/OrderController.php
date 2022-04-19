@@ -17,6 +17,21 @@ class OrderController extends Controller
 {
     public function processOrder(Request $request)
     {
+
+        $coupon_discount = 0;
+        if ($request->coupon_code != '') {
+            $coupon  = Coupon::where('code', $request->coupon_code)
+                                ->first();
+            if(strtotime(date('d-m-Y')) <= $coupon->end_date){
+                $coupon_discount = $coupon->discount;
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Coupon Code Expired'
+                ]);
+            }
+        }
+
         $shippingAddress = json_decode($request->shipping_address);
         // create an order
         $order = Order::create([
@@ -24,8 +39,8 @@ class OrderController extends Controller
             'shipping_address' => json_encode($shippingAddress),
             'payment_type' => $request->payment_type,
             'payment_status' => $request->payment_status,
-            'grand_total' => $request->grand_total - $request->coupon_discount,
-            'coupon_discount' => $request->coupon_discount,
+            'grand_total' => $request->grand_total - $coupon_discount,
+            'coupon_discount' => $coupon_discount,
             'code' => date('Ymd-his'),
             'date' => strtotime('now')
         ]);

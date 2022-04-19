@@ -97,7 +97,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
 
                     $x = str_replace('-',' ',$b);
                     
-                    $y = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $x));
+                    $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
                     
                     $z = preg_replace('!\s+!', ' ', $y);
                     
@@ -123,7 +123,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                             ]);
                             $x = str_replace('-',' ',$b);
                     
-                            $y = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $x));
+                            $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
                             
                             $z = preg_replace('!\s+!', ' ', $y);
                             $shop = Shop::create([
@@ -145,7 +145,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     if(($category_id <= 0)){
                         $x = str_replace('-',' ',$b);
                     
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $x));
+                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
                         
                         $z = preg_replace('!\s+!', ' ', $y);
                         $category_id = Category::create([
@@ -165,7 +165,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     if(($subcategory <= 0)){
                         $x = str_replace('-',' ',$b);
                     
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $x));
+                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
                         
                         $z = preg_replace('!\s+!', ' ', $y);
                         $subcategory = SubCategory::create([
@@ -188,7 +188,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     if(($subsubcategory == 0)){
                         $x = str_replace('-',' ',$b);
                     
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $x));
+                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
                         
                         $z = preg_replace('!\s+!', ' ', $y);
                         $subsubcategory = SubSubCategory::create([
@@ -212,7 +212,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     if(($subsubsubcategory <= 0)){
                         $x = str_replace('-',' ',$b);
                     
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $x));
+                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
                         
                         $z = preg_replace('!\s+!', ' ', $y);
                         $subsubcategory = SubSubSubCategory::create([
@@ -233,7 +233,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     if(($subsubsubsubcategory <= 0)){
                         $x = str_replace('-',' ',$b);
                     
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $x));
+                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
                         
                         $z = preg_replace('!\s+!', ' ', $y);
                         $subsubcategory = SubSubSubSubCategory::create([
