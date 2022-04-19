@@ -5,7 +5,6 @@
 @section('content')
 
 
-
     <div class="panel">
 
         <div class="panel-heading">

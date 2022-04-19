@@ -298,6 +298,17 @@
                             {{ single_price($total) }}
                         </td>
                     </tr>
+
+                    <tr>
+
+                        <td class="p-1 text-sm">
+                            {{__('Total Admin Commission')}}:
+                        </td>
+                        <td class="p-1">
+                            Rs. {{ \App\Seller::where('user_id', Auth::user()->id)->first()->commission_price }}
+                        </td>
+                    </tr>
+
                     <tr>
                         @php
                             $orderDetails = \App\OrderDetail::where('seller_id', Auth::user()->id)->where('created_at', '>=', date('-60d'))->where('created_at', '<=', date('-30d'))->get();
@@ -314,6 +325,8 @@
                         <td class="p-1">
                             {{ single_price($total) }}
                         </td>
+
+                    
                     </tr>
                 </table>
             </div>
