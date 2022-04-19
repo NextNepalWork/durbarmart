@@ -9,6 +9,7 @@ use App\Http\Controllers\ClubPointController;
 use App\Http\Controllers\OTPVerificationController;
 use App\Mail\CustomerEmail;
 use App\Mail\InvoiceEmailManager;
+use App\Models\OrderDetail as ModelsOrderDetail;
 use App\Order;
 use App\OrderDetail;
 use App\OtpConfiguration;
@@ -643,7 +644,11 @@ class OrderController extends Controller
                             if ($orderDetail->product->user->user_type == 'seller') {
                                 $seller = $orderDetail->product->user->seller;
                                 // $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
+                                $commission_price=($orderDetail->price * $commission_percentage) / 100;
+                                
                                 $afterCommissionPrice = $orderDetail->price - ($orderDetail->price * $commission_percentage) / 100;
+                                $seller->commission_price = $seller->commission_price + $commission_price;
+                                
                                 $seller->admin_to_pay = $seller->admin_to_pay + $afterCommissionPrice;
                                 $seller->save();
                             }
@@ -656,7 +661,11 @@ class OrderController extends Controller
                                 $commission_percentage = $orderDetail->product->category->commision_rate;
                                 $seller = $orderDetail->product->user->seller;
                                 // $seller->admin_to_pay = $seller->admin_to_pay - ($orderDetail->price * $commission_percentage) / 100;
+                                $commission_price=($orderDetail->price * $commission_percentage) / 100;
+
                                 $afterCommissionPrice = $orderDetail->price - ($orderDetail->price * $commission_percentage) / 100;
+                                $seller->commission_price = $seller->commission_price + $commission_price;
+
                                 $seller->admin_to_pay = $seller->admin_to_pay + $afterCommissionPrice;
                                 $seller->save();
                             }
@@ -670,6 +679,9 @@ class OrderController extends Controller
                             $orderDetail->save();
                             if ($orderDetail->product->user->user_type == 'seller') {
                                 $seller = $orderDetail->product->user->seller;
+                                $commission_price=($orderDetail->price * $commission_percentage) / 100;
+
+                                $seller->commission_price = $seller->commission_price + $commission_price;
                                 $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price * (100 - $commission_percentage)) / 100;
                                 $seller->save();
                             }
@@ -681,6 +693,9 @@ class OrderController extends Controller
                             if ($orderDetail->product->user->user_type == 'seller') {
                                 $commission_percentage = $orderDetail->product->category->commision_rate;
                                 $seller = $orderDetail->product->user->seller;
+                                $commission_price=($orderDetail->price * $commission_percentage) / 100;
+                                $seller->commission_price = $seller->commission_price + $commission_price;
+
                                 $seller->admin_to_pay = $seller->admin_to_pay + ($orderDetail->price * (100 - $commission_percentage)) / 100;
                                 $seller->save();
                             }
@@ -711,6 +726,14 @@ class OrderController extends Controller
             }
         }
         return 1;
+    }
+
+    public function assign_delivery_boy(Request $request)
+    {
+
+        $order=Order::findOrFail($request->order_id);
+        $order->delivery_id=$request->status;
+        $order->save();
     }
 
     private function __deleteRelatedOrderDetails($id)
