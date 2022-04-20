@@ -98,6 +98,16 @@
                         </span>
                     </a>
                 </li>
+                @if (Auth::user()->user_type == 'delivery')
+                <li>
+                    <a href="{{ route('delivery_orders') }}" class="{{ areActiveRoutesHome(['delivery_orders'])}}">
+                        <i class="la la-user"></i>
+                        <span class="category-name">
+                            {{__('Orders')}}
+                        </span>
+                    </a>
+                </li>
+                @endif
                 @if (\App\BusinessSetting::where('type', 'wallet_system')->first()->value == 1)
                     <li>
                         <a href="{{ route('wallet.index') }}" class="{{ areActiveRoutesHome(['wallet.index'])}}">
@@ -147,9 +157,11 @@
             </ul>
         </div>
         @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-            <div class="widget-seller-btn pt-4">
-                <a href="{{ route('shops.create') }}" class="btn btn-anim-primary w-100">{{__('Be A Seller')}}</a>
-            </div>
+            @if (Auth::user()->user_type == 'customer')
+                <div class="widget-seller-btn pt-4">
+                    <a href="{{ route('shops.create') }}" class="btn btn-anim-primary w-100">{{__('Be A Seller')}}</a>
+                </div>
+            @endif
         @endif
     </div>
 </div>

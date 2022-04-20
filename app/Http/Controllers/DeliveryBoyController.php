@@ -197,7 +197,9 @@ class DeliveryBoyController extends Controller
                 $rc["image"]->move($this->rcDest, $rcName);
             }
             flash('Delivery boy created successfully')->success();
+            
             return redirect()->route('deliveryboy.index');
+            
         }
     }
 }
