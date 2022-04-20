@@ -168,7 +168,7 @@ class HomeController extends Controller
                 $delivery->password = Hash::make($request->new_password);
             }
             if($request->hasFile('photo')){
-                $delivery->avatar = $request->photo->store('uploads/users');
+                $delivery->avatar = $request->photo->store('deliveryboy/avatar');
             }
 
 

@@ -24,6 +24,7 @@
             </thead>
             <tbody>
                 @foreach($refunds as $key => $refund)
+                {{-- {{dd($refund->order->code)}} --}}
                     <tr>
                         <td>{{ ($key+1) + ($refunds->currentPage() - 1)*$refunds->perPage() }}</td>
                         <td>{{ $refund->order->code }}</td>

@@ -43,6 +43,11 @@ class RefundRequestController extends Controller
             return back();
         }
     }
+    public function admin_comment(Request $request, $id)
+    {
+        dd('hi');
+    }
+
 
     /**
      * Display a listing of the resource.
