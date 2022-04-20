@@ -94,14 +94,16 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     // $product['slug'] = str_replace(' ','-',strtolower(trim($b)));
                 }
                 elseif($a == 'handle' && $b != ''){
+                    
+                    $x = str_replace(')','',$b);
 
-                    $x = str_replace('-',' ',$b);
+                    $y = str_replace('-',' ',$x);
                     
-                    $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
+                    $z = (preg_replace('/[^A-Za-z0-9\-]/', '', $y));
                     
-                    $z = preg_replace('!\s+!', ' ', $y);
+                    $w = preg_replace('!\s+!', ' ', $z);
                     
-                    $product['slug'] = str_replace(' ','-',strtolower(trim($z)));
+                    $product['slug'] = str_replace(' ','-',strtolower(trim($w)));
 
                     // $product['slug'] = str_replace(',','',str_replace(' ','-',strtolower(trim($b))));
                 }
@@ -121,15 +123,17 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                                 'user_id' => $user->id,
                                 'verification_status' => 1,
                             ]);
-                            $x = str_replace('-',' ',$b);
-                    
-                            $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
+                            $x = str_replace(')','',$b);
+
+                            $y = str_replace('-',' ',$x);
                             
-                            $z = preg_replace('!\s+!', ' ', $y);
+                            $z = (preg_replace('/[^A-Za-z0-9\-]/', '', $y));
+                            
+                            $w = preg_replace('!\s+!', ' ', $z);
                             $shop = Shop::create([
                                 'user_id' => $user->id,
                                 'name' => trim($b),
-                                'slug' => str_replace(' ','-',strtolower(trim($z)))
+                                'slug' => str_replace(' ','-',strtolower(trim($w)))
                             ]);
                             $vendor_exists = 1;
                         }
@@ -143,14 +147,16 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 elseif($a == 'first' && $b != ''){
                     $category_id = Category::where('name',trim(trim(str_replace("'", "", $b))))->count();
                     if(($category_id <= 0)){
-                        $x = str_replace('-',' ',$b);
-                    
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
+                        $x = str_replace(')','',$b);
+
+                        $y = str_replace('-',' ',$x);
                         
-                        $z = preg_replace('!\s+!', ' ', $y);
+                        $z = (preg_replace('/[^A-Za-z0-9\-]/', '', $y));
+                        
+                        $w = preg_replace('!\s+!', ' ', $z);
                         $category_id = Category::create([
                             'name' => trim($b),
-                            'slug' => str_replace(' ','-',strtolower(trim($z))),
+                            'slug' => str_replace(' ','-',strtolower(trim($w))),
                             'meta_title' => trim($b),
                             'meta_description' => trim($b)
                         ]);
@@ -163,15 +169,17 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 elseif($a == 'second' && $b != ''){
                     $subcategory = SubCategory::select('id')->where('category_id',$cat_id)->where('name',trim(str_replace("'", "", $b)))->count();
                     if(($subcategory <= 0)){
-                        $x = str_replace('-',' ',$b);
-                    
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
+                        $x = str_replace(')','',$b);
+
+                        $y = str_replace('-',' ',$x);
                         
-                        $z = preg_replace('!\s+!', ' ', $y);
+                        $z = (preg_replace('/[^A-Za-z0-9\-]/', '', $y));
+                        
+                        $w = preg_replace('!\s+!', ' ', $z);
                         $subcategory = SubCategory::create([
                             'name' => trim(str_replace("'", "", $b)),
                             'category_id' => $product['category_id'],
-                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $z)))),
+                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $w)))),
                             'meta_title' => trim(str_replace("'", "", $b)),
                             'meta_description' => trim($b)
                         ]);
@@ -186,15 +194,17 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     $subsubcategory = SubSubCategory::select('id')->where('sub_category_id',$subcat_id)->where('name',trim(str_replace("'", "", $b)))->count();
                           
                     if(($subsubcategory == 0)){
-                        $x = str_replace('-',' ',$b);
-                    
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
+                        $x = str_replace(')','',$b);
+
+                        $y = str_replace('-',' ',$x);
                         
-                        $z = preg_replace('!\s+!', ' ', $y);
+                        $z = (preg_replace('/[^A-Za-z0-9\-]/', '', $y));
+                        
+                        $w = preg_replace('!\s+!', ' ', $z);
                         $subsubcategory = SubSubCategory::create([
                             'name' => trim($b),
                             'sub_category_id' => $product['subcategory_id'],
-                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $z)))),
+                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $w)))),
                             'meta_title' => trim($b),
                             'meta_description' => trim($b)
                         ]);
@@ -210,15 +220,17 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     // dd('as');
                     $subsubsubcategory = SubSubSubCategory::select('id')->where('sub_sub_category_id',$subsubcat_id)->where('name',trim(str_replace("'", "", $b)))->count();
                     if(($subsubsubcategory <= 0)){
-                        $x = str_replace('-',' ',$b);
-                    
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
+                        $x = str_replace(')','',$b);
+
+                        $y = str_replace('-',' ',$x);
                         
-                        $z = preg_replace('!\s+!', ' ', $y);
+                        $z = (preg_replace('/[^A-Za-z0-9\-]/', '', $y));
+                        
+                        $w = preg_replace('!\s+!', ' ', $z);
                         $subsubcategory = SubSubSubCategory::create([
                             'name' => trim($b),
                             'sub_sub_category_id' => $product['subsubcategory_id'],
-                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $z)))),
+                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $w)))),
                             'meta_title' => trim($b),
                             'meta_description' => trim($b)
                         ]);
@@ -231,15 +243,17 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 elseif($a == 'fifth' && $b != ''){
                     $subsubsubsubcategory = SubSubSubSubCategory::select('id')->where('sub_sub_sub_category_id',$subsubsubcat_id)->where('name',trim(str_replace("'", "", $b)))->count();
                     if(($subsubsubsubcategory <= 0)){
-                        $x = str_replace('-',' ',$b);
-                    
-                        $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
+                        $x = str_replace(')','',$b);
+
+                        $y = str_replace('-',' ',$x);
                         
-                        $z = preg_replace('!\s+!', ' ', $y);
+                        $z = (preg_replace('/[^A-Za-z0-9\-]/', '', $y));
+                        
+                        $w = preg_replace('!\s+!', ' ', $z);
                         $subsubcategory = SubSubSubSubCategory::create([
                             'name' => trim($b),
                             'sub_sub_sub_category_id' => $product['subsubsubcategory_id'],
-                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $z)))),
+                            'slug' => str_replace(' ','-',strtolower(trim(str_replace("'", "", $w)))),
                             'meta_title' => trim($b),
                             'meta_description' => trim($b)
                         ]);

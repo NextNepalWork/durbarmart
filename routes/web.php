@@ -236,6 +236,9 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/orders/assign_delivery_boy', 'OrderController@assign_delivery_boy')->name('orders.assign_delivery_boy');
 	Route::get('seller-orders', 'OrderController@seller_orders')->name('orders.seller');
 
+	Route::get('/delivery-orders', 'OrderController@delivery_orders')->name('delivery_orders');
+
+
 
 	Route::resource('/reviews', 'ReviewController');
 

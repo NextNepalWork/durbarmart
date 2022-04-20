@@ -21,7 +21,9 @@ use App\Shop;
 use App\Color;
 use App\Order;
 use App\BusinessSetting;
+use App\Country;
 use App\Coupon;
+use App\DeliveryBoy;
 use App\Http\Controllers\SearchController;
 use App\Location;
 use App\State;
@@ -116,7 +118,7 @@ class HomeController extends Controller
         if(Auth::user()->user_type == 'seller'){
             return view('frontend.seller.dashboard');
         }
-        elseif(Auth::user()->user_type == 'customer'){
+        elseif(Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'delivery'){
             return view('frontend.customer.dashboard');
         }
         else {
@@ -126,7 +128,7 @@ class HomeController extends Controller
 
     public function profile(Request $request)
     {
-        if(Auth::user()->user_type == 'customer'){
+        if(Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'delivery'){
             return view('frontend.customer.profile');
         }
         elseif(Auth::user()->user_type == 'seller'){
@@ -152,10 +154,40 @@ class HomeController extends Controller
             $user->avatar_original = $request->photo->store('uploads/users');
         }
 
+        if(Auth::user()->user_type == 'delivery'){
+            $delivery = \App\DeliveryBoy::where('user_id',Auth::user()->id)->first();
+            $delivery->first_name = $request->name;
+            $delivery->middle_name = $request->middle_name;
+            $delivery->last_name = $request->last_name;
+            $delivery->dob = $request->dob;
+            $delivery->blood_group = $request->blood_group;
+            $delivery->active_status = $request->active_status;
+            $delivery->availability_status = $request->availability_status;
+            $delivery->phone_number = $request->phone_number;
+            if($request->new_password != null && ($request->new_password == $request->confirm_password)){
+                $delivery->password = Hash::make($request->new_password);
+            }
+            if($request->hasFile('photo')){
+                $delivery->avatar = $request->photo->store('deliveryboy/avatar');
+            }
+
+
+
+            if($user->save() && $delivery->save()){
+                flash(__('Your Profile has been updated successfully!'))->success();
+                return back();
+            }
+        }
+        
+
+
         if($user->save()){
             flash(__('Your Profile has been updated successfully!'))->success();
             return back();
         }
+
+
+        
 
         flash(__('Sorry! Something went wrong.'))->error();
         return back();
@@ -210,7 +242,7 @@ class HomeController extends Controller
 
         return view('frontend.index');
     }
-
+    
     public function flash_deal_details($slug)
     {
         $flash_deal = FlashDeal::where('slug', $slug)->with('flash_deal_products')->first();

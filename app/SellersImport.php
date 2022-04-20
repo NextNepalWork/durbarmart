@@ -76,14 +76,16 @@ class SellersImport implements ToCollection, WithHeadingRow, WithValidation,Skip
             $shop['name'] = trim($d['vendor_shop_name']);
             $shop['meta_title'] = trim($d['vendor_shop_name']);
             $shop['meta_description'] = trim($d['vendor_shop_name']);
-
-            $x = str_replace('-',' ',$d['vendor_shop_name']);
-                    
-            $y = (preg_replace('/[^A-Za-z0-9\-]/', '', $x));
             
-            $z = preg_replace('!\s+!', ' ', $y);
+            $x = str_replace(')','',$d['vendor_shop_name']);
 
-            $shop['slug'] = str_replace(' ','-',strtolower(trim($z)));
+            $y = str_replace('-',' ',$x);
+            
+            $z = (preg_replace('/[^A-Za-z0-9\-]/', '', $y));
+            
+            $w = preg_replace('!\s+!', ' ', $z);
+
+            $shop['slug'] = str_replace(' ','-',strtolower(trim($w)));
             if($d['vendor_name'] == ''){
                 $user['name'] = trim($d['vendor_shop_name']);
             }

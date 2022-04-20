@@ -81,7 +81,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label class="col-lg-2 control-label">{{ __('Commission') }}</label>
                             <div class="col-lg-7">
                                 <input type="text" class="form-control" name="commission"
@@ -90,7 +90,7 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label class="col-lg-2 control-label">{{ __('Avatar') }}</label>
                             <div class="col-lg-7">
