@@ -33,6 +33,8 @@
                     <th>{{__('Sub Subcategory')}}</th>
                     <th>{{__('Subcategory')}}</th>
                     <th>{{__('Category')}}</th>
+                    <th>{{__('Meta Title')}}</th>
+                    <th>{{__('Meta Description')}}</th>
                     {{-- <th>{{__('Attributes')}}</th> --}}
                     <th width="10%">{{__('Options')}}</th>
                 </tr>
@@ -45,6 +47,8 @@
                             <td>{{__($subsubcategory->name)}}</td>
                             <td>{{$subsubcategory->subcategory->name}}</td>
                             <td>{{$subsubcategory->subcategory->category->name}}</td>
+                            <td>{{__($subsubcategory->meta_title)}}</td>
+                            <td>{{__($subsubcategory->meta_description)}}</td>
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
