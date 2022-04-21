@@ -8,10 +8,14 @@
                 <div class="col-lg-3 d-none d-lg-block">
                     @if(Auth::user()->user_type == 'seller')
                         @include('frontend.inc.seller_side_nav')
-                    @elseif(Auth::user()->user_type == 'customer')
+                    @elseif(Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'delivery')
                         @include('frontend.inc.customer_side_nav')
                     @endif
                 </div>
+                @php
+                    $delivery_boy=\App\DeliveryBoy::where('user_id',Auth::user()->id)->first();
+                @endphp
+
 
                 <div class="col-lg-9">
                     <div class="main-content">
@@ -41,6 +45,7 @@
                                     {{__('Basic info')}}
                                 </div>
                                 <div class="form-box-content p-3">
+                                    @if (Auth::user()->user_type == 'customer')
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Your Name')}}</label>
@@ -49,6 +54,40 @@
                                             <input type="text" class="form-control mb-3" placeholder="{{__('Your Name')}}" name="name" value="{{ Auth::user()->name }}">
                                         </div>
                                     </div>
+                                    @else
+                                    <div class="row">
+                                        <div class="col-md-2"><label>{{ __('First Name') }}</label></div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control mb-3"
+                                                value="{{ old('name', $delivery_boy->first_name) }}" name="name" required>
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2"><label> {{ __('Middle Name') }} </label></div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control mb-3" name="middle_name"
+                                                value="{{ old('middle_name', $delivery_boy->middle_name) }}">
+                                            @error('middle_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2"><label> {{ __('Last Name') }} </label></div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control mb-3"
+                                                value="{{ old('last_name', $delivery_boy->last_name) }}" name="last_name" required>
+                                            @error('last_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    @endif
+                                    
+
                                     <div class="row">
                                         <div class="col-md-2">
                                             <label>{{__('Your Email')}}</label>
@@ -88,6 +127,94 @@
                                             <input type="password" class="form-control mb-3" placeholder="{{__('Confirm Password')}}" name="confirm_password">
                                         </div>
                                     </div>
+                                    @if (Auth::user()->user_type == 'delivery')
+
+                                    <div class="row">
+                                        <div class="col-md-2"><label> {{ __('Phone Number') }} </label></div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control mb-3" name="phone_number"
+                                                value="{{ old('phone_number', $delivery_boy->phone_number) }}" required>
+                                            @error('phone_number')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2"><label> {{ __('DOB') }} </label></div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control mb-3 dob" value="{{ old('dob', $delivery_boy->dob) }}"
+                                                name="dob">
+                                            @error('dob')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+            
+                                    <div class="row">
+                                        <div class="col-md-2"><label> {{ __('Blood Group') }} </label></div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control mb-3" name="blood_group"
+                                                value="{{ old('blood_group', $delivery_boy->blood_group) }}">
+                                            @error('blood_group')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    {{-- <div class="row">
+                                        <div class="col-md-2">{{ __('Pincode') }}</div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control mb-3" name="password">
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div> --}}
+                                    <div class="row">
+                                        <div class="col-md-2">{{ __('Active Status') }}</div>
+                                        <div class="col-md-10">
+                                            <select class="form-control demo-select2-placeholder mb-3" name="active_status"
+                                                id="active_status">
+                                                <option value="1"
+                                                    {{ old('active_status', $delivery_boy->active_status) == '1' ? 'selected' : '' }}>
+                                                    Active</option>
+                                                <option value="0"
+                                                    {{ old('active_status', $delivery_boy->active_status) == '0' ? 'selected' : '' }}>
+                                                    Inactive</option>
+                                            </select>
+                                            @error('active_status')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">{{ __('Availability Status') }}</div>
+                                        <div class="col-md-10">
+                                            <select class="form-control demo-select2-placeholder mb-3" name="availability_status"
+                                                id="availability_status">
+                                                <option value="1"
+                                                    {{ old('availability_status', $delivery_boy->availability_status) == '1' ? 'selected' : '' }}>
+                                                    Active
+                                                </option>
+                                                <option value="0"
+                                                    {{ old('availability_status', $delivery_boy->availability_status) == '0' ? 'selected' : '' }}>
+                                                    InActive
+                                                </option>
+                                            </select>
+                                            @error('availability_status')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    {{-- <div class="row">
+                                        <div class="col-md-2"><label> {{ __('Avatar') }}</label></div>
+                                        <div class="col-md-10">
+                                            <input type="file" class="form-control mb-3" name="avatar">
+                                            @error('avatar')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div> --}}
+                                    @endif
                                 </div>
                             </div>
 

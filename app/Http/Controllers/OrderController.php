@@ -43,6 +43,7 @@ class OrderController extends Controller
             ->where('order_details.seller_id', Auth::user()->id)
             ->select('orders.id')
             ->distinct();
+            // dd($orders);
 
         if ($request->payment_status != null) {
             $orders = $orders->where('order_details.payment_status', $request->payment_status);
@@ -66,6 +67,45 @@ class OrderController extends Controller
         }
 
         return view('frontend.seller.orders', compact('orders', 'payment_status', 'delivery_status', 'sort_search'));
+    }
+
+    public function delivery_orders(Request $request)
+    {
+        $payment_status = null;
+        $delivery_status = null;
+        $sort_search = null;
+        $delivery_boy=\App\DeliveryBoy::where('user_id',Auth::user()->id)->first();
+        $orders = DB::table('orders')
+            ->orderBy('code', 'desc')
+            ->where('orders.delivery_id', $delivery_boy->id)
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->select('orders.id')
+            ->distinct();
+        // $orders=DB::table('orders')->orderBy('code', 'desc')->where('delivery_id',$delivery_boy->id)->get();
+        // dd($orders);
+
+        if ($request->payment_status != null) {
+            $orders = $orders->where('order_details.payment_status', $request->payment_status);
+            $payment_status = $request->payment_status;
+        }
+        if ($request->delivery_status != null) {
+            $orders = $orders->where('order_details.delivery_status', $request->delivery_status);
+            $delivery_status = $request->delivery_status;
+        }
+        if ($request->has('search')) {
+            $sort_search = $request->search;
+            $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
+        }
+
+        $orders = $orders->paginate(15);
+
+        foreach ($orders as $key => $value) {
+            $order = \App\Order::find($value->id);
+            $order->viewed = 1;
+            $order->save();
+        }
+
+        return view('frontend.delivery.orders', compact('orders', 'payment_status', 'delivery_status', 'sort_search'));
     }
 
     /**
@@ -530,7 +570,14 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id);
         //$order->viewed = 1;
         $order->save();
-        return view('frontend.partials.order_details_seller', compact('order'));
+        if(Auth::user()->user_type=='seller'){
+
+            return view('frontend.partials.order_details_seller', compact('order'));
+        }
+        else{
+            return view('frontend.partials.order_details_delivery', compact('order'));
+
+        }
     }
 
     public function update_delivery_status(Request $request)
@@ -548,7 +595,13 @@ class OrderController extends Controller
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();
             }
-        }else {
+        } elseif(Auth::user()->user_type == 'delivery'){
+            foreach ($order->orderDetails->where('order_id', $order->id) as $key => $orderDetail) {
+                $orderDetail->delivery_status = $request->status;
+                $orderDetail->save();
+            }
+        }
+        else {
             foreach ($order->orderDetails->where('seller_id', \App\User::where('user_type', 'admin')->first()->id) as $key => $orderDetail) {
                 $orderDetail->delivery_status = $request->status;
                 $orderDetail->save();

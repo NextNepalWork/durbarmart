@@ -8,7 +8,7 @@
                 <div class="col-lg-3 d-none d-lg-block">
                     @if(Auth::user()->user_type == 'seller')
                         @include('frontend.inc.seller_side_nav')
-                    @elseif(Auth::user()->user_type == 'customer')
+                    @elseif(Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'delivery')
                         @include('frontend.inc.customer_side_nav')
                     @endif
                 </div>
