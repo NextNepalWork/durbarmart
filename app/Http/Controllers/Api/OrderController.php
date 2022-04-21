@@ -151,7 +151,8 @@ class OrderController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Your order has been placed successfully'
+            'message' => 'Your order has been placed successfully',
+            'order_code' => $order->code
         ]);
     }
 
