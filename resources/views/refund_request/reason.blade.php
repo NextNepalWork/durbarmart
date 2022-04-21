@@ -16,13 +16,14 @@
                         <p class="bord-all pad-all">{{ $refund->reason }}</p>
                     </div>
                 </div>
-
+                @if (!empty($refund->admin_comment))
                 <div class="form-group row">
                     <label class="col-lg-2 control-label">{{__('Admin Comment')}}</label>
                     <div class="col-lg-8">
-                        <p class="bord-all pad-all"></p>
+                        <p class="bord-all pad-all">{{$refund->admin_comment}}</p>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -52,13 +53,13 @@
                                 <label>{{__('Refund Reason')}} <span class="required-star">*</span></label>
                             </div>
                             <div class="col-md-9">
-                                <textarea name="reason" rows="6" class="form-control mb-3"></textarea>
+                                <textarea name="admin_comment" rows="6" class="form-control mb-3">{{$refund->admin_comment}}</textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-box mt-4 text-right">
-                    <button type="submit" class="btn btn-primary">{{ __('Send Request') }}</button>
+                <div class="form-box mt-4 text-right" style="margin-top:10px">
+                    <button type="submit" class="btn btn-primary">{{ __('Add Comment') }}</button>
                 </div>
             </form>
         </div>
