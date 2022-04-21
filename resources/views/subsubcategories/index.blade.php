@@ -9,6 +9,18 @@
 </div>
 
 <br>
+@php
+    //   $b = "Diamond Nano 2 Jar Mixer And )Grinder - 500 Watt";
+    //                 $x = str_replace(')','',$b);
+
+    //                 $y = str_replace('-',' ',$x);
+                    
+    //                 $z = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $y));
+                    
+    //                 $w = preg_replace('!\s+!', ' ', $z);
+    //                 dd($w);
+    //                 dd(str_replace(' ','-',strtolower(trim($w))));
+@endphp
 
 <!-- Basic Data Tables -->
 <!--===================================================-->
