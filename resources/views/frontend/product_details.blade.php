@@ -322,7 +322,7 @@
 
                                 <div class="row no-gutters py-2 d-none" id="chosen_price_div">
                                     <div class="col-2 m-auto">
-                                        <div class="product-description-label">{{__('Total Price')}}:</div>
+                                        <div class="product-description-label">{{__('Price')}}:</div>
                                     </div>
                                     <div class="col-10">
                                         <div class="product-price">
