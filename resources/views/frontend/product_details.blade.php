@@ -312,7 +312,7 @@
                                                     </button>
                                                 </span>
                                             </div>
-                                            {{-- {{ $qty }} --}}
+                                            {{-- {{ $qty }} dfgdfhtr tr ryj fghmn st ae4r ahdty jrts ertyh aery ae5ry a3e5--}}
                                             <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{__('available')}})</div>
                                         </div>
                                     </div>
