@@ -186,7 +186,7 @@
 
                             <hr>
 
-                            @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
+                            {{-- @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
 
                                 <div class="row no-gutters mt-4">
                                     <div class="col-2">
@@ -229,7 +229,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
 
                             @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated && $detailedProduct->earn_point > 0)
                                 <div class="row no-gutters mt-4">
@@ -674,7 +674,7 @@
                             </h3>
                         </div>
                         <div class="caorusel-box arrow-round gutters-5">
-                            <div class="slick-carousel" data-slick-items="3" data-slick-xl-items="2" data-slick-lg-items="3"  data-slick-md-items="2" data-slick-sm-items="2" data-slick-xs-items="2"  data-slick-rows="1">
+                            <div class="slick-carousel" data-slick-items="5" data-slick-xl-items="5" data-slick-lg-items="5"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2"  data-slick-rows="1">
                                 @foreach (filter_products(\App\Product::where('subcategory_id', $detailedProduct->subcategory_id)->where('id', '!=', $detailedProduct->id))->limit(10)->get() as $key => $related_product)
                                  <div class="caorusel-card my-1">
                                     <div class="row no-gutters product-box-2 align-items-center">
@@ -779,7 +779,7 @@
                                 <span class="rating-count d-block ml-0">({{ $total }} {{__('customer reviews')}})</span>
                             </div>
                         </div>
-                        <div class="row no-gutters align-items-center">
+                        {{-- <div class="row no-gutters align-items-center">
                             @if($detailedProduct->added_by == 'seller')
                                 <div class="col">
                                     <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}" class="d-block store-btn">{{__('Visit Store')}}</a>
@@ -809,7 +809,7 @@
                                     </ul>
                                 </div>
                             @endif
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="seller-top-products-box bg-white sidebar-box mb-3">
                         <div class="box-title">
