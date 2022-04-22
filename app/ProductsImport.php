@@ -99,7 +99,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
 
                     $y = str_replace('-',' ',$x);
                     
-                    $z = (preg_replace('/[^A-Za-z0-9\-]/', '', $y));
+                    $z = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $y));
                     
                     $w = preg_replace('!\s+!', ' ', $z);
                     

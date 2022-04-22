@@ -32,6 +32,8 @@
                     <th>#</th>
                     <th>{{__('Subcategory')}}</th>
                     <th>{{__('Category')}}</th>
+                    <th>{{__('Meta Title')}}</th>
+                    <th>{{__('Meta Description')}}</th>
                     <th width="10%">{{__('Options')}}</th>
                 </tr>
             </thead>
@@ -42,6 +44,8 @@
                             <td>{{ ($key+1) + ($subcategories->currentPage() - 1)*$subcategories->perPage() }}</td>
                             <td>{{__($subcategory->name)}}</td>
                             <td>{{$subcategory->category->name}}</td>
+                            <td>{{__($subcategory->meta_title)}}</td>
+                            <td>{{__($subcategory->meta_description)}}</td>
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">

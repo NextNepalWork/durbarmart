@@ -9,6 +9,18 @@
 </div>
 
 <br>
+@php
+    //   $b = "Diamond Nano 2 Jar Mixer And )Grinder - 500 Watt";
+    //                 $x = str_replace(')','',$b);
+
+    //                 $y = str_replace('-',' ',$x);
+                    
+    //                 $z = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $y));
+                    
+    //                 $w = preg_replace('!\s+!', ' ', $z);
+    //                 dd($w);
+    //                 dd(str_replace(' ','-',strtolower(trim($w))));
+@endphp
 
 <!-- Basic Data Tables -->
 <!--===================================================-->
@@ -33,6 +45,8 @@
                     <th>{{__('Sub Subcategory')}}</th>
                     <th>{{__('Subcategory')}}</th>
                     <th>{{__('Category')}}</th>
+                    <th>{{__('Meta Title')}}</th>
+                    <th>{{__('Meta Description')}}</th>
                     {{-- <th>{{__('Attributes')}}</th> --}}
                     <th width="10%">{{__('Options')}}</th>
                 </tr>
@@ -45,6 +59,8 @@
                             <td>{{__($subsubcategory->name)}}</td>
                             <td>{{$subsubcategory->subcategory->name}}</td>
                             <td>{{$subsubcategory->subcategory->category->name}}</td>
+                            <td>{{__($subsubcategory->meta_title)}}</td>
+                            <td>{{__($subsubcategory->meta_description)}}</td>
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">

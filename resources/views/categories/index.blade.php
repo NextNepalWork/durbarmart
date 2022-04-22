@@ -31,6 +31,8 @@
                 <tr>
                     <th>#</th>
                     <th>{{__('Name')}}</th>
+                    <th>{{__('Meta Title')}}</th>
+                    <th>{{__('Meta Description')}}</th>
                     <th>{{__('Banner')}}</th>
                     <th>{{__('Icon')}}</th>
                     <th>{{__('Featured')}}</th>
@@ -43,6 +45,8 @@
                     <tr>
                         <td>{{ ($key+1) + ($categories->currentPage() - 1)*$categories->perPage() }}</td>
                         <td>{{__($category->name)}}</td>
+                        <td>{{__($category->meta_title)}}</td>
+                        <td>{{__($category->meta_description)}}</td>
                         <td><img loading="lazy"  class="img-md" src="{{ asset($category->banner) }}" alt="{{__('banner')}}"></td>
                         <td><img loading="lazy"  class="img-xs" src="{{ asset($category->icon) }}" alt="{{__('icon')}}"></td>
                         <td><label class="switch">
