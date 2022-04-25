@@ -231,7 +231,7 @@
                                 </div>
                             @endif --}}
 
-                            @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated && $detailedProduct->earn_point > 0)
+                            {{-- @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated && $detailedProduct->earn_point > 0)
                                 <div class="row no-gutters mt-4">
                                     <div class="col-2">
                                         <div class="product-description-label">{{ __('Club Point') }}:</div>
@@ -244,7 +244,7 @@
                                 </div>
                             @endif
 
-                            <hr>
+                            <hr> --}}
 
                             <form id="option-choice-form">
                                 @csrf
@@ -312,7 +312,7 @@
                                                     </button>
                                                 </span>
                                             </div>
-                                            {{-- {{ $qty }} dfgdfhtr tr ryj fghmn st ae4r ahdty jrts ertyh aery ae5ry a3e5--}}
+                                            {{-- {{ $qty }} --}}
                                             <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{__('available')}})</div>
                                         </div>
                                     </div>
