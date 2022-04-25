@@ -53,7 +53,7 @@
                                     <tbody>
                                         @if(count($refunds) > 0)
                                         @foreach ($refunds as $key => $refund)
-                                        @if($refund->admin_approval==1)
+                                            @if($refund->send_seller==1)
                                         
                                                 <tr>
                                                     <td>{{ $key+1 }}</td>
@@ -97,8 +97,8 @@
                                                         @endif
                                                     </td>
                                                 </tr>
-                                                @endif
-                                            @endforeach
+                                            @endif
+                                        @endforeach
                                         @else
                                             <tr>
                                                 <td class="text-center pt-5 h4" colspan="100%">
