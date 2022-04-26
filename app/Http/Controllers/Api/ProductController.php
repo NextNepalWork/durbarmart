@@ -27,7 +27,10 @@ class ProductController extends Controller
     {
         return new ProductDetailCollection(Product::where('id', $id)->get());
     }
-
+    public function all()
+    {
+        return new ProductCollection(Product::get());
+    }
     public function admin()
     {
         return new ProductCollection(Product::where('added_by', 'admin')->latest()->paginate(10));
