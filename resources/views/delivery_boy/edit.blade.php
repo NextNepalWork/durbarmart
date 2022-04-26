@@ -193,8 +193,8 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">{{ __('Countries') }}</label>
                             <div class="col-lg-7">
-                                <select class="form-control" name="country_id" id="country"
-                                    onchange="getStates($(this).val());" required>
+                                {{-- onchange="getStates($(this).val());" --}}
+                                <select class="form-control" name="country_id" id="country" required>
                                     <option value="">Select Country</option>
                                     @foreach ($countries as $country)
                                         <option value="{{ $country->id }}"
@@ -213,6 +213,13 @@
                             <div class="col-lg-7">
                                 <select class="form-control" name="state_id" id="state" required>
                                     <option value="">Select State</option>
+                                    <option value="State 1" @if ($delivery_boy->state_id == 1) selected @endif>{{__('State 1')}}</option>
+                                    <option value="State 2" @if ($delivery_boy->state_id == 2) selected @endif>{{__('State 2')}}</option>
+                                    <option value="State 3" @if ($delivery_boy->state_id == 3) selected @endif>{{__('State 3')}}</option>
+                                    <option value="State 4" @if ($delivery_boy->state_id == 4) selected @endif>{{__('State 4')}}</option>
+                                    <option value="State 5" @if ($delivery_boy->state_id == 5) selected @endif>{{__('State 5')}}</option>
+                                    <option value="State 6" @if ($delivery_boy->state_id == 6) selected @endif>{{__('State 6')}}</option>
+                                    <option value="State 7" @if ($delivery_boy->state_id == 7) selected @endif>{{__('State 7')}}</option>
 
                                 </select>
                                 @error('state_id')
@@ -396,50 +403,50 @@
             });
 
 
-            var country_id = "{{ old('country_id', $delivery_boy->country_id) }}";
-            if (country_id != null) {
-                var url = "{{ route('getStates') }}";
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: {
-                        'country_id': country_id
-                    },
-                    success: function(response) {
+            // var country_id = "{{ old('country_id', $delivery_boy->country_id) }}";
+            // if (country_id != null) {
+            //     var url = "{{ route('getStates') }}";
+            //     $.ajax({
+            //         url: url,
+            //         type: 'POST',
+            //         data: {
+            //             'country_id': country_id
+            //         },
+            //         success: function(response) {
 
-                        if (Object.keys(response).length > 0) {
-                            $.each(response, function(key, value) {
-                                $option = $('<option></option>').val(key).html(value);
-                                if (key == '{{ old('state_id', $delivery_boy->state_id) }}')
-                                    $option = $option.attr("selected", "selected");
-                                $("#state").append($option);
-                            });
-                        } else {
-                            $("#state").html('<option value="">Select State</option>');
-                        }
-                    }
-                });
-            }
+            //             if (Object.keys(response).length > 0) {
+            //                 $.each(response, function(key, value) {
+            //                     $option = $('<option></option>').val(key).html(value);
+            //                     if (key == '{{ old('state_id', $delivery_boy->state_id) }}')
+            //                         $option = $option.attr("selected", "selected");
+            //                     $("#state").append($option);
+            //                 });
+            //             } else {
+            //                 $("#state").html('<option value="">Select State</option>');
+            //             }
+            //         }
+            //     });
+            // }
         });
 
-        function getStates(id) {
-            var url = "{{ route('getStates') }}";
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: {
-                    'country_id': id
-                },
-                success: function(response) {
-                    if (Object.keys(response).length > 0) {
-                        $.each(response, function(key, value) {
-                            $("#state").append('<option value="' + key + '">' + value + '</option>');
-                        });
-                    } else {
-                        $("#state").html('<option value="">Select State</option>');
-                    }
-                }
-            });
-        }
+        // function getStates(id) {
+        //     var url = "{{ route('getStates') }}";
+        //     $.ajax({
+        //         url: url,
+        //         type: 'POST',
+        //         data: {
+        //             'country_id': id
+        //         },
+        //         success: function(response) {
+        //             if (Object.keys(response).length > 0) {
+        //                 $.each(response, function(key, value) {
+        //                     $("#state").append('<option value="' + key + '">' + value + '</option>');
+        //                 });
+        //             } else {
+        //                 $("#state").html('<option value="">Select State</option>');
+        //             }
+        //         }
+        //     });
+        // }
     </script>
 @endsection
