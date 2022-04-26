@@ -11,7 +11,7 @@
         </div>
     </div>
 @endif
-@if(Auth::user()->user_type == 'admin' || in_array('1', json_decode(Auth::user()->staff->role->permissions)))
+{{-- @if(Auth::user()->user_type == 'admin' || in_array('1', json_decode(Auth::user()->staff->role->permissions)))
 <div class="row">
     <div class="col-md-6">
         <div class="panel">
@@ -26,33 +26,21 @@
                 <p class="text-lg text-main">
                     Total published products: 
                     <span class="text-bold">
-                        {{-- {{ \App\Product::where('published', 1)->get()->count() }} --}}
-                        @php
-                            $count = \App\Product::where('published', 1)->get()->count();
-                            echo $count; 
-                        @endphp
+                        {{ \App\Product::where('published', 1)->get()->count() }}
                     </span>
                 </p>
                 @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                     <p class="text-lg text-main">
                         Total sellers products: 
                         <span class="text-bold">
-                            @php
-                                $count = \App\Product::where('published', 1)->where('added_by', 'seller')->get()->count();
-                                echo $count; 
-                            @endphp
-                            {{-- {{ \App\Product::where('published', 1)->where('added_by', 'seller')->get()->count() }} --}}
+                            {{ \App\Product::where('published', 1)->where('added_by', 'seller')->get()->count() }}
                         </span>
                     </p>
                 @endif
                 <p class="text-lg text-main">
                     Total admin products: 
                     <span class="text-bold">
-                        @php
-                            $count = \App\Product::where('published', 1)->where('added_by', 'admin')->get()->count();
-                            echo $count; 
-                        @endphp
-                        {{-- {{ \App\Product::where('published', 1)->where('added_by', 'admin')->get()->count() }} --}}
+                        {{ \App\Product::where('published', 1)->where('added_by', 'admin')->get()->count() }}
                     </span>
                 </p>
                 <br>
@@ -99,7 +87,7 @@
         </div>
     </div>
 </div>
-@endif
+@endif --}}
 
 @if((Auth::user()->user_type == 'admin' || in_array('5', json_decode(Auth::user()->staff->role->permissions))) && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
     <div class="row">
