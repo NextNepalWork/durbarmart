@@ -23,11 +23,11 @@
                     <i class="demo-pli-data-settings icon-4x"></i>
                 </div>
                 <br>
-                <p class="text-lg text-main">{{__('Total published products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->get()->count() }}</span></p>
+                <p class="text-lg text-main">{{__('Total published products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->get()->count(); }}</span></p>
                 @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-                    <p class="text-lg text-main">{{__('Total sellers products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->where('added_by', 'seller')->get()->count() }}</span></p>
+                    <p class="text-lg text-main">{{__('Total sellers products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->where('added_by', 'seller')->get()->count(); }}</span></p>
                 @endif
-                <p class="text-lg text-main">{{__('Total admin products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->where('added_by', 'admin')->get()->count() }}</span></p>
+                <p class="text-lg text-main">{{__('Total admin products')}}: <span class="text-bold">{{ \App\Product::where('published', 1)->where('added_by', 'admin')->get()->count(); }}</span></p>
                 <br>
                 <a href="{{ route('products.admin') }}" class="btn btn-primary mar-top">Manage Products <i class="fa fa-long-arrow-right"></i></a>
             </div>
@@ -39,14 +39,14 @@
                 <div class="panel">
                     <div class="pad-top text-center dash-widget">
                         <p class="text-normal text-main">{{__('Total product category')}}</p>
-                        <p class="text-semibold text-3x text-main">{{ \App\Category::all()->count() }}</p>
+                        <p class="text-semibold text-3x text-main">{{ \App\Category::all()->count(); }}</p>
                         <a href="{{ route('categories.create') }}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{__('Create Category')}}</a>
                     </div>
                 </div>
                 <div class="panel">
                     <div class="pad-top text-center dash-widget">
                         <p class="text-normal text-main">{{__('Total product sub sub category')}}</p>
-                        <p class="text-semibold text-3x text-main">{{ \App\SubSubCategory::all()->count() }}</p>
+                        <p class="text-semibold text-3x text-main">{{ \App\SubSubCategory::all()->count(); }}</p>
                         <a href="{{ route('subsubcategories.create') }}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{__('Create Sub Sub Category')}}</a>
                     </div>
                 </div>
@@ -55,14 +55,14 @@
                 <div class="panel">
                     <div class="pad-top text-center dash-widget">
                         <p class="text-normal text-main">{{__('Total product sub category')}}</p>
-                        <p class="text-semibold text-3x text-main">{{ \App\SubCategory::all()->count() }}</p>
+                        <p class="text-semibold text-3x text-main">{{ \App\SubCategory::all()->count(); }}</p>
                         <a href="{{ route('subcategories.create') }}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{__('Create Sub Category')}}</a>
                     </div>
                 </div>
                 <div class="panel">
                     <div class="pad-top text-center dash-widget">
                         <p class="text-normal text-main">{{__('Total product brand')}}</p>
-                        <p class="text-semibold text-3x text-main">{{ \App\Brand::all()->count() }}</p>
+                        <p class="text-semibold text-3x text-main">{{ \App\Brand::all()->count(); }}</p>
                         <a href="{{ route('brands.create') }}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{__('Create Brand')}}</a>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                     </div>
                     <br>
                     <p class="text-normal text-main">{{__('Total sellers')}}</p>
-                    <p class="text-semibold text-3x text-main">{{ \App\Seller::all()->count() }}</p>
+                    <p class="text-semibold text-3x text-main">{{ \App\Seller::all()->count(); }}</p>
                     <br>
                     <a href="{{ route('sellers.index') }}" class="btn-link">{{__('Manage Sellers')}} <i class="fa fa-long-arrow-right"></i></a>
                     <br>
@@ -95,7 +95,7 @@
                 <div class="panel-body text-center dash-widget">
                     <br>
                     <p class="text-normal text-main">{{__('Total approved sellers')}}</p>
-                    <p class="text-semibold text-3x text-main">{{ \App\Seller::where('verification_status', 1)->get()->count() }}</p>
+                    <p class="text-semibold text-3x text-main">{{ \App\Seller::where('verification_status', 1)->get()->count(); }}</p>
                     <br>
                     <a href="{{ route('sellers.index') }}" class="btn-link">{{__('Manage Sellers')}} <i class="fa fa-long-arrow-right"></i></a>
                     <br>
@@ -108,7 +108,7 @@
                 <div class="panel-body text-center dash-widget">
                     <br>
                     <p class="text-normal text-main">{{__('Total pending sellers')}}</p>
-                    <p class="text-semibold text-3x text-main">{{ \App\Seller::where('verification_status', 0)->count() }}</p>
+                    <p class="text-semibold text-3x text-main">{{ \App\Seller::where('verification_status', 0)->count(); }}</p>
                     <br>
                     <a href="{{ route('sellers.index') }}" class="btn-link">{{__('Manage Sellers')}} <i class="fa fa-long-arrow-right"></i></a>
                     <br>
