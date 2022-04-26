@@ -56,6 +56,7 @@ Route::prefix('v1')->group(function () {
     Route::get('products/search', 'Api\ProductController@search');
     Route::post('products/variant/price', 'Api\ProductController@variantPrice');
     Route::get('products/home', 'Api\ProductController@home');
+    Route::get('products/all', 'Api\ProductController@all');
     Route::apiResource('products', 'Api\ProductController')->except(['store', 'update', 'destroy']);
 
     Route::get('carts/{id}', 'Api\CartController@index')->middleware('auth:api');
