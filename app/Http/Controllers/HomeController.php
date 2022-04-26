@@ -105,7 +105,10 @@ class HomeController extends Controller
      */
     public function admin_dashboard()
     {
-        return view('dashboard');
+        $all_products = Product::where('published', 1)->get()->count();
+        $seller_products = Product::where('published', 1)->where('added_by', 'seller')->get()->count();
+        $admin_products = Product::where('published', 1)->where('added_by', 'admin')->get()->count();
+        return view('dashboard',compact('all_products','seller_products','admin_products'));
     }
 
     /**
