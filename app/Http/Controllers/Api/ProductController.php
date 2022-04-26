@@ -29,7 +29,7 @@ class ProductController extends Controller
     }
     public function all()
     {
-        return new ProductCollection(Product::get());
+        return Product::get('name');
     }
     public function admin()
     {
