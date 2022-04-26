@@ -68,8 +68,8 @@
                         <th>{{ __('Phone Number') }}</th>
                         <th>{{ __('Dob') }}</th>
                         <th>{{ __('Blood Group') }}</th>
-                        <th>{{ __('Country') }}</th>
-                        <th>{{ __('State') }}</th>
+                        {{-- <th>{{ __('Country') }}</th>
+                        <th>{{ __('State') }}</th> --}}
                         <th>{{ __('Vechile Name') }}</th>
                         <th>{{ __('Owner Name') }}</th>
                         <th>{{ __('Vechile Color') }}</th>
