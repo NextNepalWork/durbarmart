@@ -188,7 +188,12 @@
                                                 <div class="d-flex align-items-center">
                                                     <div class="dc-image">
                                                         <a href="{{ route('product', $product->slug) }}">
-                                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" class="img-fluid lazyload" alt="{{ __($product->name) }}">
+                                                            @if (file_exists($product->featured_img)) 
+                                                               <img class="img-fluid lazyload" src="{{ asset($product->featured_img) }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name) }}">
+                                                            @else
+                                                               <img class="img-fluid lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
+                                                            @endif
+                                                            {{-- <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" class="img-fluid lazyload" alt="{{ __($product->name) }}"> --}}
                                                         </a>
                                                     </div>
                                                     <div class="dc-content">

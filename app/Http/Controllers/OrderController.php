@@ -414,10 +414,8 @@ class OrderController extends Controller
             $data['view'] = 'emails.invoice';
             $data['subject'] = 'Order Placed - ' . $order->code;
             $data['from'] = Config::get('mail.username');
-            // $data['from'] = env('MAIL_USERNAME');
             $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
             $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
-            // $data['file'] = 'public/invoices/Order#'.$order->code.'.pdf';
             $data['file_name'] = 'Order#' . $order->code . '.pdf';
 
             // dd($seller_products);
@@ -446,14 +444,14 @@ class OrderController extends Controller
             //     }
             // }
 
-            if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated && \App\OtpConfiguration::where('type', 'otp_for_order')->first()->value) {
-                try {
-                    $otpController = new OTPVerificationController;
-                    $otpController->send_order_code($order);
-                } catch (\Exception $e) {
+            // if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated && \App\OtpConfiguration::where('type', 'otp_for_order')->first()->value) {
+            //     try {
+            //         $otpController = new OTPVerificationController;
+            //         $otpController->send_order_code($order);
+            //     } catch (\Exception $e) {
 
-                }
-            }
+            //     }
+            // }
 
             //sends email to customer with the invoice pdf attached
             // dd(Config::get('mail.username') != null, $request->session()->get('shipping_info')['email']);

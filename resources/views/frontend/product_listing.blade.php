@@ -341,19 +341,15 @@
                                         @else
                                             <img class="img-fit lazyload mx-auto" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->featured_img) }}" alt="{{ __($product->name . '-' . $product->unit_price ) }}">
                                         @endif
-                                            {{-- @if (!empty($product->photos))
-                                                @if (file_exists(json_decode($product->photos)[0]))
-                                                
-                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">
-                                                    
-                                                @else
-                                                
-                                                    <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
-                                                    
-                                                @endif
-                                            @else
-                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
-                                            @endif --}}
+                                        {{-- @if (!empty($product->photos))
+                                            @if (file_exists(json_decode($product->photos)[0]))                                                
+                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset(json_decode($product->photos)[0]) }}" alt="{{ __($product->name) }}">                                                    
+                                            @else                                                
+                                                <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">                                                    
+                                            @endif
+                                        @else
+                                            <img class="img-fit lazyload" src="{{ asset('frontend/images/placeholder.jpg') }}" alt="{{ __($product->name) }}">
+                                        @endif --}}
                                         </a>
                                         <div class="product-btns clearfix">
                                             <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">
