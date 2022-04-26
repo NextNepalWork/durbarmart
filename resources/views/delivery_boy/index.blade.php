@@ -68,8 +68,8 @@
                         <th>{{ __('Phone Number') }}</th>
                         <th>{{ __('Dob') }}</th>
                         <th>{{ __('Blood Group') }}</th>
-                        <th>{{ __('Country') }}</th>
-                        <th>{{ __('State') }}</th>
+                        {{-- <th>{{ __('Country') }}</th>
+                        <th>{{ __('State') }}</th> --}}
                         <th>{{ __('Vechile Name') }}</th>
                         <th>{{ __('Owner Name') }}</th>
                         <th>{{ __('Vechile Color') }}</th>
@@ -101,8 +101,8 @@
                             <td>{{ $delivery_boy->phone_number }}</td>
                             <td>{{ $delivery_boy->dob }}</td>
                             <td>{{ $delivery_boy->blood_group }}</td>
-                            <td>{{ $delivery_boy->country->name }}</td>
-                            <td>{{ $delivery_boy->state->name }}</td>
+                            {{-- <td>{{ $delivery_boy->country->name }}</td> --}}
+                            {{-- <td>{{ $delivery_boy->state->name }}</td> --}}
                             <td>{{ $delivery_boy->vechile_name }}</td>
                             <td>{{ $delivery_boy->owner_name }}</td>
                             <td>{{ $delivery_boy->vechile_color }}</td>
