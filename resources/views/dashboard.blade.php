@@ -26,7 +26,7 @@
                 <p class="text-lg text-main">
                     Total published products: 
                     <span class="text-bold">
-                        {{$all_products}}
+                        <?php echo $all_products; ?>
                         {{-- {{ \App\Product::where('published', 1)->get()->count() }} --}}
                     </span>
                 </p>
@@ -34,7 +34,7 @@
                     <p class="text-lg text-main">
                         Total sellers products: 
                         <span class="text-bold">
-                            {{$seller_products}}
+                            <?php echo $seller_products; ?>
                             {{-- {{ \App\Product::where('published', 1)->where('added_by', 'seller')->get()->count() }} --}}
                         </span>
                     </p>
@@ -42,7 +42,7 @@
                 <p class="text-lg text-main">
                     Total admin products: 
                     <span class="text-bold">
-                        {{$admin_products}}
+                        <?php echo $admin_products; ?>
                         {{-- {{ \App\Product::where('published', 1)->where('added_by', 'admin')->get()->count() }} --}}
                     </span>
                 </p>
