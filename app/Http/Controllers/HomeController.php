@@ -108,6 +108,7 @@ class HomeController extends Controller
         $all_products = Product::where('published', 1)->get()->count();
         $seller_products = Product::where('published', 1)->where('added_by', 'seller')->get()->count();
         $admin_products = Product::where('published', 1)->where('added_by', 'admin')->get()->count();
+        dd($all_products,$seller_products,$admin_products);
         return view('dashboard',compact('all_products','seller_products','admin_products'));
     }
 
