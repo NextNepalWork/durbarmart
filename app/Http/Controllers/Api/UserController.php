@@ -21,7 +21,7 @@ class UserController extends Controller
             'country' => $request->country,
             'phone' => $request->phone,
             'address' => $request->address,
-            'postal_code' => $request->postal_code,
+            'postal_code' => isset($request->postal_code)?$request->postal_code:null,
         ]);
         return response()->json([
             'message' => 'Profile information has been updated successfully'

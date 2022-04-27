@@ -9,7 +9,7 @@ use ZipArchive;
 use DB;
 use Auth;
 use App\BusinessSetting;
-use CoreComponentRepository;
+// use CoreComponentRepository;
 use Illuminate\Support\Str;
 
 class AddonController extends Controller
@@ -21,7 +21,7 @@ class AddonController extends Controller
      */
     public function index()
     {
-        CoreComponentRepository::instantiateShopRepository();
+        // CoreComponentRepository::instantiateShopRepository();
         return view('addons.index');
     }
 

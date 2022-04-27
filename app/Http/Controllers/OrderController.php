@@ -16,7 +16,7 @@ use App\OtpConfiguration;
 use App\Product;
 use App\User;
 use Auth;
-use CoreComponentRepository;
+// use CoreComponentRepository;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -115,7 +115,7 @@ class OrderController extends Controller
      */
     public function admin_orders(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
+        // CoreComponentRepository::instantiateShopRepository();
 
         $payment_status = null;
         $delivery_status = null;
@@ -148,7 +148,7 @@ class OrderController extends Controller
     public function seller_orders(Request $request)
     {
         // dd('hi');
-        CoreComponentRepository::instantiateShopRepository();
+        // CoreComponentRepository::instantiateShopRepository();
 
         $payment_status = null;
         $delivery_status = null;
@@ -191,7 +191,7 @@ class OrderController extends Controller
      */
     public function sales(Request $request)
     {
-        CoreComponentRepository::instantiateShopRepository();
+        // CoreComponentRepository::instantiateShopRepository();
 
         $sort_search = null;
         $orders = Order::orderBy('code', 'desc');
