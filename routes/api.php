@@ -91,7 +91,7 @@ Route::prefix('v1')->group(function () {
     Route::get('policies/privacy', 'Api\PolicyController@privacy')->name('policies.privacy');
 
     Route::get('user/info/{id}', 'Api\UserController@info')->middleware('auth:api');
-    Route::post('user/info/update', 'Api\UserController@updateName')->middleware('auth:api');
+    Route::post('user/info/update', 'Api\   @updateName')->middleware('auth:api');
     Route::post('user/shipping/update', 'Api\UserController@updateShippingAddress')->middleware('auth:api');
 
     Route::post('coupon/apply', 'Api\CouponController@apply')->middleware('auth:api');

@@ -10,7 +10,7 @@ use App\GeneralSetting;
 use App\BusinessSetting;
 use App\User;
 use App\Product;
-use CoreComponentRepository;
+// use CoreComponentRepository;
 
 class InstallController extends Controller
 {
@@ -31,7 +31,7 @@ class InstallController extends Controller
     }
 
     public function step3($error = "") {
-        CoreComponentRepository::instantiateShopRepository();
+        // CoreComponentRepository::instantiateShopRepository();
         if($error == ""){
             return view('installation.step3');
         }else {

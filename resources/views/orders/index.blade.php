@@ -102,7 +102,12 @@
                                     {{ $key + 1 + ($orders->currentPage() - 1) * $orders->perPage() }}
                                 </td>
                                 <td>
-                                    {{ $order->code }} @if ($order->viewed == 0) <span class="pull-right badge badge-info">{{ __('New') }}</span> @endif
+                                    
+                                    <a href="{{ route('orders.show', encrypt($order->id)) }}">
+                                        {{ $order->code }} @if ($order->viewed == 0) <span class="pull-right badge badge-info">{{ __('New') }}</span> @endif
+                                    </a>
+                                            
+                                    {{-- {{ $order->code }} @if ($order->viewed == 0) <span class="pull-right badge badge-info">{{ __('New') }}</span> @endif --}}
                                 </td>
                                 <td>
                                     {{ count($order->orderDetails->where('seller_id', $admin_user_id)) }}
