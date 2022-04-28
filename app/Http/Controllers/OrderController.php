@@ -404,19 +404,35 @@ class OrderController extends Controller
 
             set_time_limit(1500);
             //stores the pdf for invoice
-            $pdf = PDF::setOptions([
-                'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-                'logOutputFile' => storage_path('logs/log.htm'),
-                'tempDir' => storage_path('logs/'),
-            ])->loadView('invoices.customer_invoice', compact('order'));
-            $output = $pdf->output();
-            file_put_contents(public_path('invoices/' . 'Order#' . $order->code . '.pdf'), $output);
+            // $pdf = PDF::setOptions([
+            //     'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            //     'logOutputFile' => storage_path('logs/log.htm'),
+            //     'tempDir' => storage_path('logs/'),
+            // ])->loadView('invoices.customer_invoice', compact('order'));
+            // $output = $pdf->output();
+            // file_put_contents(public_path('invoices/' . 'Order#' . $order->code . '.pdf'), $output);
             $data['view'] = 'emails.invoice';
             $data['subject'] = 'Order Placed - ' . $order->code;
             $data['from'] = Config::get('mail.username');
             $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
             $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
             $data['file_name'] = 'Order#' . $order->code . '.pdf';
+            // if (Config::get('mail.username') != null) {
+            //     //     // if(env('MAIL_USERNAME') != null){
+            //         try {
+            //             Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+            //     //         Mail::to(User::where('user_type', 'admin')->first()->email)->send(new InvoiceEmailManager($data));
+            //     //         // dd($request->session()->get('shipping_info')['email']);
+            //     //         // dispatch(new SendInvoiceEmail($array));
+            //     //         // dispatch(new SendInvoiceEmail(User::where('user_type', 'admin')->first()->email, $array));
+            //             Log::info('Mail Sent');
+            //     //         // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
+            //     //         // Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
+            //         } catch (\Exception $e) {
+            //             Log::info($e->getMessage());
+            //         }
+            //     }
+            //     unlink($data['file']);
 
             // dd($seller_products);
             // foreach ($seller_products as $key => $seller_product) {
@@ -455,22 +471,7 @@ class OrderController extends Controller
 
             //sends email to customer with the invoice pdf attached
             // dd(Config::get('mail.username') != null, $request->session()->get('shipping_info')['email']);
-            if (Config::get('mail.username') != null) {
-            //     // if(env('MAIL_USERNAME') != null){
-                try {
-                    Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
-            //         Mail::to(User::where('user_type', 'admin')->first()->email)->send(new InvoiceEmailManager($data));
-            //         // dd($request->session()->get('shipping_info')['email']);
-            //         // dispatch(new SendInvoiceEmail($array));
-            //         // dispatch(new SendInvoiceEmail(User::where('user_type', 'admin')->first()->email, $array));
-                    Log::info('Mail Sent');
-            //         // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
-            //         // Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
-                } catch (\Exception $e) {
-                    Log::info($e->getMessage());
-                }
-            }
-            unlink($data['file']);
+           
 
             $request->session()->put('order_id', $order->id);
         }

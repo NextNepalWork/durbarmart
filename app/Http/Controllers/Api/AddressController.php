@@ -43,6 +43,7 @@ class AddressController extends Controller
     {
         $address = new Address;
         $address->user_id = Auth::user()->id;
+        $address->email = Auth::user()->email;
         $address->address = $request->address;
         $address->country = $request->country;
         $address->city = $request->city;

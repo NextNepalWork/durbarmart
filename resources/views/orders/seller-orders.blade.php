@@ -135,8 +135,9 @@
                                         Guest ({{ $order->guest_id }})
                                     @endif
                                 </td>
-                                <td>
-                                    {{ single_price($order->orderDetails->whereIn('seller_id', (array)$admin_user_id)->sum('price') + $order->orderDetails->whereIn('seller_id', (array)$admin_user_id)->sum('tax')) }}
+                                <td>                                    
+                                    {{ single_price($order->grand_total) }}
+                                    {{-- {{ single_price($order->orderDetails->whereIn('seller_id', (array)$admin_user_id)->sum('price') + $order->orderDetails->whereIn('seller_id', (array)$admin_user_id)->sum('tax')) }} --}}
                                 </td>
                                 <td>
                                     @php

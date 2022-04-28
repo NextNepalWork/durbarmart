@@ -38,6 +38,7 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('home-categories', 'Api\HomeCategoryController')->only('index');
 
+    Route::post('purchase-history/update-transaction', 'Api\PurchaseHistoryController@updateTransaction')->middleware('auth:api');
     Route::get('purchase-history/{id}', 'Api\PurchaseHistoryController@index')->middleware('auth:api');
     Route::get('purchase-history-details/{id}', 'Api\PurchaseHistoryDetailController@index')->name('purchaseHistory.details')->middleware('auth:api');
 
@@ -103,10 +104,12 @@ Route::prefix('v1')->group(function () {
     Route::post('order/store', 'Api\OrderController@store')->middleware('auth:api');
     
     Route::resource('addresses','Api\AddressController')->middleware('auth:api');
-   Route::get('/addresses/destroy/{id}', 'Api\AddressController@destroy')->middleware('auth:api');
-Route::get('/addresses/set_default/{id}', 'Api\AddressController@set_default')->middleware('auth:api');
+    Route::get('/addresses/destroy/{id}', 'Api\AddressController@destroy')->middleware('auth:api');
+    Route::get('/addresses/set_default/{id}', 'Api\AddressController@set_default')->middleware('auth:api');
 
 });
+
+Route::get('order/{code}', 'Api\OrderController@getOrder');
 
 Route::group(["prefix"=>"delivery-boy/", "as" => "delivery."], function(){
     Route::post('login', 'Api\Delivery\AuthController@login')->name('apiLogin');
