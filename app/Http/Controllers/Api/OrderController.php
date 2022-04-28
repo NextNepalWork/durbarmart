@@ -12,6 +12,7 @@ use App\Models\CouponUsage;
 use App\Models\BusinessSetting;
 use App\User;
 use DB;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -155,7 +156,47 @@ class OrderController extends Controller
             'order_code' => $order->code
         ]);
     }
-
+    public function getOrder($code)
+    {
+        $order = Order::where('code',$code)->count();
+        if($order > 0){
+            $data = Order::where('code',$code)->first();
+        // return $order;
+                $placeholder_img='frontend/images/placeholder.jpg';
+                $a =  [
+                    'order_id' => $data->id,
+                    'code' => $data->code,
+                    'user' => [
+                        'name' => $data->user->name,
+                        'email' => $data->user->email,
+                        'avatar' =>file_exists($data->user->avatar) ? $data->user->avatar : $placeholder_img,
+                        'avatar_original' => file_exists($data->user->avatar_original) ? $data->user->avatar_original : $placeholder_img
+                    ],
+                    'shipping_address' => json_decode($data->shipping_address),
+                    'payment_type' => str_replace('_', ' ', $data->payment_type),
+                    'payment_status' => $data->payment_status,
+                    'grand_total' => (double) $data->grand_total,
+                    'coupon_discount' => (double) $data->coupon_discount,
+                    'shipping_cost' => (double) $data->orderDetails->sum('shipping_cost'),
+                    'subtotal' => (double) $data->orderDetails->sum('price'),
+                    'tax' => (double) $data->orderDetails->sum('tax'),
+                    'date' => Carbon::createFromTimestamp($data->date)->format('d-m-Y'),
+                    'links' => [
+                        'details' => route('purchaseHistory.details', $data->id)
+                    ]
+                ];
+            return response()->json([
+                'success' => true,
+                'message' => 'Order get successfully',
+                'order_code' => $a
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Order not found',
+            'order_code' => ''
+        ]);
+    }
     public function store(Request $request)
     {
         return $this->processOrder($request);

@@ -122,11 +122,21 @@
             </div>
         </div>
     </div>
+    <style>
+        @media(max-width:768px){
+            .details-table{
+                width: 40rem!important;
+            }
+            .asdf{
+                overflow-x: scroll;
+            }
+        }
+    </style>
     <div class="row">
         <div class="col-lg-9">
             <div class="card mt-4">
                 <div class="card-header py-2 px-3 heading-6 strong-600">{{__('Order Details')}}</div>
-                <div class="card-body pb-0">
+                <div class="card-body pb-0 asdf">
                     <table class="details-table table">
                         <thead>
                             <tr>
@@ -136,6 +146,7 @@
                                 <th>{{__('Quantity')}}</th>
                                 <th>{{__('Delivery Type')}}</th>
                                 <th>{{__('Price')}}</th>
+                                <th>{{__('Vendor')}}</th>
                                 @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
                                     {{-- <th>{{__('Refund')}}</th> --}}
                                 @endif
@@ -168,6 +179,23 @@
                                         @endif
                                     </td>
                                     <td>{{ $orderDetail->price }}</td>
+                                    <td>
+                                        @php
+                                            $vendor = \App\User::where('id',$orderDetail->seller_id)->first();
+                                            if($vendor->user_type == 'admin'){
+                                                $vendor_name = 'Inhouse';
+                                                $vendor_address = '';
+                                                $vendor_phone = $vendor->phone;
+                                            }elseif($vendor->user_type == 'seller'){
+                                                $vendor_name = $vendor->shop->name;
+                                                $vendor_address = $vendor->shop->address;
+                                                $vendor_phone = $vendor->phone;
+                                            }
+                                        @endphp
+                                        <a href="tel:{{$vendor_phone}}">{{$vendor_name}}</a>
+                                        {{$vendor_address}} 
+                                    </td>
+
                                     {{-- @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
                                         <td>
                                             @if ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $orderDetail->refund_request == null)
