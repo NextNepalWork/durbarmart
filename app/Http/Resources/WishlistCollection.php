@@ -20,6 +20,7 @@ class WishlistCollection extends ResourceCollection
                         'base_price' => (double) homeBasePrice($data->product->id),
                         'base_discounted_price' => (double) homeDiscountedBasePrice($data->product->id),
                         'unit' => $data->product->unit,
+                        'unit_price' => $data->product->unit_price,
                         'rating' => (double) $data->product->rating,
                         'links' => [
                             'details' => route('products.show', $data->product->id),

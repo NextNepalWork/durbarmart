@@ -443,10 +443,11 @@
                             
                             <div class="row no-gutters mt-3">
                                 <div class="col-2">
-                                    <div class="product-description-label alpha-6">{{__('Payment')}}:</div>
+                                    <div class="product-description-label alpha-6">{{__('Estimated Delivery')}}:</div>
                                 </div>
                                 <div class="col-10">
-                                    <ul class="inline-links">
+                                    1-2 days inside Valley & 2-3 days Outside valley
+                                    {{-- <ul class="inline-links"> --}}
                                         <!--<li>-->
                                         <!--    <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/visa.png') }}" width="30" class="lazyload">-->
                                         <!--</li>-->
@@ -460,9 +461,9 @@
                                         <!--    <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/paypal.png') }}" width="30" class="lazyload">-->
                                         <!--</li>-->
                                         <!--<li>-->
-                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/cod.png') }}" width="30" class="lazyload">
+                                            {{-- <img src="{{ asset('frontend/images/placeholder.jpg') }}" src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset('frontend/images/icons/cards/cod.png') }}" width="30" class="lazyload">
                                         </li>
-                                    </ul>
+                                    </ul> --}}
                                 </div>
                             </div>
                             {{-- <div class="row no-gutters mt-3">
