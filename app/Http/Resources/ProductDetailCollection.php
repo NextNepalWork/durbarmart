@@ -84,6 +84,8 @@ class ProductDetailCollection extends ResourceCollection
                     'discount_type' => $data->discount_type,
                     'tax' => (double) $data->tax,
                     'tax_type' => $data->tax_type,
+                    'warranty' => $data->warranty,
+                    'warranty_time' => $data->warranty_time,
                     'shipping_type' => $data->shipping_type,
                     'shipping_cost' => (double) $data->shipping_cost,
                     'number_of_sales' => (integer) $data->num_of_sale,
