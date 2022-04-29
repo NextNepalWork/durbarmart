@@ -438,7 +438,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->q;
-        // dd($request->brand);
+        dd('testing');
         $brand_id = '';
         if($request->brand != ''){
             $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
