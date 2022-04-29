@@ -332,11 +332,35 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
+                                    <div class="row no-gutters py-2 d-none" id="chosen_price_div">
+                                        <div class="col-2 m-auto">
+                                            <div class="product-description-label">{{__('Unit Price')}}:</div>
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="">
+
+                                                <div class="d-flex">
+                                                    <div class="" style="text-decoration: line-through">
+                                                        {{ home_price($detailedProduct->id) }}
+                                                    </div>
+                                                    <div class="discount">
+                                                        @if (! $detailedProduct->discount == 0)
+                                                            <div class="">
+                                                                -{{ ($detailedProduct->discount_type == 'amount')?'Rs.':'' }} {{ (intval($detailedProduct->discount,0)) }}{{ !($detailedProduct->discount_type == 'amount')?' %':'' }} off
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
 
                             </form>
 
                             <div class="d-table width-100 mt-3">
-                                <div class="d-table-cell text-center">
+                                <div class="d-table-cell">
                                     <!-- Buy Now button -->
                                     @if ($qty > 0)
                                         <button type="button" class="btn btn-styled btn-base-1 btn-icon-left strong-700 hov-bounce hov-shaddow buy-now px-2 mb-1 font-weight-light" onclick="buyNow()">
