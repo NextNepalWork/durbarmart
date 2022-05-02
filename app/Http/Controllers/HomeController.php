@@ -540,10 +540,10 @@ class HomeController extends Controller
                     break;
             }
         }
+        // $non_paginate_products = filter_products($products)->get();
+
+
 dd($conditions);
-        $non_paginate_products = filter_products($products)->get();
-
-
         //Attribute Filter
 
         $attributes = array();
