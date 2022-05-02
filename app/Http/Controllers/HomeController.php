@@ -438,7 +438,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->q;
-        dd('testing');
+        // dd('testing');
         // ajax_searchaaxa
         // xassx
         // asx
@@ -624,7 +624,7 @@ class HomeController extends Controller
         $brands = filter_products($products)->where('brand_id','!=',null)->get('brand_id');
 // dd($a); 
         $products = filter_products($products)->paginate(12)->appends(request()->query());
-        // dd($products);
+        dd($products);
 
         return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','brands'));
     }
