@@ -521,7 +521,6 @@ class HomeController extends Controller
             $products = $products->where('name', 'like', '%'.$query.'%')->orWhere('tags', 'like', '%'.$query.'%');
         }
 
-dd($conditions);
         if($sort_by != null){
             switch ($sort_by) {
                 case '1':
@@ -541,6 +540,7 @@ dd($conditions);
                     break;
             }
         }
+dd($conditions);
         $non_paginate_products = filter_products($products)->get();
 
 
