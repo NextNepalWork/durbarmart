@@ -438,13 +438,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->q;
-        // dd('testing');
-        // ajax_searchaaxa
-        // xassx
-        // asx
-        // as
-        // x
-        // asxasxas
+        // dd($request->brand);
         $brand_id = '';
         if($request->brand != ''){
             $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
@@ -479,6 +473,7 @@ class HomeController extends Controller
         $seller_id = $request->seller_id;
 
         $conditions = ['published' => 1];
+// dd($conditions);
         // dd($products->get(),SubSubCategory::where('id',$subsubcategory_id)->first(),$conditions);
         if($brand_id != null){
             $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
@@ -540,10 +535,9 @@ class HomeController extends Controller
                     break;
             }
         }
-        // $non_paginate_products = filter_products($products)->get();
+        $non_paginate_products = filter_products($products)->get();
 
 
-dd($conditions);
         //Attribute Filter
 
         $attributes = array();
@@ -624,7 +618,7 @@ dd($conditions);
         $brands = filter_products($products)->where('brand_id','!=',null)->get('brand_id');
 // dd($a); 
         $products = filter_products($products)->paginate(12)->appends(request()->query());
-        dd($products);
+        // dd($products);
 
         return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','brands'));
     }
