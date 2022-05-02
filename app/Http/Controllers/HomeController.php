@@ -503,7 +503,6 @@ class HomeController extends Controller
         }
 
         
-dd($conditions);
         if($user_id){
             $products = Product::whereIn('user_id',(array)$user_id)->where($conditions);
         }
@@ -544,6 +543,7 @@ dd($conditions);
         $non_paginate_products = filter_products($products)->get();
 
 
+dd($conditions);
         //Attribute Filter
 
         $attributes = array();
