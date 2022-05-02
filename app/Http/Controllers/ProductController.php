@@ -575,11 +575,17 @@ class ProductController extends Controller
             }
         }
 
-        $product->save();
 
+
+        $product->save();
         flash(__('Product has been updated successfully'))->success();
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
-            return redirect()->route('products.admin');
+            if($product->added_by== 'admin'){
+                return redirect()->route('products.admin');
+            }else{
+            return redirect()->route('products.seller');
+
+            }
         } else {
             return redirect()->route('seller.products');
         }
