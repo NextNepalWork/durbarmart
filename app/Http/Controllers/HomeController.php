@@ -439,6 +439,12 @@ class HomeController extends Controller
     {
         $query = $request->q;
         dd('testing');
+        // ajax_searchaaxa
+        // xassx
+        // asx
+        // as
+        // x
+        // asxasxas
         $brand_id = '';
         if($request->brand != ''){
             $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
