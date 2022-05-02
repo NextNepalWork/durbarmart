@@ -479,7 +479,7 @@ class HomeController extends Controller
         $seller_id = $request->seller_id;
 
         $conditions = ['published' => 1];
-// dd($conditions);
+dd($conditions);
         // dd($products->get(),SubSubCategory::where('id',$subsubcategory_id)->first(),$conditions);
         if($brand_id != null){
             $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
