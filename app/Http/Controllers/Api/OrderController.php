@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Mail\EmailManager;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Cart;
@@ -13,6 +14,13 @@ use App\Models\BusinessSetting;
 use App\User;
 use DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Mail;
+use PDF;
+use Session;
+use App\Mail\InvoiceEmailManager;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -149,6 +157,23 @@ class OrderController extends Controller
         // clear user's cart
         $user = User::findOrFail($request->user_id);
         $user->carts()->delete();
+
+        $products = '';
+        if(!empty($order->orderDetails)){
+            foreach($order->orderDetails as $a => $b){
+                $product_name = Product::where('id',$b['product_id'])->first();
+                $products .= '<br>'.$product_name->name.'</n>';
+            }
+        }
+        $total_amount = $order->grand_total;
+        
+        $array['view'] = 'emails.newsletter';
+        $array['subject'] = 'New Order Placed';
+        $array['from'] = 'nextnepal271@gmail.com';
+        $array['content'] = 'Thank you for ordering from Sewa Digital Express. An order of total amount Rs. '.$total_amount.' has been placed for following items.';
+        $array['content'] .= $products;
+        $array['content'] .= '.</br>You can download the invoice to this order from https://sewa-digital.nextnepal.org/purchase_history';
+        Mail::to('joshibipin2052@gmail.com')->queue(new EmailManager($array));
 
         return response()->json([
             'success' => true,

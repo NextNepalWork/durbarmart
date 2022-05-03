@@ -104,6 +104,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     $w = preg_replace('!\s+!', ' ', $z);
                     
                     $product['slug'] = str_replace(' ','-',strtolower(trim($w)));
+                    $product['name'] = $b;
 
                     // $product['slug'] = str_replace(',','',str_replace(' ','-',strtolower(trim($b))));
                 }
@@ -275,6 +276,9 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     }
                     $brand_id = $this->brand_id->where('name',trim($b))->first()->toArray();
                     $product['brand_id'] = $brand_id['id'];
+                }
+                elseif($a == 'tags' && $b != ''){
+                    $product['tags'] = $b;
                 }
                 elseif($a == 'variant_inventory_qty' && $b != ''){
                     $product['current_stock'] = $b;

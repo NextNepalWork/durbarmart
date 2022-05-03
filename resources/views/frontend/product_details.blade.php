@@ -440,6 +440,20 @@
                                     </div>
                                 </div>
                             @endif
+                            {{-- @if ($detailedProduct->warranty == 0) --}}
+                                <div class="row no-gutters mt-3">
+                                    <div class="col-2">
+                                        <div class="product-description-label">{{__('Warranty')}}:</div>
+                                    </div>
+                                    <div class="col-10">
+                                        @if (($detailedProduct->warranty == 0))
+                                            No Warranty Available
+                                        @else
+                                            {{$detailedProduct->warranty_time}}
+                                        @endif
+                                    </div>
+                                </div>
+                            {{-- @endif --}}
                             
                             <div class="row no-gutters mt-3">
                                 <div class="col-2">

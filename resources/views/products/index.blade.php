@@ -2,14 +2,14 @@
 
 @section('content')
 
-    @if ($type != 'Seller')
+    {{-- @if ($type != 'Seller') --}}
         <div class="row">
             <div class="col-lg-12 pull-right">
                 <a href="{{ route('products.create') }}"
                     class="btn btn-rounded btn-info pull-right">{{ __('Add New Product') }}</a>
             </div>
         </div>
-    @endif
+    {{-- @endif --}}
 
 <br>
 <div class="panel">
@@ -48,7 +48,7 @@
                     <th>{{ __('Num of Sale') }}</th>
                     <th>{{ __('Total Stock') }}</th>
                     <th>{{ __('Base Price') }}</th>
-                    <th>{{ __('Todays Deal') }}</th>
+                    {{-- <th>{{ __('Todays Deal') }}</th> --}}
                     <th>{{ __('Rating') }}</th>
                     <th>{{ __('Published') }}</th>
                     <th>{{ __('Featured') }}</th>
@@ -112,12 +112,9 @@
                         </td>
                         <td class="updateData" data-name="price" data-type="text" data-pk="{{ $product->id }}"
                             data-title="Enter Product Price">{{ number_format($product->unit_price, 2) }}</td>
-                        <td><label class="switch">
-                                <input onchange="update_todays_deal(this)" value="{{ $product->id }}" type="checkbox"
-                                    <?php if ($product->todays_deal == 1) {
-                                        echo 'checked';
-                                    } ?>>
-                                <span class="slider round"></span></label></td>
+                        {{-- <td><label class="switch">
+                                <input onchange="update_todays_deal(this)" value="{{ $product->id }}" type="checkbox" @if ($product->todays_deal == 1) {{'checked'}} @endif>
+                                <span class="slider round"></span></label></td> --}}
                         <td>{{ $product->rating }}</td>
                         <td><label class="switch">
                                 <input onchange="update_published(this)" value="{{ $product->id }}" type="checkbox"
