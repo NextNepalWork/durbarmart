@@ -122,11 +122,24 @@ class ProductController extends Controller
 
         $product = new Product;
         $product->name = $request->name;
-        $product->added_by = $request->added_by;
+
+        if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
+            $added_by = 'admin';
+        }else{
+            $added_by = 'seller';
+        }
+        $product->added_by = $added_by;
+
         if (Auth::user()->user_type == 'seller') {
             $product->user_id = Auth::user()->id;
         } else {
-            $product->user_id = \App\User::where('user_type', 'admin')->first()->id;
+            // $product->user_id = \App\User::where('user_type', 'admin')->first()->id;
+            if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
+                $product->user_id = \App\User::where('user_type', 'admin')->first()->id;
+            }else{  
+                $product->user_id = $request->vendor_id;
+                // $added_by = 'seller';
+            }
         }
         $product->category_id = $request->category_id;
         $product->subcategory_id = $request->subcategory_id;
@@ -318,7 +331,12 @@ class ProductController extends Controller
 
         flash(__('Product has been inserted successfully'))->success();
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
-            return redirect()->route('products.admin');
+            // return redirect()->route('products.admin');
+            if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
+                return redirect()->route('products.admin');
+            }else{
+                return redirect()->route('products.seller');
+            }
         } else {
             if (\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated) {
                 $seller = Auth::user()->seller;
@@ -575,16 +593,39 @@ class ProductController extends Controller
             }
         }
 
+        if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
+            $added_by = 'admin';
+        }else{
+            $added_by = 'seller';
+        }
 
+        $product->added_by = $added_by;
+
+        if (Auth::user()->user_type == 'seller') {
+            $product->user_id = Auth::user()->id;
+        } else {
+            if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
+                $product->user_id = \App\User::where('user_type', 'admin')->first()->id;
+            }else{
+                $product->user_id = $request->vendor_id;
+                // $added_by = 'seller';
+            }
+           
+        }
 
         $product->save();
         flash(__('Product has been updated successfully'))->success();
+
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
-            if($product->added_by== 'admin'){
+            // if($product->added_by== 'admin'){
+            //     return redirect()->route('products.admin');
+            // }else{
+            //     return redirect()->route('products.seller');
+            // }
+            if(isset($request->vendor_id) && $request->vendor_id == 'in-house'){
                 return redirect()->route('products.admin');
             }else{
-            return redirect()->route('products.seller');
-
+                return redirect()->route('products.seller');
             }
         } else {
             return redirect()->route('seller.products');
