@@ -123,6 +123,17 @@
 								<input type="text" class="form-control" name="warranty_time" value="{{ $product->warranty_time }}" placeholder="Warranty Time" id="warranty_time">
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">Vendor</label>
+						<div class="col-lg-7">
+							<select class="form-control demo-select2-placeholder" name="vendor_id" id="brand_id">
+								<option value="in-house" selected>InHouse Product</option>
+								@foreach (\App\Seller::with('user')->whereHas('user')->get() as $seller)
+									<option value="{{ $seller->user_id }}" <?php if($product->user_id == $seller->user_id) echo "selected"; ?>>{{ $seller->user->name }}</option>
+								@endforeach
+							</select>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="panel">
