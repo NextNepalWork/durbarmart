@@ -3065,7 +3065,7 @@ ul.seller-brand-list .brand-item {
 }
 
 .xzoom-source {
-    z-index: 1060;
+    z-index: 9999999;
 }
 
 .xzoom,
@@ -3074,7 +3074,7 @@ ul.seller-brand-list .brand-item {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    z-index: 1055;
+    z-index: 999999;
 }
 
 .btn-back-to-top:before {
