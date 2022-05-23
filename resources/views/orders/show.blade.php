@@ -43,7 +43,7 @@
 				<div class="col-lg-3">
                     <label for="assign_delivery_boy">{{__('Delivery Boy')}}</label>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="assign_delivery_boy">
-						<option value="" disabled></option>
+						<option value="" selected disabled></option>
 						@foreach(\App\DeliveryBoy::all() as $delivery_boy)
                         	<option value="{{$delivery_boy->id}}" @if ($delivery_id == $delivery_boy->id) selected @endif>{{$delivery_boy->first_name}}</option>
 						@endforeach

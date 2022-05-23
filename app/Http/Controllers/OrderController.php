@@ -153,6 +153,7 @@ class OrderController extends Controller
         $payment_status = null;
         $delivery_status = null;
         $sort_search = null;
+        $vendor_id=null;
         $admin_user_id=array();
         foreach(User::where('user_type', 'seller')->get() as $user){
             array_push($admin_user_id,$user->id);
@@ -175,13 +176,20 @@ class OrderController extends Controller
             $orders = $orders->where('order_details.delivery_status', $request->delivery_status);
             $delivery_status = $request->delivery_status;
         }
+        if ($request->seller != null) {
+            
+            $orders = $orders
+                ->where('order_details.seller_id', $request->seller);
+            $vendor_id=$request->seller;
+            
+        }
         if ($request->has('search')) {
             $sort_search = $request->search;
             $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
         }
         $orders = $orders->paginate(15);
         
-        return view('orders.seller-orders', compact('orders', 'delivery_status', 'sort_search', 'admin_user_id'));
+        return view('orders.seller-orders', compact('orders', 'delivery_status', 'sort_search', 'admin_user_id','vendor_id'));
     }
 
     /**
@@ -404,35 +412,35 @@ class OrderController extends Controller
 
             set_time_limit(1500);
             //stores the pdf for invoice
-            $pdf = PDF::setOptions([
-                'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-                'logOutputFile' => storage_path('logs/log.htm'),
-                'tempDir' => storage_path('logs/'),
-            ])->loadView('invoices.customer_invoice', compact('order'));
-            $output = $pdf->output();
-            file_put_contents(public_path('invoices/' . 'Order#' . $order->code . '.pdf'), $output);
-            $data['view'] = 'emails.invoice';
-            $data['subject'] = 'Order Placed - ' . $order->code;
-            $data['from'] = Config::get('mail.username');
-            $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
-            $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
-            $data['file_name'] = 'Order#' . $order->code . '.pdf';
-            if (Config::get('mail.username') != null) {
-            //     //     // if(env('MAIL_USERNAME') != null){
-                    try {
-                        Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
-            //     //         Mail::to(User::where('user_type', 'admin')->first()->email)->send(new InvoiceEmailManager($data));
-            //     //         // dd($request->session()->get('shipping_info')['email']);
-            //     //         // dispatch(new SendInvoiceEmail($array));
-            //     //         // dispatch(new SendInvoiceEmail(User::where('user_type', 'admin')->first()->email, $array));
-                        Log::info('Mail Sent');
-            //     //         // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
-            //     //         // Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
-                    } catch (\Exception $e) {
-                        Log::info($e->getMessage());
-                    }
-                }
-                unlink($data['file']);
+            // $pdf = PDF::setOptions([
+            //     'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            //     'logOutputFile' => storage_path('logs/log.htm'),
+            //     'tempDir' => storage_path('logs/'),
+            // ])->loadView('invoices.customer_invoice', compact('order'));
+            // $output = $pdf->output();
+            // file_put_contents(public_path('invoices/' . 'Order#' . $order->code . '.pdf'), $output);
+            // $data['view'] = 'emails.invoice';
+            // $data['subject'] = 'Order Placed - ' . $order->code;
+            // $data['from'] = Config::get('mail.username');
+            // $data['content'] = 'Hi. A new order has been placed. Please check the attached invoice.';
+            // $data['file'] = public_path('invoices/' . 'Order#' . $order->code . '.pdf');
+            // $data['file_name'] = 'Order#' . $order->code . '.pdf';
+            // if (Config::get('mail.username') != null) {
+            // //     //     // if(env('MAIL_USERNAME') != null){
+            //         try {
+            //             Mail::to($request->session()->get('shipping_info')['email'])->send(new InvoiceEmailManager($data));
+            // //     //         Mail::to(User::where('user_type', 'admin')->first()->email)->send(new InvoiceEmailManager($data));
+            // //     //         // dd($request->session()->get('shipping_info')['email']);
+            // //     //         // dispatch(new SendInvoiceEmail($array));
+            // //     //         // dispatch(new SendInvoiceEmail(User::where('user_type', 'admin')->first()->email, $array));
+            //             Log::info('Mail Sent');
+            // //     //         // Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
+            // //     //         // Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
+            //         } catch (\Exception $e) {
+            //             Log::info($e->getMessage());
+            //         }
+            //     }
+            //     unlink($data['file']);
 
             // dd($seller_products);
             // foreach ($seller_products as $key => $seller_product) {

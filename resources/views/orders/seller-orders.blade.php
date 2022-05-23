@@ -22,22 +22,18 @@
                             </select>
                         </div>
                     </div>
-                    {{-- <div class="box-inline pad-rgt pull-left">
+                    <div class="box-inline pad-rgt pull-left">
                         <div class="select" style="min-width: 300px;">
-                            <select class="form-control demo-select2" name="delivery_status" id="delivery_status"
-                                onchange="sort_orders()">
-                                <option value="">{{ __('Filter by Deliver Status') }}</option>
-                                <option value="pending" @isset($delivery_status) @if ($delivery_status == 'pending') selected @endif
-                                    @endisset>{{ __('Pending') }}</option>
-                                <option value="on_review" @isset($delivery_status) @if ($delivery_status == 'on_review') selected @endif
-                                    @endisset>{{ __('On review') }}</option>
-                                <option value="on_delivery" @isset($delivery_status) @if ($delivery_status == 'on_delivery') selected @endif
-                                    @endisset>{{ __('On delivery') }}</option>
-                                <option value="delivered" @isset($delivery_status) @if ($delivery_status == 'delivered') selected @endif
-                                    @endisset>{{ __('Delivered') }}</option>
+                            <select class="form-control demo-select2" data-placeholder="{{__('Filter By Sellers')}}" name="seller" onchange="sort_orders()">
+                                <option value=""></option>
+                                @foreach (\App\Seller::all() as $key => $seller)
+                                    @if ($seller->user != null && $seller->user->shop != null)
+                                        <option value="{{ $seller->user->id }}" @if ($vendor_id == $seller->user->id) selected @endif>{{ $seller->user->shop->name }}</option>
+                                    @endif
+                                @endforeach
                             </select>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="box-inline pad-rgt pull-left">
                         <div class="" style="min-width: 200px;">
                             <input type="text" class="form-control" id="search" name="search"

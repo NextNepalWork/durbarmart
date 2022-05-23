@@ -34,7 +34,7 @@
 
 @section('content')
 <!-- Breadcrumbs -->
-<section id="breadcrumb-wrapper" class="position-relative bg-light">
+<section id="breadcrumb-wrapper" class="position-relative bg-light d-md-block d-none">
     {{-- <div class="image">
         <img src="{{asset('frontend/assets/images/banner/1.jpg')}}" alt="breadcrumb-image" class="img-fluid">
     </div> --}}
