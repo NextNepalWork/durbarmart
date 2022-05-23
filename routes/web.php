@@ -90,7 +90,7 @@ Route::get('/products/{slug}', 'HomeController@product')->name('product');
 Route::get('/products', 'HomeController@listing')->name('products');
 Route::get('/search?category={category_slug}', 'HomeController@search')->name('products.category');
 Route::get('/search?subcategory={subcategory_slug}', 'HomeController@search')->name('products.subcategory');
-Route::get('/search?subsubcategory={subsubcategory_slug}', 'HomeController@search')->name('products.subsubcategory');
+Route::get('/collections/{subsubcategory_slug}', 'HomeController@subsub')->name('products.subsubcategory');
 Route::get('/search?subsubsubcategory={subsubsubcategory_slug}', 'HomeController@search')->name('products.subsubsubcategory');
 Route::get('/search?subsubsubsubcategory={subsubsubsubcategory_slug}', 'HomeController@search')->name('products.subsubsubsubcategory');
 Route::get('/search?brand={brand_slug}', 'HomeController@search')->name('products.brand');
