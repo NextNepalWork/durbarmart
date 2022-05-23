@@ -368,9 +368,9 @@
         </div>
     </div>
 
-    <div id="section_best_sellers">
+    {{-- <div id="section_best_sellers">
 
-    </div>
+    </div> --}}
 
     <!-- <section class="mb-3">
         <div class="container">
