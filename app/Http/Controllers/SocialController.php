@@ -9,7 +9,7 @@ use App\User;
 
 class SocialController extends Controller
 {
-     public function redirectToProvider()
+    public function redirectToProvider()
     {
      return Socialite::driver('facebook')->redirect();
     }
@@ -17,7 +17,7 @@ class SocialController extends Controller
     {
         return Socialite::driver('google')->redirect();
     }
-  public function handleProviderCallback()
+    public function handleProviderCallback()
     {
 	
        	$userSocial = Socialite::driver('facebook')->stateless()->user();
@@ -40,7 +40,6 @@ class SocialController extends Controller
             return redirect()->route('home')->with('status','Successfully Registered');
         }
     }
-
     public function handleProviderCallbackGoogle()
     {
         $userSocial = Socialite::driver('google')->stateless()->user();
