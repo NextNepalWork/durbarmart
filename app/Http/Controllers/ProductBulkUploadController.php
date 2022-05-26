@@ -18,6 +18,7 @@ use App\SellersImport;
 
 use PDF;
 use Excel;
+use Illuminate\Http\Response;
 
 class ProductBulkUploadController extends Controller
 {
@@ -32,7 +33,9 @@ class ProductBulkUploadController extends Controller
     }
 
     public function export(){
-        return Excel::download(new ProductsExport, 'products.xlsx');
+        $filePath = public_path("download/Example-Product.csv");
+        return \Response::download($filePath);
+        // return Excel::download(new ProductsExport, 'products.xlsx');
     }
 
     public function pdf_download_category()
