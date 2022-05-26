@@ -473,7 +473,7 @@ class HomeController extends Controller
         $seller_id = $request->seller_id;
 
         $conditions = ['published' => 1];
-// dd($conditions);
+        // dd($conditions);
         // dd($products->get(),SubSubCategory::where('id',$subsubcategory_id)->first(),$conditions);
         if($brand_id != null){
             $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
@@ -525,10 +525,20 @@ class HomeController extends Controller
                     $products->orderBy('created_at', 'asc');
                     break;
                 case '3':
-                    $products->orderBy('unit_price', 'asc');
+                    $products->selectRaw('*,case 
+                                    when discount_type = "amount" then (unit_price - discount)
+                                    when discount_type = "percent" then (unit_price - (unit_price * (discount/100)))
+                                    end as unit_price2');
+                    $products->orderBy('unit_price2', 'asc');
+                    // $products->orderBy('unit_price', 'asc');
                     break;
                 case '4':
-                    $products->orderBy('unit_price', 'desc');
+                    $products->selectRaw('*,case 
+                                    when discount_type = "amount" then (unit_price - discount)
+                                    when discount_type = "percent" then (unit_price - (unit_price * (discount/100)))
+                                    end as unit_price2');
+                    $products->orderBy('unit_price2', 'desc');
+                    // $products->orderBy('unit_price', 'desc');
                     break;
                 default:
                     // code...

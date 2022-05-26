@@ -39,6 +39,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('home-categories', 'Api\HomeCategoryController')->only('index');
 
     Route::post('purchase-history/update-transaction', 'Api\PurchaseHistoryController@updateTransaction')->middleware('auth:api');
+    Route::post('purchase-history/cancel', 'Api\PurchaseHistoryController@cancel')->middleware('auth:api');
     Route::get('purchase-history/{id}', 'Api\PurchaseHistoryController@index')->middleware('auth:api');
     Route::get('purchase-history-details/{id}', 'Api\PurchaseHistoryDetailController@index')->name('purchaseHistory.details')->middleware('auth:api');
 
@@ -55,6 +56,7 @@ Route::prefix('v1')->group(function () {
     Route::get('products/related/{id}', 'Api\ProductController@related')->name('products.related');
     Route::get('products/top-from-seller/{id}', 'Api\ProductController@topFromSeller')->name('products.topFromSeller');
     Route::get('products/search', 'Api\ProductController@search');
+    Route::get('shop/search', 'Api\ProductController@searchShop');
     Route::post('products/variant/price', 'Api\ProductController@variantPrice');
     Route::get('products/home', 'Api\ProductController@home');
     Route::get('products/all', 'Api\ProductController@all');

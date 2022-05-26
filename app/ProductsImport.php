@@ -57,7 +57,6 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
             $subsubsubcat_id = '';
             $subsubsubsubcat_id = '';
             $subsubsubsubsubcat_id = '';
-
             $images = [];
             $product = [
                 'name' => '',
@@ -87,11 +86,12 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
     
             ];
             
+            $product_num = 0;
             foreach($d as $a => $b){
-           
                 if($a == 'title' && $b != ''){
                     $product['name'] = $b;
                     // $product['slug'] = str_replace(' ','-',strtolower(trim($b)));
+
                 }
                 elseif($a == 'handle' && $b != ''){
                     
@@ -102,9 +102,23 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     $z = (preg_replace('/[^A-Za-z0-9\-]/', ' ', $y));
                     
                     $w = preg_replace('!\s+!', ' ', $z);
+
+                    // dd($product['name']);
+                    $product_count = Product::where('name',trim(str_replace("'", "",$product['name'])))->count();
+                    if($product_count > 0){
+                        $product_num = $product_count + 1;
+                    }else{
+                        $product_num = 0;
+                    }
+
+        //    dd($product_count);
+                    if($product_num > 0){
+                        $product['slug'] = str_replace(' ','-',strtolower(trim($w))).'-'.$product_num;
+                    }else{
+                        $product['slug'] = str_replace(' ','-',strtolower(trim($w)));
+                    }
                     
-                    $product['slug'] = str_replace(' ','-',strtolower(trim($w)));
-                    $product['name'] = $b;
+                    // $product['name'] = $b;
 
                     // $product['slug'] = str_replace(',','',str_replace(' ','-',strtolower(trim($b))));
                 }

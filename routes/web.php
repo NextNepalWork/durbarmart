@@ -34,12 +34,15 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::post('/language', 'LanguageController@changeLanguage')->name('language.change');
 Route::post('/currency', 'CurrencyController@changeCurrency')->name('currency.change');
 
-
+//Socialite Facebook
 Route::get('auth/facebook/callback','SocialController@handleProviderCallback');
 Route::get('auth/facebook/redirect','SocialController@redirectToProvider');
 
-Route::get('/social-login/redirect/{provider}', 'Auth\LoginController@redirectToProvider')->name('social.login');
-Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');
+Route::get('auth/google/callback','SocialController@handleProviderCallbackGoogle');
+Route::get('auth/google/redirect','SocialController@redirectToProviderGoogle');
+
+// Route::get('/social-login/redirect/{provider}', 'Auth\LoginController@redirectToProvider')->name('social.login');
+// Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');
 Route::get('/users/login', 'HomeController@login')->name('user.login');
 Route::get('/users/registration', 'HomeController@registration')->name('user.registration');
 //Route::post('/users/login', 'HomeController@user_login')->name('user.login.submit');
