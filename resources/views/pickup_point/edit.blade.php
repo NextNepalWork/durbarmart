@@ -47,7 +47,9 @@
                             <select name="staff_id" required class="form-control demo-select2-placeholder">
                                 @foreach(\App\Staff::all() as $staff)
                                     @isset($staff->user->id)
-                                        <option value="{{$staff->id}}" @if ($pickup_point->staff_id == $staff->id) selected @endif>{{$staff->user->name}}</option>
+                                        @isset($staff->user->id)
+                                            <option value="{{$staff->id}}" @if ($pickup_point->staff_id == $staff->id) selected @endif>{{$staff->user->name}}</option>
+                                        @endisset
                                     @endisset
                                 @endforeach
                             </select>
