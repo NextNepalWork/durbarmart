@@ -44,11 +44,16 @@ class PageController extends Controller
             $page->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug));
             $page->content = $request->content;
             $page->category_id = $request->category_id;
-            if($request['product_id'] == null){
+            
+            $array=array();
+            if($request->product_id!=null){
+                foreach($request->product_id as $id){
+                    print_r($id);
+                    array_push($array,$id);
+                }
             }
-            else{
-                $page->product_id=implode('!!', $request['product_id']);
-            }
+            $page->product_id=json_encode($array);
+            
             $page->brand_id = $request->brand_id;
             $page->seller_id = $request->seller_id;
             $page->meta_title = $request->meta_title;
@@ -110,8 +115,13 @@ class PageController extends Controller
             $page->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $request->slug));
             $page->content = $request->content;
             $page->category_id = $request->category_id;
-            // $page->product_id = $request->product_id;
-            $page->product_id=implode('!!', $request['product_id']);
+            $array=array();
+            if($request->product_id!=null){
+                foreach($request->product_id as $id){
+                    array_push($array,$id);
+                }
+            }
+            $page->product_id=json_encode($array);
 
             $page->brand_id = $request->brand_id;
             $page->seller_id = $request->seller_id;
