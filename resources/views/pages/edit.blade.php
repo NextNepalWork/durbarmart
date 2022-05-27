@@ -43,8 +43,9 @@
 						<div class="col-sm-9">
                             <?php 
                                 $pages=\App\Page::where('id',$page->id)->first();
-                                $array = explode('!!', $pages->product_id); 
+                                $array = json_decode($pages->product_id); 
                                 $products=\App\Product::where('category_id',$pages->category_id)->get();
+                                
                                 
                             ?>
 							<select class="form-control demo-select2-placeholder" name="product_id[]" id="product_id" multiple="multiple">
