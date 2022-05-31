@@ -126,7 +126,7 @@
                                                         </span>
                                                     </label>
                                                 </div>
-                                                @if (\App\BusinessSetting::where('type', 'pickup_point')->first()->value == 1)
+                                                {{-- @if (\App\BusinessSetting::where('type', 'pickup_point')->first()->value == 1) --}}
                                                     <div class="col-6">
                                                         <label class="d-flex align-items-center p-3 border rounded gry-bg c-pointer">
                                                             <input type="radio" name="shipping_type_admin" value="pickup_point" class="d-none" onchange="show_pickup_point(this)" data-target=".pickup_point_id_admin">
@@ -136,7 +136,7 @@
                                                             </span>
                                                         </label>
                                                     </div>
-                                                @endif
+                                                {{-- @endif --}}
                                             </div>
 
                                             @if (\App\BusinessSetting::where('type', 'pickup_point')->first()->value == 1)
