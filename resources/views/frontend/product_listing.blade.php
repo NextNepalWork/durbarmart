@@ -97,7 +97,9 @@
                                     <ul>
                                         @if(!isset($category_id) && !isset($category_id) && !isset($subcategory_id) && !isset($subsubcategory_id))
                                         @foreach(\App\Category::all() as $category)
+                                        @if ($category->slug!=null)
                                         <li class=""><a href="{{ route('products.category', $category->slug) }}">{{ __($category->name) }}</a></li>
+                                        @endif
                                         @endforeach
                                         @endif
                                         @if(isset($category_id))
