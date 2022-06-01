@@ -1,41 +1,4 @@
-{{-- <section class="slice-sm footer-top-bar bg-white">
-    <div class="container sct-inner">
-        <div class="row no-gutters">
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-top-box text-center">
-                    <a href="{{ route('sellerpolicy') }}">
-<i class="la la-file-text"></i>
-<h4 class="heading-5">{{__('Seller Policy')}}</h4>
-</a>
-</div>
-</div>
-<div class="col-lg-3 col-md-6">
-    <div class="footer-top-box text-center">
-        <a href="{{ route('returnpolicy') }}">
-            <i class="la la-mail-reply"></i>
-            <h4 class="heading-5">{{__('Return Policy')}}</h4>
-        </a>
-    </div>
-</div>
-<div class="col-lg-3 col-md-6">
-    <div class="footer-top-box text-center">
-        <a href="{{ route('supportpolicy') }}">
-            <i class="la la-support"></i>
-            <h4 class="heading-5">{{__('Support Policy')}}</h4>
-        </a>
-    </div>
-</div>
-<div class="col-lg-3 col-md-6">
-    <div class="footer-top-box text-center">
-        <a href="{{ route('profile') }}">
-            <i class="la la-dashboard"></i>
-            <h4 class="heading-5">{{__('My Profile')}}</h4>
-        </a>
-    </div>
-</div>
-</div>
-</div>
-</section> --}}
+
 @php
     $generalsetting = \App\GeneralSetting::first();
     $color = \App\Color::where('id',$generalsetting->frontend_color)->first();
@@ -45,7 +8,7 @@
 <a href="#" class='top_btn hidden'><i class="fa fa-angle-up"></i></a>
 
 <!-- FOOTER -->
-<footer id="footer" class="footer" style="background:{{$color->code}}">
+<footer id="footer" class="footer" style="background:@if($color!=null) {{$color->code}} @endif">
     <div class="footer-top">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
