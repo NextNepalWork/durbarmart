@@ -269,7 +269,11 @@
             <div class="text-center">
                 <div class="heading-4 strong-700 mb-4">
                     @php
-                        $orderDetails = \App\OrderDetail::where('seller_id', Auth::user()->id)->where('created_at', '>=', date('-30d'))->get();
+                        // $orderDetails = \App\OrderDetail::where('seller_id', Auth::user()->id)->where('created_at', '>=', date('-30d'))->get();
+                        $orderDetails = \App\OrderDetail::where('seller_id', Auth::user()->id)->get();
+
+                        $commisssion_price=\App\Seller::where('user_id', Auth::user()->id)->first();
+                        
                         $total = 0;
                         foreach ($orderDetails as $key => $orderDetail) {
                             if($orderDetail->order->payment_status == 'paid'){
@@ -277,8 +281,8 @@
                             }
                         }
                     @endphp
-                    <small class="d-block text-sm alpha-5 mb-2">{{__('Your sold amount (current month)')}}</small>
-                    <span class="p-2 bg-base-1 rounded">{{ single_price($total) }}</span>
+                    <small class="d-block text-sm alpha-5 mb-2">{{__('Your Total sold amount')}}</small>
+                    <span class="p-2 bg-base-1 rounded">{{ single_price($total - $commisssion_price->commission_price) }}</span>
                 </div>
                 <table class="text-left mb-0 table w-75 m-auto">
                     <tr>
@@ -309,7 +313,7 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    {{-- <tr>
                         @php
                             $orderDetails = \App\OrderDetail::where('seller_id', Auth::user()->id)->where('created_at', '>=', date('-60d'))->where('created_at', '<=', date('-30d'))->get();
                             $total = 0;
@@ -327,7 +331,7 @@
                         </td>
 
                     
-                    </tr>
+                    </tr> --}}
                 </table>
             </div>
             <table>

@@ -438,7 +438,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->q;
-        // dd($category);
+
         $brand_id = '';
         if($request->brand != ''){
             $brand_id = (Brand::where('slug', $request->brand)->first() != null) ? Brand::where('slug', $request->brand)->first()->id : null;
@@ -460,9 +460,12 @@ class HomeController extends Controller
     
             }
         }
+        if($request->category!=null){
+            $category_id = (Category::where('slug', $request->category)->first() != null) ? Category::where('slug', $request->category)->first()->id : null;
+        }else{
+            $category_id= null;
+        }
 
-
-        $category_id = (Category::where('slug', $request->category)->first() != null) ? Category::where('slug', $request->category)->first()->id : null;
         $subcategory_id = (SubCategory::where('slug', $request->subcategory)->first() != null) ? SubCategory::where('slug', $request->subcategory)->first()->id : null;
         $subsubcategory_id = (SubSubCategory::where('slug', $request->subsubcategory)->first() != null) ? SubSubCategory::where('slug', $request->subsubcategory)->first()->id : null;
         $subsubsubcategory_id = (SubSubSubCategory::where('slug', $request->subsubsubcategory)->first() != null) ? SubSubSubCategory::where('slug', $request->subsubsubcategory)->first()->id : null;
@@ -481,6 +484,7 @@ class HomeController extends Controller
         if($category_id != null){
             $conditions = array_merge($conditions, ['category_id' => $category_id]);
         }
+        
         if($subcategory_id != null){
             $conditions = array_merge($conditions, ['subcategory_id' => $subcategory_id]);
         }
