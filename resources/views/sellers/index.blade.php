@@ -58,8 +58,11 @@
                             <td>{{$seller->user->name}}</td>
                             <td>
                                 @if ($seller->user != null && $seller->user->shop != null)
-                                {{$seller->user->shop->name}}
+                                <a href="{{route('shop.visit',$seller->user->shop->slug)}}">
+                                    {{$seller->user->shop->name}}
+                                </a>
                                 @endif
+
                             </td>
                             <td>{{$seller->user->phone}}</td>
                             <td>{{$seller->user->email}}</td>
