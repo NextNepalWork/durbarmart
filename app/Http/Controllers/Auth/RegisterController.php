@@ -72,15 +72,15 @@ class RegisterController extends Controller
             $customer = new Customer;
             $customer->user_id = $user->id;
             $customer->save();
-            if(BusinessSetting::where('type', 'email_verification')->first()->value != 1){
+            // if(BusinessSetting::where('type', 'email_verification')->first()->value != 1){
                 $user->email_verified_at = date('Y-m-d H:m:s');
                 $user->save();
                 flash(__('Registration successfull.'))->success();
-            }
-            else {
-                $user->sendEmailVerificationNotification();
-                flash(__('Registration successfull. Please verify your email.'))->success();
-            }
+            // }
+            // else {
+            //     $user->sendEmailVerificationNotification();
+            //     flash(__('Registration successfull. Please verify your email.'))->success();
+            // }
         }
         else {
             if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated){
