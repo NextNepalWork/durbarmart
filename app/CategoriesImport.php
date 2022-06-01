@@ -48,7 +48,7 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                         if(Category::where('name',trim(trim(str_replace("'", "", $cat))))->count() == 0){
                             $cat_upload = Category::create([
                                 'name' => trim(trim(str_replace("'", "", $cat))),
-                                // 'slug' => str_replace(' ','-',strtolower(trim($cat))),
+                                'slug' => str_replace(' ','-',strtolower(trim($cat))),
                                 'meta_title' => trim(trim(str_replace("'", "", $cat))),
                                 'meta_description' => trim(trim(str_replace("'", "", $cat)))
                             ]);
@@ -69,7 +69,7 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                             $sub_cat_upload = SubCategory::create([
                                 'name' => (trim(str_replace("'", "", $sub_cat))),
                                 'category_id' =>  $cat_upload->id,
-                                // 'slug' => str_replace(' ','-',strtolower(trim($sub_cat))),
+                                'slug' => str_replace(' ','-',strtolower(trim($sub_cat))),
                                 'meta_title' => (trim(str_replace("'", "", $sub_cat))),
                                 'meta_description' => (trim(str_replace("'", "", $sub_cat)))
                             ]);
@@ -90,7 +90,7 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                             $sub_cat_upload = SubSubCategory::create([
                                 'name' => (trim(str_replace("'", "", $sub_sub_cat))),
                                 'sub_category_id' =>  $sub_cat_upload->id,
-                                // 'slug' => str_replace(' ','-',strtolower(trim($sub_sub_cat))),
+                                'slug' => str_replace(' ','-',strtolower(trim($sub_sub_cat))),
                                 'meta_title' => (trim(str_replace("'", "", $sub_sub_cat))),
                                 'meta_description' => (trim(str_replace("'", "", $sub_sub_cat)))
                             ]);
@@ -112,7 +112,7 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                             $sub_cat_upload = SubSubSubCategory::create([
                                 'name' => (trim(str_replace("'", "", $sub_sub_sub_cat))),
                                 'sub_sub_category_id' =>  $sub_cat_upload->id,
-                                // 'slug' => str_replace(' ','-',strtolower(trim($sub_sub_sub_cat))),
+                                'slug' => str_replace(' ','-',strtolower(trim($sub_sub_sub_cat))),
                                 'meta_title' => (trim(str_replace("'", "", $sub_sub_sub_cat))),
                                 'meta_description' => (trim(str_replace("'", "", $sub_sub_sub_cat)))
                             ]);
@@ -234,10 +234,39 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                     }
                 }
                 if($a == 'category_url'){
+                    
                     if($meta['type'] != ''){
+                        if($meta['type'] == 'Category'){
+                            if($meta['id']  > 0){
+                                $sub = Category::where('id',$meta['id'])->update([
+                                    'slug' => $b
+                                ]);
+                            }
+                        }
+                        if($meta['type'] == 'SubCategory'){
+                            if($meta['id']  > 0){
+                                $sub = SubCategory::where('id',$meta['id'])->update([
+                                    'slug' => $b
+                                ]);
+                            }
+                        }
                         if($meta['type'] == 'SubSubCategory'){
                             if($meta['id']  > 0){
                                 $sub = SubSubCategory::where('id',$meta['id'])->update([
+                                    'slug' => $b
+                                ]);
+                            }
+                        }
+                        if($meta['type'] == 'SubSubSubCategory'){
+                            if($meta['id']  > 0){
+                                $sub = SubSubSubCategory::where('id',$meta['id'])->update([
+                                    'slug' => $b
+                                ]);
+                            }
+                        }
+                        if($meta['type'] == 'SubSubSubSubCategory'){
+                            if($meta['id']  > 0){
+                                $sub = SubSubSubSubCategory::where('id',$meta['id'])->update([
                                     'slug' => $b
                                 ]);
                             }
