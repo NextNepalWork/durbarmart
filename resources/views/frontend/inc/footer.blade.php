@@ -318,7 +318,7 @@
     <div class="footer-bottom py-3 sct-color-3">
         <div class="container">
             <div class="row row-cols-xs-spaced flex flex-items-xs-middle">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="copyright text-center text-md-left">
                         <ul class="copy-links no-margin">
                             <li>
@@ -330,10 +330,20 @@
                             <li>
                                 <a href="{{ route('privacypolicy') }}">{{__('Privacy policy')}}</a>
                             </li>
+                            <li>
+                                <a href="{{ route('sellerpolicy') }}">{{__('Seller policy')}}</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('returnpolicy') }}">{{__('Return policy')}}</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('supportpolicy') }}">{{__('Support policy')}}</a>
+                            </li>                           
+                            
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
 
                 </div>
                 <div class="col-md-4">
@@ -381,6 +391,9 @@
                             </li>
                             @endforeach
                             @endif
+                            <li style="background: white;">
+                                <img loading="lazy" alt="Khalti" src="https://dao578ztqooau.cloudfront.net/static/img/logo1.png" height="20">
+                            </li>                            
                         </ul>
                     </div>
                 </div>
