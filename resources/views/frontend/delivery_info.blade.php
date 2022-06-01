@@ -126,7 +126,7 @@
                                                         </span>
                                                     </label>
                                                 </div>
-                                                {{-- @if (\App\BusinessSetting::where('type', 'pickup_point')->first()->value == 1) --}}
+                                                @if (\App\BusinessSetting::where('type', 'pickup_point')->first()->value == 1)
                                                     <div class="col-6">
                                                         <label class="d-flex align-items-center p-3 border rounded gry-bg c-pointer">
                                                             <input type="radio" name="shipping_type_admin" value="pickup_point" class="d-none" onchange="show_pickup_point(this)" data-target=".pickup_point_id_admin">
@@ -136,7 +136,7 @@
                                                             </span>
                                                         </label>
                                                     </div>
-                                                {{-- @endif --}}
+                                                @endif
                                             </div>
 
                                             @if (\App\BusinessSetting::where('type', 'pickup_point')->first()->value == 1)
@@ -173,13 +173,19 @@
                                                                 <td class="product-image" width="25%">
                                                                     @php
                                                                         $filepath = \App\Product::find($id)->featured_img;
+                                                                        // echo $filepath;
                                                                     @endphp
                                                                     <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
+                                                                        {{-- (filter_var($data->thumbnail_img, FILTER_VALIDATE_URL))?$data->thumbnail_img:(file_exists($data->thumbnail_img) ? $data->thumbnail_img : $placeholder_img) --}}
                                                                         @if(isset($filepath))
-                                                                            @if(file_exists($filepath))
+                                                                            @if (filter_var($filepath, FILTER_VALIDATE_URL))
                                                                                 <img loading="lazy" src="{{ asset(\App\Product::find($id)->featured_img) }}">
-                                                                            @else
-                                                                                <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}">
+                                                                            @else    
+                                                                                @if(file_exists($filepath))
+                                                                                    <img loading="lazy" src="{{ asset(\App\Product::find($id)->featured_img) }}">
+                                                                                @else
+                                                                                    <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}">
+                                                                                @endif
                                                                             @endif
                                                                         @else
                                                                                 <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}">
