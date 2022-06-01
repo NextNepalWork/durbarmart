@@ -36,17 +36,20 @@
 </div>
 </div>
 </section> --}}
+@php
+    $generalsetting = \App\GeneralSetting::first();
+    $color = \App\Color::where('id',$generalsetting->frontend_color)->first();
+    
+@endphp
 <a href="" class='button_chat'>chat</a>
 <a href="#" class='top_btn hidden'><i class="fa fa-angle-up"></i></a>
 
 <!-- FOOTER -->
-<footer id="footer" class="footer">
+<footer id="footer" class="footer" style="background:{{$color->code}}">
     <div class="footer-top">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
-                @php
-                $generalsetting = \App\GeneralSetting::first();
-                @endphp
+                
                 <div class="col-lg-3  text-center text-md-left mb-3 mb-md-0">
                     <div class="col">
                         <a href="{{ route('home') }}" class="d-block">
