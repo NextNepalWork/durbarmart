@@ -173,13 +173,19 @@
                                                                 <td class="product-image" width="25%">
                                                                     @php
                                                                         $filepath = \App\Product::find($id)->featured_img;
+                                                                        // echo $filepath;
                                                                     @endphp
                                                                     <a href="{{ route('product', \App\Product::find($id)->slug) }}" target="_blank">
+                                                                        {{-- (filter_var($data->thumbnail_img, FILTER_VALIDATE_URL))?$data->thumbnail_img:(file_exists($data->thumbnail_img) ? $data->thumbnail_img : $placeholder_img) --}}
                                                                         @if(isset($filepath))
-                                                                            @if(file_exists($filepath))
+                                                                            @if (filter_var($filepath, FILTER_VALIDATE_URL))
                                                                                 <img loading="lazy" src="{{ asset(\App\Product::find($id)->featured_img) }}">
-                                                                            @else
-                                                                                <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}">
+                                                                            @else    
+                                                                                @if(file_exists($filepath))
+                                                                                    <img loading="lazy" src="{{ asset(\App\Product::find($id)->featured_img) }}">
+                                                                                @else
+                                                                                    <img loading="lazy" src="{{ asset('frontend/images/placeholder.jpg') }}">
+                                                                                @endif
                                                                             @endif
                                                                         @else
                                                                                 <img loading="lazy"  src="{{ asset('frontend/images/placeholder.jpg') }}">
