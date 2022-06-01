@@ -234,23 +234,7 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                     }
                 }
                 if($a == 'category_url'){
-                  
-                // dd($row); 
                     if($meta['type'] != ''){
-                        // if($meta['type'] == 'Category'){
-                        //     if($meta['id']  > 0){
-                        //         $sub = Category::where('id',$meta['id'])->update([
-                        //             'slug' => $b
-                        //         ]);
-                        //     }
-                        // }
-                        // if($meta['type'] == 'SubCategory'){
-                        //     if($meta['id']  > 0){
-                        //         $sub = SubCategory::where('id',$meta['id'])->update([
-                        //             'slug' => $b
-                        //         ]);
-                        //     }
-                        // }
                         if($meta['type'] == 'SubSubCategory'){
                             if($meta['id']  > 0){
                                 $sub = SubSubCategory::where('id',$meta['id'])->update([
@@ -258,47 +242,11 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                                 ]);
                             }
                         }
-                        // if($meta['type'] == 'SubSubSubCategory'){
-                        //     if($meta['id']  > 0){
-                        //         $sub = SubSubSubCategory::where('id',$meta['id'])->update([
-                        //             'slug' => $b
-                        //         ]);
-                        //     }
-                        // }
-                        // if($meta['type'] == 'SubSubSubSubCategory'){
-                        //     if($meta['id']  > 0){
-                        //         $sub = SubSubSubSubCategory::where('id',$meta['id'])->update([
-                        //             'slug' => $b
-                        //         ]);
-                        //     }
-                        // }
                     }
                 }
             }
         }
         return true;
-        // dd($all);
-        // return new Product([
-        //    'name'     => $row['name'],
-        //    'added_by'    => Auth::user()->user_type == 'seller' ? 'seller' : 'admin',
-        //    'user_id'    => Auth::user()->user_type == 'seller' ? Auth::user()->id : User::where('user_type', 'admin')->first()->id,
-        //    'category_id'    => $row['category_id'],
-        //    'subcategory_id'    => $row['subcategory_id'],
-        //    'subsubcategory_id'    => $row['subsubcategory_id'],
-        //    'brand_id'    => $row['brand_id'],
-        //    'video_provider'    => $row['video_provider'],
-        //    'video_link'    => $row['video_link'],
-        //    'unit_price'    => $row['unit_price'],
-        //    'purchase_price'    => $row['purchase_price'],
-        //    'unit'    => $row['unit'],
-        //    'current_stock' => $row['current_stock'],
-        //    'meta_title' => $row['meta_title'],
-        //    'meta_description' => $row['meta_description'],
-        //    'colors' => json_encode(array()),
-        //    'choice_options' => json_encode(array()),
-        //    'variations' => json_encode(array()),
-        //    'slug' => preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', $row['slug'])).'-'.str_random(5),
-        // ]);
     }
 
     public function rules(): array
