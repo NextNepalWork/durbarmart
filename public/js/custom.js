@@ -18,13 +18,13 @@ $(document).on("nifty.ready", function () {
         });
     });
 
-    $(".res-table").DataTable({
-        responsive: true,
-        paging: false,
-        searching: false,
-        ordering: false,
-        bInfo: false,
-    });
+    // $(".res-table").DataTable({
+    //     responsive: true,
+    //     paging: false,
+    //     searching: false,
+    //     ordering: false,
+    //     bInfo: false,
+    // });
 
     // SELECT2 SINGLE
     // =================================================================
@@ -157,7 +157,7 @@ $(document).on("nifty.ready", function () {
             }
         });
     });
-    $(document).on('click', '.dropdown-menu', function (e) {
+    $(document).on("click", ".dropdown-menu", function (e) {
         e.stopPropagation();
     });
 });
