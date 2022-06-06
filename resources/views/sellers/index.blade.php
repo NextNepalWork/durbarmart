@@ -34,8 +34,8 @@
                 </form>
             </div>
         </div>
-        <div class="panel-body">
-            <table class="table table-striped res-table mar-no" cellspacing="0" width="100%">
+        <div class="panel-body" style="overflow-x:scroll;">
+            <table class="table table-striped res-table mar-no" cellspacing="0" width="100%" >
                 <thead>
                 <tr>
                     <th>#</th>
@@ -46,8 +46,8 @@
                     <th>{{__('Verification Info')}}</th>
                     <th>{{__('Approval')}}</th>
                     <th>{{ __('Num. of Products') }}</th>
-                    <th>{{ __('Due to seller') }}</th>
-                    <th width="10%">{{__('Options')}}</th>
+                    <th >{{ __('Due to seller') }}</th>
+                    <th width="10%" >{{__('Options')}}</th>
                 </tr>
                 </thead>
                 <tbody>
