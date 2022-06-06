@@ -353,6 +353,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 $product['colors'] =json_encode(array());
                 // dd($product);
             }
+            // dd($product);
             Product::create($product);
             $product = [];
             $images = [];
