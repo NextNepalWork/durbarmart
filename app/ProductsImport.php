@@ -104,6 +104,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 }
                 elseif($a == 'vendor' && $b != ''){
                     if($b != 'admin'){
+                        $product['added_by'] = 'admin';
                         $user = User::where('name',trim($b))->count();
                         if($user > 0){
                             $vendor_exists = 1;
@@ -134,6 +135,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                         $user =User::where('name',trim($b))->first()->toArray();
                         $product['user_id'] = $user['id'];    
                     }else{
+                        $product['added_by'] = 'seller';
                         $user = User::where('user_type','admin')->first();
                         $product['user_id'] = $user->id;
                     }
@@ -298,9 +300,9 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 elseif($a == 'body_html' && $b != ''){
                     $product['extra_desc'] = $b;
                 }
-                elseif($a == 'added_by' && $b != ''){
-                    $product['added_by'] = $b;
-                }
+                // elseif($a == 'added_by' && $b != ''){
+                //     $product['added_by'] = $b;
+                // }
                 elseif($a == 'image_src' && $b != ''){
                 // dd($a);
                     $product['featured_img'] = $b;
@@ -351,6 +353,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 $product['colors'] =json_encode(array());
                 // dd($product);
             }
+            // dd($product);
             Product::create($product);
             $product = [];
             $images = [];
