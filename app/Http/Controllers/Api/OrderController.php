@@ -170,6 +170,7 @@ class OrderController extends Controller
         // $array['view'] = 'emails.newsletter';
         // $array['subject'] = 'New Order Placed';
         // $array['from'] = 'nextnepal271@gmail.com';
+         
         // $array['content'] = 'Thank you for ordering from Sewa Digital Express. An order of total amount Rs. '.$total_amount.' has been placed for following items.';
         // $array['content'] .= $products;
         // $array['content'] .= '.</br>You can download the invoice to this order from https://sewa-digital.nextnepal.org/purchase_history';

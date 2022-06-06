@@ -35,22 +35,9 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
     }
     public function collection(Collection $row)
     {   
-        // dd($this->user->where('id',1)->count());
-       
-        
-        // foreach($row as $c => $d){
-        //     foreach($d as $a => $b){
-        //         echo '<pre>';
-        //         print_r($a);
-        //         echo '</pre>';
-        //     }
-       
-        // }
-        // dd($row);
         $vendor_exists = 0;
-        // foreach($row[1] as $a => $b){x`
+
         foreach($row as $c => $d){
-            // dd($row);
             $cat_id = '';
             $subcat_id = '';
             $subsubcat_id = '';
@@ -91,7 +78,6 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 if($a == 'title' && $b != ''){
                     $product['name'] = $b;
                     // $product['slug'] = str_replace(' ','-',strtolower(trim($b)));
-
                 }
                 elseif($a == 'handle' && $b != ''){
                     
@@ -103,7 +89,6 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     
                     $w = preg_replace('!\s+!', ' ', $z);
 
-                    // dd($product['name']);
                     $product_count = Product::where('name',trim(str_replace("'", "",$product['name'])))->count();
                     if($product_count > 0){
                         $product_num = $product_count + 1;
@@ -111,21 +96,15 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                         $product_num = 0;
                     }
 
-        //    dd($product_count);
                     if($product_num > 0){
                         $product['slug'] = str_replace(' ','-',strtolower(trim($w))).'-'.$product_num;
                     }else{
                         $product['slug'] = str_replace(' ','-',strtolower(trim($w)));
                     }
-                    
-                    // $product['name'] = $b;
-
-                    // $product['slug'] = str_replace(',','',str_replace(' ','-',strtolower(trim($b))));
                 }
                 elseif($a == 'vendor' && $b != ''){
-                    if($product['added_by'] = 'seller'){
+                    if($b != 'admin'){
                         $user = User::where('name',trim($b))->count();
-                        // dd(trim($b));
                         if($user > 0){
                             $vendor_exists = 1;
                         }else{
@@ -155,7 +134,8 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                         $user =User::where('name',trim($b))->first()->toArray();
                         $product['user_id'] = $user['id'];    
                     }else{
-                        $product['user_id'] = $b;
+                        $user = User::where('user_type','admin')->first();
+                        $product['user_id'] = $user->id;
                     }
                                     
                 }
