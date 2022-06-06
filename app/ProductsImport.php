@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Auth;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Validators\Failure;
-
+use Carbon\Carbon;
 class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,SkipsOnFailure 
 {
     private $user;
@@ -104,7 +104,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 }
                 elseif($a == 'vendor' && $b != ''){
                     if($b != 'admin'){
-                        $product['added_by'] = 'admin';
+                        $product['added_by'] = 'seller';
                         $user = User::where('name',trim($b))->count();
                         if($user > 0){
                             $vendor_exists = 1;
@@ -113,6 +113,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                                 'user_type' => 'seller',
                                 'name' => trim($b),
                                 'email' => null,
+                                'email_verified_at' => Carbon::now()
                             ]);
                             $seller = Seller::create([
                                 'user_id' => $user->id,
@@ -135,7 +136,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                         $user =User::where('name',trim($b))->first()->toArray();
                         $product['user_id'] = $user['id'];    
                     }else{
-                        $product['added_by'] = 'seller';
+                        $product['added_by'] = 'admin';
                         $user = User::where('user_type','admin')->first();
                         $product['user_id'] = $user->id;
                     }
