@@ -276,7 +276,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 }
                 elseif($a == 'tags' && $b != ''){
                     $product['tags'] = $b;
-                }
+            }
                 elseif($a == 'variant_inventory_qty' && $b != ''){
                     $product['current_stock'] = $b;
                 }
