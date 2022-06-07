@@ -44,7 +44,7 @@
                 @foreach($categories as $key => $category)
                     <tr>
                         <td>{{ ($key+1) + ($categories->currentPage() - 1)*$categories->perPage() }}</td>
-                        <td>{{__($category->name)}}</td>
+                        <td><a href="{{route('products.category',$category->slug)}}" target="_blank">{{__($category->name)}}</a></td>
                         <td>{{__($category->meta_title)}}</td>
                         <td>{{__($category->meta_description)}}</td>
                         <td><img loading="lazy"  class="img-md" src="{{ asset($category->banner) }}" alt="{{__('banner')}}"></td>
