@@ -37,9 +37,8 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
             $meta = [
                 'type' => '',
                 'id' => ''
-            ];
-            foreach($d as $a => $b){ 
-                // dd($row);              
+            ];     
+            foreach($d as $a => $b){  
                 if($a == 'category'){
                     $explode = explode('/',$b);
 
@@ -49,8 +48,8 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                             $cat_upload = Category::create([
                                 'name' => trim(trim(str_replace("'", "", $cat))),
                                 'slug' => str_replace(' ','-',strtolower(trim($cat))),
-                                'meta_title' => trim(trim(str_replace("'", "", $cat))),
-                                'meta_description' => trim(trim(str_replace("'", "", $cat)))
+                                // 'meta_title' => trim(trim(str_replace("'", "", $cat))),
+                                // 'meta_description' => trim(trim(str_replace("'", "", $cat)))
                             ]);
                         }
                         
@@ -70,8 +69,8 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                                 'name' => (trim(str_replace("'", "", $sub_cat))),
                                 'category_id' =>  $cat_upload->id,
                                 'slug' => str_replace(' ','-',strtolower(trim($sub_cat))),
-                                'meta_title' => (trim(str_replace("'", "", $sub_cat))),
-                                'meta_description' => (trim(str_replace("'", "", $sub_cat)))
+                                // 'meta_title' => (trim(str_replace("'", "", $sub_cat))),
+                                // 'meta_description' => (trim(str_replace("'", "", $sub_cat)))
                             ]);
                         }
                         $sub_cat_2 = SubCategory::where('name',(trim(str_replace("'", "", $sub_cat))))->first();
@@ -91,8 +90,8 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                                 'name' => (trim(str_replace("'", "", $sub_sub_cat))),
                                 'sub_category_id' =>  $sub_cat_upload->id,
                                 'slug' => str_replace(' ','-',strtolower(trim($sub_sub_cat))),
-                                'meta_title' => (trim(str_replace("'", "", $sub_sub_cat))),
-                                'meta_description' => (trim(str_replace("'", "", $sub_sub_cat)))
+                                // 'meta_title' => (trim(str_replace("'", "", $sub_sub_cat))),
+                                // 'meta_description' => (trim(str_replace("'", "", $sub_sub_cat)))
                             ]);
                         }
                         
@@ -113,8 +112,8 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                                 'name' => (trim(str_replace("'", "", $sub_sub_sub_cat))),
                                 'sub_sub_category_id' =>  $sub_cat_upload->id,
                                 'slug' => str_replace(' ','-',strtolower(trim($sub_sub_sub_cat))),
-                                'meta_title' => (trim(str_replace("'", "", $sub_sub_sub_cat))),
-                                'meta_description' => (trim(str_replace("'", "", $sub_sub_sub_cat)))
+                                // 'meta_title' => (trim(str_replace("'", "", $sub_sub_sub_cat))),
+                                // 'meta_description' => (trim(str_replace("'", "", $sub_sub_sub_cat)))
                             ]);
                         }
                         
@@ -135,8 +134,8 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                                 'name' => (trim(str_replace("'", "", $sub_sub_sub_sub_cat))),
                                 'sub_sub_sub_category_id' =>  $sub_cat_upload->id,
                                 'slug' => str_replace(' ','-',strtolower(trim($sub_sub_sub_sub_cat))),
-                                'meta_title' => (trim(str_replace("'", "", $sub_sub_sub_sub_cat))),
-                                'meta_description' => (trim(str_replace("'", "", $sub_sub_sub_sub_cat)))
+                                // 'meta_title' => (trim(str_replace("'", "", $sub_sub_sub_sub_cat))),
+                                // 'meta_description' => (trim(str_replace("'", "", $sub_sub_sub_sub_cat)))
                             ]);
                         }
                         
@@ -150,44 +149,43 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                         // }
                     }
                 }
-                
                 if($a == 'category_seo_title'){
-                    
-                // dd($meta);
-                    if($meta['type'] != ''){
-                        if($meta['type'] == 'Category'){
-                            if($meta['id']  > 0){
-                                $sub = Category::where('id',$meta['id'])->update([
-                                    'meta_title' => $b
-                                ]);
+                    if($b != ''){
+                        if($meta['type'] != ''){
+                            if($meta['type'] == 'Category'){
+                                if($meta['id']  > 0){
+                                    $sub = Category::where('id',$meta['id'])->update([
+                                        'meta_title' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubCategory::where('id',$meta['id'])->update([
-                                    'meta_title' => $b
-                                ]);
+                            if($meta['type'] == 'SubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubCategory::where('id',$meta['id'])->update([
+                                        'meta_title' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubSubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubSubCategory::where('id',$meta['id'])->update([
-                                    'meta_title' => $b
-                                ]);
+                            if($meta['type'] == 'SubSubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubSubCategory::where('id',$meta['id'])->update([
+                                        'meta_title' => $b
+                                    ]);
+                                }       
                             }
-                        }
-                        if($meta['type'] == 'SubSubSubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubSubSubCategory::where('id',$meta['id'])->update([
-                                    'meta_title' => $b
-                                ]);
+                            if($meta['type'] == 'SubSubSubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubSubSubCategory::where('id',$meta['id'])->update([
+                                        'meta_title' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubSubSubSubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubSubSubSubCategory::where('id',$meta['id'])->update([
-                                    'meta_title' => $b
-                                ]);
+                            if($meta['type'] == 'SubSubSubSubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubSubSubSubCategory::where('id',$meta['id'])->update([
+                                        'meta_title' => $b
+                                    ]);
+                                }
                             }
                         }
                     }
@@ -195,80 +193,83 @@ class CategoriesImport implements ToCollection, WithHeadingRow, WithValidation,S
                 if($a == 'category_seo_description'){
                   
                 // dd($row); 
-                    if($meta['type'] != ''){
-                        if($meta['type'] == 'Category'){
-                            if($meta['id']  > 0){
-                                $sub = Category::where('id',$meta['id'])->update([
-                                    'meta_description' => $b
-                                ]);
+                    if($b != ''){
+                        if($meta['type'] != ''){
+                            if($meta['type'] == 'Category'){
+                                if($meta['id']  > 0){
+                                    $sub = Category::where('id',$meta['id'])->update([
+                                        'meta_description' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubCategory::where('id',$meta['id'])->update([
-                                    'meta_description' => $b
-                                ]);
+                            if($meta['type'] == 'SubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubCategory::where('id',$meta['id'])->update([
+                                        'meta_description' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubSubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubSubCategory::where('id',$meta['id'])->update([
-                                    'meta_description' => $b
-                                ]);
+                            if($meta['type'] == 'SubSubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubSubCategory::where('id',$meta['id'])->update([
+                                        'meta_description' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubSubSubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubSubSubCategory::where('id',$meta['id'])->update([
-                                    'meta_description' => $b
-                                ]);
+                            if($meta['type'] == 'SubSubSubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubSubSubCategory::where('id',$meta['id'])->update([
+                                        'meta_description' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubSubSubSubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubSubSubSubCategory::where('id',$meta['id'])->update([
-                                    'meta_description' => $b
-                                ]);
+                            if($meta['type'] == 'SubSubSubSubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubSubSubSubCategory::where('id',$meta['id'])->update([
+                                        'meta_description' => $b
+                                    ]);
+                                }
                             }
                         }
                     }
                 }
                 if($a == 'category_url'){
-                    
-                    if($meta['type'] != ''){
-                        if($meta['type'] == 'Category'){
-                            if($meta['id']  > 0){
-                                $sub = Category::where('id',$meta['id'])->update([
-                                    'slug' => $b
-                                ]);
+                    if($b != ''){
+                        if($meta['type'] != ''){
+                            if($meta['type'] == 'Category'){
+                                if($meta['id']  > 0){
+                                    $sub = Category::where('id',$meta['id'])->update([
+                                        'slug' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubCategory::where('id',$meta['id'])->update([
-                                    'slug' => $b
-                                ]);
+                            if($meta['type'] == 'SubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubCategory::where('id',$meta['id'])->update([
+                                        'slug' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubSubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubSubCategory::where('id',$meta['id'])->update([
-                                    'slug' => $b
-                                ]);
+                            if($meta['type'] == 'SubSubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubSubCategory::where('id',$meta['id'])->update([
+                                        'slug' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubSubSubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubSubSubCategory::where('id',$meta['id'])->update([
-                                    'slug' => $b
-                                ]);
+                            if($meta['type'] == 'SubSubSubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubSubSubCategory::where('id',$meta['id'])->update([
+                                        'slug' => $b
+                                    ]);
+                                }
                             }
-                        }
-                        if($meta['type'] == 'SubSubSubSubCategory'){
-                            if($meta['id']  > 0){
-                                $sub = SubSubSubSubCategory::where('id',$meta['id'])->update([
-                                    'slug' => $b
-                                ]);
+                            if($meta['type'] == 'SubSubSubSubCategory'){
+                                if($meta['id']  > 0){
+                                    $sub = SubSubSubSubCategory::where('id',$meta['id'])->update([
+                                        'slug' => $b
+                                    ]);
+                                }
                             }
                         }
                     }
