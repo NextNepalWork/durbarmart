@@ -24,7 +24,7 @@ class SubCategoryController extends Controller
             $sort_search = $request->search;
             $subcategories = $subcategories->where('name', 'like', '%'.$sort_search.'%');
         }
-        $subcategories = $subcategories->paginate(15);
+        $subcategories = $subcategories->paginate(100);
         return view('subcategories.index', compact('subcategories', 'sort_search'));
     }
 

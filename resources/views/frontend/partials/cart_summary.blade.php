@@ -84,11 +84,23 @@
                 @php
                     if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
                         if(!empty($admin_products)){
-                            $shipping = \App\BusinessSetting::where('type', 'shipping_cost_admin')->first()->value;
+                            $shop = \App\BusinessSetting::where('type', 'shipping_cost_admin')->count();
+                            if($shop > 0){                                
+                                $shipping = \App\BusinessSetting::where('type', 'shipping_cost_admin')->first()->value;
+                            }else{
+                                $shipping += 0;
+                            }
+
                         }
                         if(!empty($seller_products)){
                             foreach ($seller_products as $key => $seller_product) {
-                                $shipping += \App\Shop::where('user_id', $key)->first()->shipping_cost;
+                                $shop = \App\Shop::where('user_id', $key)->count();
+                                if($shop > 0){
+                                    $shipping += \App\Shop::where('user_id', $key)->first()->shipping_cost;
+                                }else{
+                                    $shipping += 0;
+                                }
+                                
                             }
                         }
                     }

@@ -56,9 +56,9 @@
                     @if ($subsubcategory->subcategory != null && $subsubcategory->subcategory->category != null)
                         <tr>
                             <td>{{ ($key+1) + ($subsubcategories->currentPage() - 1)*$subsubcategories->perPage() }}</td>
-                            <td>{{__($subsubcategory->name)}}</td>
-                            <td>{{$subsubcategory->subcategory->name}}</td>
-                            <td>{{$subsubcategory->subcategory->category->name}}</td>
+                            <td><a href="{{route('products.subsubcategory',$subsubcategory->slug)}}" target="_blank">{{__($subsubcategory->name)}}</a></td>
+                            <td><a href="{{route('products.subcategory',$subsubcategory->subcategory->slug)}}" target="_blank">{{__($subsubcategory->subcategory->name)}}</a></td>
+                            <td><a href="{{route('products.category',$subsubcategory->subcategory->category->slug)}}" target="_blank">{{$subsubcategory->subcategory->category->name}}</a></td>
                             <td>{{__($subsubcategory->meta_title)}}</td>
                             <td>{{__($subsubcategory->meta_description)}}</td>
                             <td>

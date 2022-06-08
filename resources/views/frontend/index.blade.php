@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 
 @section('content')
+
     <section class="home-banner-area">
         <div class="container">
             <div class="row no-gutters position-relative">

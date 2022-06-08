@@ -42,8 +42,8 @@
                     @if ($subcategory->category != null)
                         <tr>
                             <td>{{ ($key+1) + ($subcategories->currentPage() - 1)*$subcategories->perPage() }}</td>
-                            <td>{{__($subcategory->name)}}</td>
-                            <td>{{$subcategory->category->name}}</td>
+                            <td><a href="{{route('products.subcategory',$subcategory->slug)}}" target="_blank">{{__($subcategory->name)}}</a></td>
+                            <td><a href="{{route('products.category',$subcategory->category->slug)}}" target="_blank">{{$subcategory->category->name}}</a></td>
                             <td>{{__($subcategory->meta_title)}}</td>
                             <td>{{__($subcategory->meta_description)}}</td>
                             <td>
