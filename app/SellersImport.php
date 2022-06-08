@@ -30,7 +30,7 @@ class SellersImport implements ToCollection, WithHeadingRow, WithValidation,Skip
     public function collection(Collection $row)
     {   
         $vendor_exists = 0;
-        // dd($row);
+
         foreach($row as $c => $d){
             $user = [
                 'name' => '',
@@ -72,7 +72,8 @@ class SellersImport implements ToCollection, WithHeadingRow, WithValidation,Skip
             $shop['meta_title'] = 'empty';
             $shop['meta_description'] = 'empty';
             $shop['slug'] = 'empty';
-        }else{
+        }
+        else{
             $shop['name'] = trim($d['vendor_shop_name']);
             $shop['meta_title'] = trim($d['vendor_shop_name']);
             $shop['meta_description'] = trim($d['vendor_shop_name']);
@@ -90,16 +91,19 @@ class SellersImport implements ToCollection, WithHeadingRow, WithValidation,Skip
                 $user['name'] = trim($d['vendor_shop_name']);
             }
         }
+
         if($d['contact'] != ''){
             $user['phone'] = trim($d['contact']);
             
         }
+
         if($d['mail'] != ''){
             $user['email'] = trim($d['mail']);            
         }
         else{
             $user['email'] = null;
         }
+
         if($d['address'] != ''){
             $shop['address'] = trim($d['address']);                        
         }
@@ -111,21 +115,21 @@ class SellersImport implements ToCollection, WithHeadingRow, WithValidation,Skip
             $user_check = User::where('name',trim($user['name']))->count();
             if($user_check == 0){
                 $user_create = User::create($user);
+            }else{
+                $user_id = User::where('name',$user['name'])->update([
+                    'phone' => $user['phone'],
+                    'email' => $user['email'],
+                ]);
             }
-            // dd($user_create);
-            
             $user_id = User::where('name',$user['name'])->first();
 
-
-            // dd($user_id);
-            // dd($user);
             $seller_check = Seller::where('user_id',$user_id->id)->count();
 
             if($seller_check == 0){
                 $seller['user_id'] = $user_id->id;
                 $seller_create = Seller::create($seller);
             }
-
+            
             $shop_check = Shop::where('user_id',$user_id->id)->count();
 
             if($shop_check == 0){
@@ -136,12 +140,12 @@ class SellersImport implements ToCollection, WithHeadingRow, WithValidation,Skip
                 }
 
                 $shop_create = Shop::create($shop);
+            }else{
+                $user_id = Shop::where('user_id',$user_id->id)->update([
+                    'address' =>  $shop['address']
+                ]);
             }
-                // dd($user_id,$user,$shop);
-            // }
         }
-                // dd($user);
-            // dd($user_check,$shop_check);
         }
         return true;
     }
