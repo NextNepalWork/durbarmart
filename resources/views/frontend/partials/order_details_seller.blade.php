@@ -146,6 +146,11 @@
                                     <td>{{ $key+1 }}</td>
                                     <td>
                                         @if ($orderDetail->product != null)
+                                            @if (file_exists($orderDetail->product->featured_img))
+                                                <img src="{{asset($orderDetail->product->featured_img)}}" style="max-width:40px;">
+                                            @else
+                                                <img src="{{asset('frontend/images/placeholder.jpg')}}" style="max-width:40px;">
+                                            @endif
                                             <a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">{{ $orderDetail->product->name }}</a>
                                         @else
                                             <strong>{{ __('Product Unavailable') }}</strong>
