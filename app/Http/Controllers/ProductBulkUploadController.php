@@ -135,9 +135,10 @@ class ProductBulkUploadController extends Controller
     // $file_name = pathinfo($temp_name,PATHINFO_FILENAME);
     // dd($request->all());
         if($request->hasFile('bulk_file')){
-            foreach($request->file() as $file){
-                // dd($file);
-               $a = Excel::import(new ProductsImport, $file);
+            foreach($request->file() as $files){
+                foreach($files as $file){
+                    $a = Excel::import(new ProductsImport, $file);
+                }
                 
             }
         }
