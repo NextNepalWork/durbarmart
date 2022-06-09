@@ -36,7 +36,9 @@ class Product extends Model
         'published',
         'thumbnail_img',
         'featured_img',
-        'flash_deal_img'
+        'flash_deal_img',
+        'discount',
+        'discount_type'
       ];
     public function category(){
     	return $this->belongsTo(Category::class);
