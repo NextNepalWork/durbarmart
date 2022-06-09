@@ -79,7 +79,7 @@
             <form class="form-horizontal" action="{{ route('bulk_product_upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <input type="file" class="form-control" name="bulk_file" required>
+                    <input type="file" class="form-control" name="bulk_file[]" required multiple="multiple">
                 </div>
                 <div class="form-group">
                     <div class="col-lg-12">

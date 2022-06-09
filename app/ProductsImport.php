@@ -280,12 +280,13 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                     $product['current_stock'] = $b;
                 }
                 elseif($a == 'variant_price' && $b != ''){
-                    $product['unit_price'] = $b;
+                    // $product['unit_price'] = $b;
+                    $product['discount'] = $b;
+                    $product['discount_type'] = 'amount';
                 }
                 elseif($a == 'variant_compare_at_price' && $b != ''){
                     // $product['discount'] = $product['unit_price'] - $b;
-                    $product['discount'] = $b;
-                    $product['discount_type'] = 'amount';
+                    $product['unit_price'] = $b;
                 }
                 elseif($a == 'video_provider' && $b != ''){
                     $product['video_provider'] = $b;
