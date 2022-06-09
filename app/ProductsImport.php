@@ -72,7 +72,6 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 'flash_deal_img' => '',
     
             ];
-            
             $product_num = 0;
             foreach($d as $a => $b){
                 if($a == 'title' && $b != ''){
@@ -276,12 +275,17 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 }
                 elseif($a == 'tags' && $b != ''){
                     $product['tags'] = $b;
-            }
+                }
                 elseif($a == 'variant_inventory_qty' && $b != ''){
                     $product['current_stock'] = $b;
                 }
                 elseif($a == 'variant_price' && $b != ''){
                     $product['unit_price'] = $b;
+                }
+                elseif($a == 'variant_compare_at_price' && $b != ''){
+                    // $product['discount'] = $product['unit_price'] - $b;
+                    $product['discount'] = $b;
+                    $product['discount_type'] = 'amount';
                 }
                 elseif($a == 'video_provider' && $b != ''){
                     $product['video_provider'] = $b;

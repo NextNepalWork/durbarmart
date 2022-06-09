@@ -14,7 +14,7 @@
 Route::post('/get-states-by-country', 'HomeController@getStates')->name('getStates')->middleware(['auth']);
 Route::get('/admin', 'HomeController@admin_dashboard')->name('admin.dashboard')->middleware(['auth', 'admin']);
 Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function(){
-Route::resource('categories','CategoryController');
+	Route::resource('categories','CategoryController');
 	Route::get('/categories/destroy/{id}', 'CategoryController@destroy')->name('categories.destroy');
 	Route::post('/categories/featured', 'CategoryController@updateFeatured')->name('categories.featured');
 	Route::post('/categories/update-comission-rate', 'CategoryController@updateComissionRate',)->name('categories.update.rate');
