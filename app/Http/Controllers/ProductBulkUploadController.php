@@ -117,12 +117,30 @@ class ProductBulkUploadController extends Controller
     }
 
 
+    // public function bulk_upload(Request $request)
+    // {
+    //     dd(request()->file('bulk_file'));
+    //     if($request->hasFile('bulk_file')){
+    //         $a = Excel::import(new ProductsImport, request()->file('bulk_file'));
+    //     }
+    //     flash('Products exported successfully')->success();
+    //     return back();
+    // }
     public function bulk_upload(Request $request)
     {
+        // dd($request->file());
+    //    $files = Scanner::scanner_getFile();
+    $all_files = $_FILES['bulk_file'];
+    // $temp_name = $all_files["name"];
+    // $file_name = pathinfo($temp_name,PATHINFO_FILENAME);
+    // dd($request->all());
         if($request->hasFile('bulk_file')){
-            $a = Excel::import(new ProductsImport, request()->file('bulk_file'));
+            foreach($request->file() as $file){
+                // dd($file);
+               $a = Excel::import(new ProductsImport, $file);
+                
+            }
         }
-        // dd($a);
         flash('Products exported successfully')->success();
         return back();
     }
