@@ -195,7 +195,7 @@
                             </div>
                         </form>
 
-                        <form class="" action="{{ route('shops.update', $shop->id) }}" method="POST" enctype="multipart/form-data">
+                        {{-- <form class="" action="{{ route('shops.update', $shop->id) }}" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="_method" value="PATCH">
                             @csrf
                             <div class="form-box bg-white mt-4">
@@ -240,7 +240,7 @@
                             <div class="text-right mt-4">
                                 <button type="submit" class="btn btn-styled btn-base-1">{{__('Save')}}</button>
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
             </div>
