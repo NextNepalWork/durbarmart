@@ -17,22 +17,25 @@
 
     <div class="panel-heading bord-btm clearfix pad-all h-100">
         <h3 class="panel-title pull-left pad-no">{{ __($type.' Products') }}</h3>
-        <div class="pull-right clearfix">
+        <div class="pull-right clearfix d-flex align-items-center">
+            <form class="" id="sort_products" action="" method="GET">
+                <div class="box-inline pad-rgt pull-left">
+                    <div class="" style="min-width: 200px;">
+                        <input type="text" class="form-control" id="search" name="search"
+                            @isset($sort_search) value="{{ $sort_search }}" @endisset
+                            placeholder="Type & Enter">
+                    </div>
+                </div>
+            </form>
             @if ($type == 'Seller')
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin: 0px 10px;">
                 Filter
             </button>
             @endif
-            <div class="box-inline pad-rgt pull-left">
-                <div class="" style="min-width: 200px;">
-                    <input type="text" class="form-control" id="search" name="search"
-                        @isset($sort_search) value="{{ $sort_search }}" @endisset
-                        placeholder="Type & Enter">
-                </div>
-            </div>
+
         
-                <button class="btn btn-primary" id="bulkDelBtn" onclick="deleteBulkData();">Delete</button>
+            <button class="btn btn-primary" id="bulkDelBtn" onclick="deleteBulkData();">Delete</button>
         </div>
     </div>      
     <div class="panel-body">
