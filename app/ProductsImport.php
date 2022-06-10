@@ -279,14 +279,14 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 elseif($a == 'variant_inventory_qty' && $b != ''){
                     $product['current_stock'] = $b;
                 }
-                elseif($a == 'variant_price' && $b != ''){
-                    // $product['unit_price'] = $b;
-                    $product['discount'] = $b;
-                    $product['discount_type'] = 'amount';
-                }
                 elseif($a == 'variant_compare_at_price' && $b != ''){
                     // $product['discount'] = $product['unit_price'] - $b;
                     $product['unit_price'] = $b;
+                }
+                elseif($a == 'variant_price' && $b != ''){
+                    // $product['unit_price'] = $b;
+                    $product['discount'] = $product['unit_price'] - $b;
+                    $product['discount_type'] = 'amount';
                 }
                 elseif($a == 'video_provider' && $b != ''){
                     $product['video_provider'] = $b;
@@ -371,7 +371,7 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
         
         // return Product::create($product);
         return true;
-        dd($row);
+        // dd($row);
         return new Product([
            'name'     => $row['name'],
            'added_by'    => Auth::user()->user_type == 'seller' ? 'seller' : 'admin',
