@@ -285,8 +285,12 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation,Ski
                 }
                 elseif($a == 'variant_price' && $b != ''){
                     // $product['unit_price'] = $b;
-                    $product['discount'] = $product['unit_price'] - $b;
-                    $product['discount_type'] = 'amount';
+                    if(isset($product['unit_price']) && !empty($product['unit_price'])){
+                        $product['discount'] = $product['unit_price'] - $b;
+                        $product['discount_type'] = 'amount';
+                    }else{
+                        $product['unit_price'] = $b;
+                    }
                 }
                 elseif($a == 'video_provider' && $b != ''){
                     $product['video_provider'] = $b;
