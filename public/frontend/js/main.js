@@ -363,13 +363,13 @@ function slickInit() {
                         {
                             breakpoint: 992,
                             settings: {
-                                slidesToShow: slidesPerViewMd,
+                                slidesToShow: 6,
                             },
                         },
                         {
                             breakpoint: 768,
                             settings: {
-                                slidesToShow: slidesPerViewSm,
+                                slidesToShow: 5,
                                 dots: true,
                                 arrows: false,
                             },
@@ -377,7 +377,7 @@ function slickInit() {
                         {
                             breakpoint: 576,
                             settings: {
-                                slidesToShow: slidesPerViewXs,
+                                slidesToShow: 5,
                                 dots: true,
                                 arrows: false,
                             },
