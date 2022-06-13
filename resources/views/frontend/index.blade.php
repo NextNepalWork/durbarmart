@@ -456,6 +456,52 @@
             </div>
         </div>
     </section> -->
+    <section class="bg-white">
+        <div class="container ">
+            <div class="px-2 py-4 p-md-4 bg-white">
+                {{-- <div class="section-title-1 d-flex w-100 justify-content-between">
+                    <h3 class="heading-5 strong-700 mb-0 float-lg-left">
+                        <span class="mr-4">{{__('Top 10 Brands')}}</span>
+                    </h3>
+                    <ul class="inline-links float-lg-right nav mt-3 mb-2 m-lg-0">
+                        <li>
+                            <a href="{{ route('brands.all') }}" class="active">{{__('View All Brands')}}</a>
+                        </li>
+                    </ul>
+                </div> --}}
+                <style>
+                    .brand-img{
+                        max-height: 60px;
+                        min-height: 60px;
+                        object-fit: contain;
+                        object-position: center;
+                    }
+                </style>
+                <div class="caorusel-box arrow-round gutters-5">
+                    <div class="slick-carousel-brand" data-slick-items="6" data-slick-xl-items="5" data-slick-lg-items="4"  data-slick-md-items="3" data-slick-sm-items="2" data-slick-xs-items="2">
+                        @foreach (\App\Brand::where('top', 1)->get() as $product)
+                        
+                            <div class="caorusel-card">
+                                <div class="product-box-2 bg-white alt-box my-2">
+                                    <div class="position-relative overflow-hidden">
+                                        <a href="{{ route('products.brand', $product->slug) }}" class="d-block product-image h-100 text-center">
+                                            <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->logo) }}" alt="{{ __($product->name) }}" class="img-fluid img lazyload brand-img">
+                                        </a>
+                                    </div>
+                                    {{-- <div class="p-md-3 p-2">
+                                        <h2 class="product-title p-0">
+                                            <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{ __($product->name) }}</a>
+                                        </h2>
+                                        <span class="product-price strong-600" style="font-size: 15px">{{ home_discounted_base_price($product->id) }}</span>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
 
 @section('script')

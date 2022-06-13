@@ -9,9 +9,11 @@
                 <div class="row gutters-10">
                     @foreach (\App\Brand::all() as $brand)
                         <div class="col-xxl-2 col-lg-4 col-sm-6 text-center">
-                            <a href="{{ route('products.brand', $brand->slug) }}" class="d-block p-3 mb-3 border rounded">
-                                <img src="{{ asset($brand->logo) }}" class="lazyload img-fit" height="50" alt="{{ __($brand->name) }}">
-                            </a>
+                            @if (!empty($brand->slug))                                
+                                <a href="{{ route('products.brand', $brand->slug) }}" class="d-block p-3 mb-3 border rounded">
+                                    <img src="{{ asset($brand->logo) }}" class="lazyload img-fit" height="50" alt="{{ __($brand->name) }}">
+                                </a>
+                            @endif
                         </div>
                     @endforeach
                 </div>
