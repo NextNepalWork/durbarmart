@@ -284,6 +284,108 @@ function slickInit() {
                 });
             });
     }
+    
+    if ($(".slick-carousel-brand").length > 0) {
+        $(".slick-carousel-brand")
+            .not(".slick-initialized")
+            .each(function () {
+                var $this = $(this);
+
+                var slidesRtl = false;
+
+                var slidesPerViewXs = $this.data("slick-xs-items");
+                var slidesPerViewSm = $this.data("slick-sm-items");
+                var slidesPerViewMd = $this.data("slick-md-items");
+                var slidesPerViewLg = $this.data("slick-lg-items");
+                var slidesPerViewXl = $this.data("slick-xl-items");
+                var slidesPerView = $this.data("slick-items");
+
+                var slidesCenterMode = $this.data("slick-center");
+                var slidesArrows = $this.data("slick-arrows");
+                var slidesDots = $this.data("slick-dots");
+                var slidesRows = $this.data("slick-rows");
+                var slidesAutoplay = $this.data("slick-autoplay");
+
+                slidesPerViewXs = !slidesPerViewXs
+                    ? slidesPerView
+                    : slidesPerViewXs;
+                slidesPerViewSm = !slidesPerViewSm
+                    ? slidesPerView
+                    : slidesPerViewSm;
+                slidesPerViewMd = !slidesPerViewMd
+                    ? slidesPerView
+                    : slidesPerViewMd;
+                slidesPerViewLg = !slidesPerViewLg
+                    ? slidesPerView
+                    : slidesPerViewLg;
+                slidesPerViewXl = !slidesPerViewXl
+                    ? slidesPerView
+                    : slidesPerViewXl;
+                slidesPerView = !slidesPerView ? 1 : slidesPerView;
+                slidesCenterMode = !slidesCenterMode ? false : slidesCenterMode;
+                slidesArrows = !slidesArrows ? true : slidesArrows;
+                slidesDots = !slidesDots ? false : slidesDots;
+                slidesRows = !slidesRows ? 1 : slidesRows;
+                slidesAutoplay = !slidesAutoplay ? false : slidesAutoplay;
+
+                if ($("html").attr("dir") === "rtl") {
+                    slidesRtl = true;
+                }
+
+                $this.slick({
+                    slidesToShow: slidesPerView,
+                    autoplay: slidesAutoplay,
+                    dots: slidesDots,
+                    arrows: slidesArrows,
+                    infinite: true,
+                    rtl: slidesRtl,
+                    rows: slidesRows,
+                    centerPadding: "0px",
+                    centerMode: slidesCenterMode,
+                    speed: 300,
+                    prevArrow:
+                        '<button type="button" class="slick-prev"><i class="la la-angle-left"></i></button>',
+                    nextArrow:
+                        '<button type="button" class="slick-next"><i class="la la-angle-right"></i></button>',
+                    responsive: [
+                        {
+                            breakpoint: 1500,
+                            settings: {
+                                slidesToShow: 6,
+                            },
+                        },
+                        {
+                            breakpoint: 1200,
+                            settings: {
+                                slidesToShow: 6,
+                            },
+                        },
+                        {
+                            breakpoint: 992,
+                            settings: {
+                                slidesToShow: slidesPerViewMd,
+                            },
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: slidesPerViewSm,
+                                dots: true,
+                                arrows: false,
+                            },
+                        },
+                        {
+                            breakpoint: 576,
+                            settings: {
+                                slidesToShow: slidesPerViewXs,
+                                dots: true,
+                                arrows: false,
+                            },
+                        },
+                    ],
+                });
+            });
+    }
 }
 
 $(document).ready(function () {
