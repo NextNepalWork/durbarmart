@@ -484,7 +484,7 @@
                             <div class="caorusel-card">
                                 <div class="product-box-2 bg-white alt-box my-2">
                                     <div class="position-relative overflow-hidden">
-                                        <a href="{{ route('products.brand', $product->slug) }}" class="d-block product-image h-100 text-center">
+                                        <a href="{{ route('brands.get', $product->slug) }}" class="d-block product-image h-100 text-center">
                                             <img src="{{ asset('frontend/images/placeholder.jpg') }}" data-src="{{ asset($product->logo) }}" alt="{{ __($product->name) }}" class="img-fluid img lazyload brand-img">
                                         </a>
                                     </div>

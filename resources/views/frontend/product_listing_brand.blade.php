@@ -57,27 +57,7 @@
                     <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
                     <li><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
                     
-                    @if(isset($category_id))
-                        @if (\App\Category::find($category_id)->slug!=null)
-                            <li class="active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></li>
-                        @endif
-                    @endif
-                    {{-- @php
-                        dd($category_id);
-                    @endphp --}}
-                    @if(isset($subcategory_id) && !empty($subcategory_id))
-
-                        <li><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ \App\SubCategory::find($subcategory_id)->category->name }}</a></li>
-                        
-                        <li class="active"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ \App\SubCategory::find($subcategory_id)->name }}</a></li>
-                    @endif
-                    @if(isset($subsubcategory_id) && !empty($subsubcategory_id))
-
-                        <li><a href="{{ route('products.category', \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name }}</a></li>
-                        
-                        <li><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ \App\SubsubCategory::find($subsubcategory_id)->subcategory->name }}</a></li>
-                        <li class="active"><a href="{{ route('products.subsubcategory', \App\SubSubCategory::find($subsubcategory_id)->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->name }}</a></li>
-                    @endif
+                
                 </ul>
             </div>
         </div>
@@ -106,32 +86,32 @@
                                 <div class="category-filter">
                                     <ul>
                                         @if(!isset($category_id) && !isset($category_id) && !isset($subcategory_id) && !isset($subsubcategory_id))
-                                        @foreach(\App\Category::all() as $category)
-                                        @if ($category->slug!=null)
-                                        <li class=""><a href="{{ route('products.category', $category->slug) }}">{{ __($category->name) }}</a></li>
+                                            @foreach(\App\Category::all() as $category)
+                                                @if ($category->slug!=null)
+                                                    <li class=""><a href="{{ route('products.category', $category->slug) }}">{{ __($category->name) }}</a></li>
+                                                @endif
+                                            @endforeach
                                         @endif
-                                        @endforeach
+                                            <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
+                                        @if(isset($category_id) && !empty($category_id))
+                                            <li class="active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ __(\App\Category::find($category_id)->name) }}</a></li>
+                                            @foreach (\App\Category::find($category_id)->subcategories as $key2 => $subcategory)
+                                                <li class="child"><a href="{{ route('products.subcategory', $subcategory->slug) }}">{{ __($subcategory->name) }}</a></li>
+                                            @endforeach
                                         @endif
-                                        @if(isset($category_id))
-                                        <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                                        <li class="active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ __(\App\Category::find($category_id)->name) }}</a></li>
-                                        @foreach (\App\Category::find($category_id)->subcategories as $key2 => $subcategory)
-                                        <li class="child"><a href="{{ route('products.subcategory', $subcategory->slug) }}">{{ __($subcategory->name) }}</a></li>
-                                        @endforeach
+                                        @if(isset($subcategory_id) && !empty($subcategory_id))
+                                            <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
+                                            <li class="active"><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ __(\App\SubCategory::find($subcategory_id)->category->name) }}</a></li>
+                                            <li class="active"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ __(\App\SubCategory::find($subcategory_id)->name) }}</a></li>
+                                            @foreach (\App\SubCategory::find($subcategory_id)->subsubcategories as $key3 => $subsubcategory)
+                                                <li class="child"><a href="{{ route('products.subsubcategory', $subsubcategory->slug) }}">{{ __($subsubcategory->name) }}</a></li>
+                                            @endforeach
                                         @endif
-                                        @if(isset($subcategory_id))
-                                        <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                                        <li class="active"><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ __(\App\SubCategory::find($subcategory_id)->category->name) }}</a></li>
-                                        <li class="active"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ __(\App\SubCategory::find($subcategory_id)->name) }}</a></li>
-                                        @foreach (\App\SubCategory::find($subcategory_id)->subsubcategories as $key3 => $subsubcategory)
-                                        <li class="child"><a href="{{ route('products.subsubcategory', $subsubcategory->slug) }}">{{ __($subsubcategory->name) }}</a></li>
-                                        @endforeach
-                                        @endif
-                                        @if(isset($subsubcategory_id))
-                                        <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                                        <li class="active"><a href="{{ route('products.category', \App\SubsubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ __(\App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name) }}</a></li>
-                                        <li class="active"><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->subcategory->name) }}</a></li>
-                                        <li class="current"><a href="{{ route('products.subsubcategory', \App\SubsubCategory::find($subsubcategory_id)->slug) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->name) }}</a></li>
+                                        @if(isset($subsubcategory_id) && !empty($subsubcategory_id))
+                                            <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
+                                            <li class="active"><a href="{{ route('products.category', \App\SubsubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ __(\App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name) }}</a></li>
+                                            <li class="active"><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->subcategory->name) }}</a></li>
+                                            <li class="current"><a href="{{ route('products.subsubcategory', \App\SubsubCategory::find($subsubcategory_id)->slug) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->name) }}</a></li>
                                         @endif
                                     </ul>
                                 </div>
@@ -259,15 +239,16 @@
                         {{-- <button type="submit" class="btn btn-styled btn-block btn-base-4">Apply filter</button> --}}
                     </div>
                 </div>
+                
                 <div class="col-xl-9">
                     <!-- <div class="bg-white"> -->
-                    @isset($category_id)
+                    @if(isset($category_id) && !empty($category_id))
                     <input type="hidden" name="category" value="{{ \App\Category::find($category_id)->slug }}">
                     @endisset
-                    @isset($subcategory_id)
+                    @if(isset($subcategory_id) && !empty($subcategory_id))
                     <input type="hidden" name="subcategory" value="{{ \App\SubCategory::find($subcategory_id)->slug }}">
                     @endisset
-                    @isset($subsubcategory_id)
+                    @if(isset($subsubcategory_id) && !empty($subsubcategory_id))
                     <input type="hidden" name="subsubcategory" value="{{ \App\SubSubCategory::find($subsubcategory_id)->slug }}">
                     @endisset
 

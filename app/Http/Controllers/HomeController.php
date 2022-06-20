@@ -345,6 +345,181 @@ class HomeController extends Controller
         $categories = Category::all();
         return view('frontend.all_brand', compact('categories'));
     }
+    public function get_brand(Request $request,$slug)
+    {
+        $brand = Brand::where('slug',$slug)->first();
+        $query = $request->q;
+        // dd($subcat);
+        $brand_id = $brand->id;
+
+        $sort_by = $request->sort_by;
+
+        $location_id = (Location::where('id', $request->location)->first() != null) ? Location::where('id', $request->location)->first()->id : null;
+
+        $shops=\App\Shop::all();
+        $user_id=array();
+        foreach ($shops as $key => $shop) {
+            if(!empty($shop->location)){
+                $array = explode('!!', $shop->location);
+                // dd($array);
+                if(in_array($location_id,$array)){
+                    array_push($user_id,$shop->user_id);  
+                }
+    
+            }
+        }
+
+        $subsubcategory_id = [];
+        if(isset($subcat) && $subcat != null){        
+            $subsubcategory_id = (SubSubCategory::where('slug', )->first() != null) ? SubSubCategory::where('slug', $subcat)->first()->id : null;
+
+        }
+
+        
+        $min_price = $request->min_price;
+        $max_price = $request->max_price;
+        $seller_id = $request->seller_id;
+        // $subsubcategory_id = $subcat;
+        $conditions = ['published' => 1];
+        // dd($conditions);
+        // dd($products->get(),SubSubCategory::where('id',$subsubcategory_id)->first(),$conditions);
+        if($brand_id != null){
+            $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
+        }
+        if($subsubcategory_id != null){
+            $conditions = array_merge($conditions, ['subsubcategory_id' => $subsubcategory_id]);
+        }
+        if($seller_id != null){
+            $conditions = array_merge($conditions, ['user_id' => Seller::findOrFail($seller_id)->user->id]);
+        }
+
+        
+        if($user_id){
+            $products = Product::whereIn('user_id',(array)$user_id)->where($conditions);
+        }
+        else{
+            // if($user_id)
+            $products = Product::where($conditions);
+        }
+
+        if($min_price != null && $max_price != null){
+            $products = $products->where('unit_price', '>=', $min_price)->where('unit_price', '<=', $max_price);
+        }
+        
+        if($query != null){
+            $searchController = new SearchController;
+            $searchController->store($request);
+            $products = $products->where('name', 'like', '%'.$query.'%')->orWhere('tags', 'like', '%'.$query.'%');
+        }
+
+        if($sort_by != null){
+            switch ($sort_by) {
+                case '1':
+                    $products->orderBy('created_at', 'desc');
+                    break;
+                case '2':
+                    $products->orderBy('created_at', 'asc');
+                    break;
+                case '3':
+                    $products->orderBy('unit_price', 'asc');
+                    break;
+                case '4':
+                    $products->orderBy('unit_price', 'desc');
+                    break;
+                default:
+                    // code...
+                    break;
+            }
+        }
+        $non_paginate_products = filter_products($products)->get();
+
+
+        //Attribute Filter
+
+        $attributes = array();
+        foreach ($non_paginate_products as $key => $product) {
+            if($product->attributes != null && is_array(json_decode($product->attributes))){
+                foreach (json_decode($product->attributes) as $key => $value) {
+                    $flag = false;
+                    $pos = 0;
+                    foreach ($attributes as $key => $attribute) {
+                        if($attribute['id'] == $value){
+                            $flag = true;
+                            $pos = $key;
+                            break;
+                        }
+                    }
+                    if(!$flag){
+                        $item['id'] = $value;
+                        $item['values'] = array();
+                        foreach (json_decode($product->choice_options) as $key => $choice_option) {
+                            if($choice_option->attribute_id == $value){
+                                $item['values'] = $choice_option->values;
+                                break;
+                            }
+                        }
+                        array_push($attributes, $item);
+                    }
+                    else {
+                        foreach (json_decode($product->choice_options) as $key => $choice_option) {
+                            if($choice_option->attribute_id == $value){
+                                foreach ($choice_option->values as $key => $value) {
+                                    if(!in_array($value, $attributes[$pos]['values'])){
+                                        array_push($attributes[$pos]['values'], $value);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $selected_attributes = array();
+
+        foreach ($attributes as $key => $attribute) {
+            if($request->has('attribute_'.$attribute['id'])){
+                foreach ($request['attribute_'.$attribute['id']] as $key => $value) {
+                    $str = '"'.$value.'"';
+                    $products = $products->where('choice_options', 'like', '%'.$str.'%');
+                }
+
+                $item['id'] = $attribute['id'];
+                $item['values'] = $request['attribute_'.$attribute['id']];
+                array_push($selected_attributes, $item);
+            }
+        }
+
+
+        //Color Filter
+        $all_colors = array();
+
+        foreach ($non_paginate_products as $key => $product) {
+            if ($product->colors != null) {
+                foreach (json_decode($product->colors) as $key => $color) {
+                    if(!in_array($color, $all_colors)){
+                        array_push($all_colors, $color);
+                    }
+                }
+            }
+        }
+
+        $selected_color = null;
+
+        if($request->has('color')){
+            $str = '"'.$request->color.'"';
+            $products = $products->where('colors', 'like', '%'.$str.'%');
+            $selected_color = $request->color;
+        }
+        $brands = filter_products($products)->where('brand_id','!=',null)->get('brand_id');
+// dd($a); 
+        $products = filter_products($products)->paginate(12)->appends(request()->query());
+        // dd($products);
+
+        return view('frontend.product_listing_brand', compact('products', 'query', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','brands'));
+    
+        // return view('frontend.all_brand', compact('categories'));
+    }
 
     public function show_product_upload_form(Request $request)
     {
