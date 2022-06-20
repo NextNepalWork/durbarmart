@@ -157,8 +157,8 @@
                                 <div class="range-slider-wrapper mt-3">
                                     <!-- Range slider container -->
                                     @php
-                                        $min = filter_products(\App\Product::query())->get()->min('unit_price');
-                                        $max =filter_products(\App\Product::query())->get()->max('unit_price');
+                                        $min = (\App\Product::min('unit_price'));
+                                        $max = (\App\Product::max('unit_price'));
                                     @endphp
                                     <div id="input-slider-range" data-range-value-min="{{ $min }}" data-range-value-max="{{ $max }}"></div>
 
