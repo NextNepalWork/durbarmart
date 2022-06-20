@@ -6,6 +6,7 @@ use App\Category;
 use App\Language;
 use App\Product;
 use App\ProductStock;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,8 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $guarded = array();
+
     public function admin_products(Request $request)
     {
         //CoreComponentRepository::instantiateShopRepository();
@@ -53,6 +56,30 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function bulkDiscount(Request $request){
+        $user = User::where('id',$request->seller)->count();
+        if($user <1 ){
+            flash(__('Seller Doesnot Exist'))->error();
+            return back();
+        }
+        try{
+            Product::where('user_id',$request->seller)->update([
+            'discount' => $request->discount,
+            'discount_type' => $request->discount_type
+            ]);
+            flash(__('Discounts Updated'))->success();
+            return back();
+
+        }  
+        catch(\Exception $e)
+        {
+            $bug = $e->getMessage();
+            flash(__($bug))->error();
+            return back();
+        }
+        // dd($request->all());
+    }
+
     public function seller_products(Request $request)
     {
         $col_name = null;

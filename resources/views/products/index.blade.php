@@ -27,6 +27,9 @@
                     </div>
                 </div>
             </form>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" style="margin: 0px 10px;">
+                Bulk Discount
+            </button>
             @if ($type == 'Seller')
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin: 0px 10px;">
@@ -167,7 +170,59 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Bulk Discount</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form class="" id="discount_products" action="{{route('bulk.discount')}}" method="POST">
+                    {{-- @if($type == 'Seller') --}}
+                    @csrf
+                    <div class="card" style="margin-top:15px">
+                        <div class="card-header">
+                          Sellers
+                        </div>
+                        <select class="form-control sortSelect demo-select2" data-placeholder="{{__('All Sellers')}}" name="seller">
+                            <option value=""></option>
+                            @foreach (\App\Seller::all() as $key => $seller)
+                                @if ($seller->user != null && $seller->user->shop != null)
+                                    <option value="{{ $seller->user->id }}" @if ($vendor_id == $seller->user->id) selected @endif>{{ $seller->user->shop->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>                        
+                    </div>
+                    {{-- @endif --}}
 
+                    @if ($type=='Seller')
+                        
+                    
+                    <div class="card" style="margin-top:15px">
+                        <div class="card-header">
+                            Discount
+                        </div>
+						<div class="col-lg-7">
+							<input type="number" min="0" value="0" step="0.01" placeholder="{{__('Discount')}}" name="discount" class="form-control" required>
+						</div>
+						<div class="col-lg-4">
+							<select class="demo-select2" name="discount_type">
+								<option value="amount">{{__('Flat')}}</option>
+								<option value="percent">{{__('Percent')}}</option>
+							</select>
+						</div>
+                    </div>
+                    @endif
+
+                    <button type="submit" class="btn btn-success" style="margin-top:10px">Apply</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
