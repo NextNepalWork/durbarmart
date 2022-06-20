@@ -148,6 +148,7 @@ Route::resource('subscribers', 'SubscriberController');
 
 Route::get('/brands', 'HomeController@all_brands')->name('brands.all');
 Route::get('/brand/{slug}', 'HomeController@get_brand')->name('brands.get');
+Route::get('/brand/{slug}/{categorySlug}', 'HomeController@get_brand')->name('brands.cateogryGet');
 Route::get('/categories', 'HomeController@all_categories')->name('categories.all');
 Route::get('/search', 'HomeController@search')->name('search');
 Route::get('/search?q={search}', 'HomeController@search')->name('suggestion.search');

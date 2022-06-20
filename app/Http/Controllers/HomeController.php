@@ -345,8 +345,9 @@ class HomeController extends Controller
         $categories = Category::all();
         return view('frontend.all_brand', compact('categories'));
     }
-    public function get_brand(Request $request,$slug)
+    public function get_brand(Request $request,$slug,$categorySlug = '')
     {
+        // dd($category);
         $brand = Brand::where('slug',$slug)->first();
         $query = $request->q;
         // dd($subcat);
@@ -385,6 +386,10 @@ class HomeController extends Controller
         // dd($products->get(),SubSubCategory::where('id',$subsubcategory_id)->first(),$conditions);
         if($brand_id != null){
             $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
+        }
+        if($categorySlug != null){
+            $category = Category::where('slug',$categorySlug)->first();
+            $conditions = array_merge($conditions, ['category_id' => $category->id]);
         }
         if($subsubcategory_id != null){
             $conditions = array_merge($conditions, ['subsubcategory_id' => $subsubcategory_id]);
@@ -515,8 +520,8 @@ class HomeController extends Controller
 // dd($a); 
         $products = filter_products($products)->paginate(12)->appends(request()->query());
         // dd($products);
-
-        return view('frontend.product_listing_brand ', compact('products', 'query', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','brands'));
+        $brandSlug = $slug;
+        return view('frontend.product_listing_brand ', compact('products','brandSlug', 'query', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','brands'));
     
         // return view('frontend.all_brand', compact('categories'));
     }
