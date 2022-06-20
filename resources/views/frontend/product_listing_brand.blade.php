@@ -98,6 +98,10 @@
                                             @foreach (\App\Category::find($category_id)->subcategories as $key2 => $subcategory)
                                                 <li class="child"><a href="{{ route('products.subcategory', $subcategory->slug) }}">{{ __($subcategory->name) }}</a></li>
                                             @endforeach
+                                        @else
+                                            @foreach (\App\Category::get() as $key2 => $category)
+                                                <li class="child"><a href="{{ route('brands.cateogryGet', ['slug' => $brandSlug, 'categorySlug' => $category->slug]) }}">{{ __($category->name) }}</a></li>
+                                            @endforeach                                            
                                         @endif
                                         @if(isset($subcategory_id) && !empty($subcategory_id))
                                             <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
