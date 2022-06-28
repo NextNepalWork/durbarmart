@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Brand;
+use App\BrandSeo;
 use App\Product;
 
 class BrandController extends Controller
@@ -97,6 +98,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function update(Request $request, $id)
     {
         $brand = Brand::findOrFail($id);
@@ -144,5 +146,44 @@ class BrandController extends Controller
             flash(__('Something went wrong'))->error();
             return back();
         }
+    }
+    
+    public function updateSEO(Request $request, $id)
+    {
+        // dd($request->all());
+        $type = $request->type;
+        $items = $request->items;
+
+        // $delete_previous
+        foreach($items as $a => $b){
+            if(BrandSeo::where([
+                'brand_id'=>$id,
+                'type' => $type,
+                'type_id' => $a
+                ])->count() > 0){            
+                    BrandSeo::where([
+                        'brand_id'=>$id,
+                        'type' => $type,
+                        'type_id' => $a
+                        ])->update(
+                            [
+                                'seo_title' => $b['title'],
+                                'seo_description' => $b['description']
+                            ]
+                        );     
+            }else{
+                BrandSeo::create([
+                    'brand_id'=>$id,
+                    'type' => $type,
+                    'type_id' => $a,
+                    'seo_title' => $b['title'],
+                    'seo_description' => $b['description']
+                ]);
+            }
+        }
+        flash(__('SEO updated'))->success();
+
+        // flash(__('Something went wrong'))->error();
+        return back();
     }
 }

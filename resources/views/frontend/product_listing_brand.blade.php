@@ -1,19 +1,48 @@
 @extends('frontend.layouts.app')
 
+{{-- @php
+    dd($__data);
+@endphp --}}
 @if(isset($subsubcategory_id) && !empty($subsubcategory_id))
     @php
         $meta_title = \App\SubSubCategory::find($subsubcategory_id)->meta_title;
         $meta_description = \App\SubSubCategory::find($subsubcategory_id)->meta_description;
     @endphp
-@elseif (isset($subcategory_id))
+@elseif (isset($subcategory_id) && !empty($subcategory_id))
     @php
-        $meta_title = \App\SubCategory::find($subcategory_id)->meta_title;
-        $meta_description = \App\SubCategory::find($subcategory_id)->meta_description;
+        $brand_seo_subcat = \App\BrandSeo::where([
+            'brand_id'=> $brand_id,
+            'type' => 'subcategory',
+            'type_id' => $subcategory_id
+        ])->count();
+        if($brand_seo_subcat > 0){
+            $brand_seo_subcat = \App\BrandSeo::where([
+                'brand_id'=> $brand_id,
+                'type' => 'subcategory',
+                'type_id' => $subcategory_id
+            ])->first();
+            $meta_title = $brand_seo_subcat->seo_title;
+            $meta_description = $brand_seo_subcat->seo_description;
+        }
+        // $meta_title = \App\SubCategory::find($subcategory_id)->meta_title;
+        // $meta_description = \App\SubCategory::find($subcategory_id)->meta_description;
     @endphp
-@elseif (isset($category_id))
+@elseif (isset($category_id) && !empty($category_id))
     @php
-        $meta_title = \App\Category::find($category_id)->meta_title;
-        $meta_description = \App\Category::find($category_id)->meta_description;
+        $brand_seo_cat = \App\BrandSeo::where([
+            'brand_id'=> $brand_id,
+            'type' => 'category',
+            'type_id' => $category_id
+        ])->count();
+        if($brand_seo_cat > 0){
+            $brand_seo_cat = \App\BrandSeo::where([
+                'brand_id'=> $brand_id,
+                'type' => 'category',
+                'type_id' => $category_id
+            ])->first();
+            $meta_title = $brand_seo_cat->seo_title;
+            $meta_description = $brand_seo_cat->seo_description;
+        }
     @endphp
 @elseif (isset($brand_id) && !empty($brand_id))
     @php
@@ -29,6 +58,9 @@
 {{-- @php
     $meta_title = '';
     $meta_description = '';
+@endphp --}}
+{{-- @php
+    dd($meta_title,$meta_description,\App\Category::find($category_id)->first());
 @endphp --}}
 @section('meta_title'){{ $meta_title }}@stop
 @section('meta_description'){{ $meta_description }}@stop
@@ -47,7 +79,7 @@
 <meta property="og:description" content="{{ $meta_description }}" />
 @endsection
 
-@section('content')-
+@section('content')
 
 <div class="breadcrumb-area">
     <div class="container">
@@ -94,9 +126,13 @@
                                         @endif
                                             <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
                                         @if(isset($category_id) && !empty($category_id))
-                                            <li class="active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ __(\App\Category::find($category_id)->name) }}</a></li>
+                                            {{-- <li class="active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ __(\App\Category::find($category_id)->name) }}</a></li>
                                             @foreach (\App\Category::find($category_id)->subcategories as $key2 => $subcategory)
                                                 <li class="child"><a href="{{ route('products.subcategory', $subcategory->slug) }}">{{ __($subcategory->name) }}</a></li>
+                                            @endforeach --}}
+                                            <li class="active"><a href="{{ route('brands.get',['slug' => $brandSlug])}}">{{ __(\App\Category::find($category_id)->name) }}</a></li>
+                                            @foreach (\App\Category::find($category_id)->subcategories as $key2 => $subcategory)
+                                                <li class="child"><a href="{{ route('brands.cateogryGet',['slug' => $brandSlug,'categorySlug' => $subcategory->slug])}}">{{ __($subcategory->name) }}</a></li>
                                             @endforeach
                                         @else
                                             @foreach (\App\Category::get() as $key2 => $category)
