@@ -3,10 +3,29 @@
 {{-- @php
     dd($__data);
 @endphp --}}
+
+@php
+    $meta_title = '';
+    $meta_description = '';
+@endphp
 @if(isset($subsubcategory_id) && !empty($subsubcategory_id))
     @php
-        $meta_title = \App\SubSubCategory::find($subsubcategory_id)->meta_title;
-        $meta_description = \App\SubSubCategory::find($subsubcategory_id)->meta_description;
+        $brand_seo_subsubcat = \App\BrandSeo::where([
+            'brand_id'=> $brand_id,
+            'type' => 'subsubcategory',
+            'type_id' => $subsubcategory_id
+        ])->count();
+        if($brand_seo_subsubcat > 0){
+            $brand_seo_subsubcat = \App\BrandSeo::where([
+                'brand_id'=> $brand_id,
+                'type' => 'subsubcategory',
+                'type_id' => $subsubcategory_id
+            ])->first();
+            $meta_title = $brand_seo_subsubcat->seo_title;
+            $meta_description = $brand_seo_subsubcat->seo_description;
+        }   
+        // $meta_title = \App\SubSubCategory::find($subsubcategory_id)->meta_title;
+        // $meta_description = \App\SubSubCategory::find($subsubcategory_id)->meta_description;
     @endphp
 @elseif (isset($subcategory_id) && !empty($subcategory_id))
     @php
@@ -55,10 +74,6 @@
         $meta_description = \App\SeoSetting::first()->description;
     @endphp
 @endif
-{{-- @php
-    $meta_title = '';
-    $meta_description = '';
-@endphp --}}
 {{-- @php
     dd($meta_title,$meta_description,\App\Category::find($category_id)->first());
 @endphp --}}
@@ -141,17 +156,17 @@
                                         @endif
                                         @if(isset($subcategory_id) && !empty($subcategory_id))
                                             <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                                            <li class="active"><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ __(\App\SubCategory::find($subcategory_id)->category->name) }}</a></li>
-                                            <li class="active"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ __(\App\SubCategory::find($subcategory_id)->name) }}</a></li>
+                                            <li class="active"><a href="{{ route('brands.cateogryGet', ['slug' => $brandSlug, 'categorySlug' => \App\SubCategory::find($subcategory_id)->category->slug]) }}">{{ __(\App\SubCategory::find($subcategory_id)->category->name) }}</a></li>
+                                            <li class="active"><a href="{{ route('brands.cateogryGet', ['slug' => $brandSlug, 'categorySlug' => \App\SubCategory::find($subcategory_id)->slug]) }}">{{ __(\App\SubCategory::find($subcategory_id)->name) }}</a></li>
                                             @foreach (\App\SubCategory::find($subcategory_id)->subsubcategories as $key3 => $subsubcategory)
-                                                <li class="child"><a href="{{ route('products.subsubcategory', $subsubcategory->slug) }}">{{ __($subsubcategory->name) }}</a></li>
+                                                <li class="child"><a href="{{ route('brands.cateogryGet', ['slug' => $brandSlug, 'categorySlug' => $subsubcategory->slug]) }}">{{ __($subsubcategory->name) }}</a></li>
                                             @endforeach
                                         @endif
                                         @if(isset($subsubcategory_id) && !empty($subsubcategory_id))
                                             <li class="active"><a href="{{ route('products') }}">{{__('All Categories')}}</a></li>
-                                            <li class="active"><a href="{{ route('products.category', \App\SubsubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ __(\App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name) }}</a></li>
-                                            <li class="active"><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->subcategory->name) }}</a></li>
-                                            <li class="current"><a href="{{ route('products.subsubcategory', \App\SubsubCategory::find($subsubcategory_id)->slug) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->name) }}</a></li>
+                                            <li class="active"><a href="{{ route('brands.cateogryGet', ['slug' => $brandSlug, 'categorySlug' => \App\SubsubCategory::find($subsubcategory_id)->subcategory->category->slug]) }}">{{ __(\App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name) }}</a></li>
+                                            <li class="active"><a href="{{ route('brands.cateogryGet', ['slug' => $brandSlug, 'categorySlug' => \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug]) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->subcategory->name) }}</a></li>
+                                            <li class="current"><a href="{{ route('brands.cateogryGet', ['slug' => $brandSlug, 'categorySlug' => \App\SubsubCategory::find($subsubcategory_id)->slug]) }}">{{ __(\App\SubsubCategory::find($subsubcategory_id)->name) }}</a></li>
                                         @endif
                                     </ul>
                                 </div>
