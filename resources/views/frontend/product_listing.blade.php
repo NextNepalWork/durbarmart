@@ -172,7 +172,11 @@
                             <div class="box-content">
                                 <div class="range-slider-wrapper mt-3">
                                     <!-- Range slider container -->
-                                    <div id="input-slider-range" data-range-value-min="{{ filter_products(\App\Product::query())->get()->min('unit_price') }}" data-range-value-max="{{ filter_products(\App\Product::query())->get()->max('unit_price') }}"></div>
+                                    @php
+                                    $min = (\App\Product::min('unit_price'));
+                                    $max = (\App\Product::max('unit_price'));
+                                @endphp
+                                    <div id="input-slider-range" data-range-value-min="{{ $min }}" data-range-value-max="{{ $max }}"></div>
 
                                     <!-- Range slider values -->
                                     <div class="row">
