@@ -191,7 +191,7 @@
                             <option value=""></option>
                             @foreach (\App\Seller::all() as $key => $seller)
                                 @if ($seller->user != null && $seller->user->shop != null)
-                                    <option value="{{ $seller->user->id }}" @if ($vendor_id == $seller->user->id) selected @endif>{{ $seller->user->shop->name }}</option>
+                                    <option value="{{ $seller->user->id }}" >{{ $seller->user->shop->name }}</option>
                                 @endif
                             @endforeach
                         </select>                        
@@ -277,7 +277,7 @@
                                         <option value=""></option>
                                         @foreach (\App\Seller::all() as $key => $seller)
                                             @if ($seller->user != null && $seller->user->shop != null)
-                                                <option value="{{ $seller->user->id }}" @if ($vendor_id == $seller->user->id) selected @endif>{{ $seller->user->shop->name }}</option>
+                                                <option value="{{ $seller->user->id }}" >{{ $seller->user->shop->name }}</option>
                                             @endif
                                         @endforeach
                                     </select>

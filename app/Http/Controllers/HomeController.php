@@ -347,10 +347,9 @@ class HomeController extends Controller
     }
     public function get_brand(Request $request,$slug,$categorySlug = '')
     {
-        // dd($category);
         $brand = Brand::where('slug',$slug)->first();
         $query = $request->q;
-        // dd($subcat);
+        
         $brand_id = $brand->id;
 
         $sort_by = $request->sort_by;
@@ -370,7 +369,6 @@ class HomeController extends Controller
             }
         }
 
-        $subsubcategory_id = [];
         if(isset($subcat) && $subcat != null){        
             $subsubcategory_id = (SubSubCategory::where('slug', )->first() != null) ? SubSubCategory::where('slug', $subcat)->first()->id : null;
 
@@ -380,7 +378,14 @@ class HomeController extends Controller
         $min_price = $request->min_price;
         $max_price = $request->max_price;
         $seller_id = $request->seller_id;
-        // $subsubcategory_id = $subcat;
+        
+        $category_id = '';
+        $subcategory_id = '';
+        $subsubcategory_id = '';
+
+        $category = [];
+        $subcategory = [];
+        $subsubcategory = [];
         $conditions = ['published' => 1];
         // dd($conditions);
         // dd($products->get(),SubSubCategory::where('id',$subsubcategory_id)->first(),$conditions);
@@ -388,12 +393,27 @@ class HomeController extends Controller
             $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
         }
         if($categorySlug != null){
-            $category = Category::where('slug',$categorySlug)->first();
-            $conditions = array_merge($conditions, ['category_id' => $category->id]);
+            if(Category::where('slug',$categorySlug)->count() > 0){
+                $category = Category::where('slug',$categorySlug)->first();
+                $category_id = $category->id;
+                $conditions = array_merge($conditions, ['category_id' => $category_id]);
+
+            }elseif(SubCategory::where('slug',$categorySlug)->count() > 0){
+                $subcategory = SubCategory::where('slug',$categorySlug)->first();
+                $subcategory_id = $subcategory->id;
+                $conditions = array_merge($conditions, ['subcategory_id' => $subcategory_id]);
+
+            }elseif(SubSubCategory::where('slug',$categorySlug)->count() > 0){
+                $subsubcategory = SubSubCategory::where('slug',$categorySlug)->first();
+                $subsubcategory_id = $subsubcategory->id;
+                $conditions = array_merge($conditions, ['subsubcategory_id' => $subsubcategory_id]);
+
+
+            }
         }
-        if($subsubcategory_id != null){
-            $conditions = array_merge($conditions, ['subsubcategory_id' => $subsubcategory_id]);
-        }
+        // if($subsubcategory_id != null){
+        //     $conditions = array_merge($conditions, ['subsubcategory_id' => $subsubcategory_id]);
+        // }
         if($seller_id != null){
             $conditions = array_merge($conditions, ['user_id' => Seller::findOrFail($seller_id)->user->id]);
         }
@@ -403,7 +423,6 @@ class HomeController extends Controller
             $products = Product::whereIn('user_id',(array)$user_id)->where($conditions);
         }
         else{
-            // if($user_id)
             $products = Product::where($conditions);
         }
 
@@ -517,13 +536,29 @@ class HomeController extends Controller
             $selected_color = $request->color;
         }
         $brands = filter_products($products)->where('brand_id','!=',null)->get('brand_id');
-// dd($a); 
+        
         $products = filter_products($products)->paginate(12)->appends(request()->query());
-        // dd($products);
+        
         $brandSlug = $slug;
-        return view('frontend.product_listing_brand ', compact('products','brandSlug', 'query', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color','location_id','brands'));
-    
-        // return view('frontend.all_brand', compact('categories'));
+
+        return view('frontend.product_listing_brand ', compact(
+            'products',
+            'brandSlug', 
+            'query', 
+            'subsubcategory_id', 
+            'subcategory_id',
+            'category_id',
+            'brand_id', 
+            'sort_by', 
+            'seller_id',
+            'min_price', 
+            'max_price', 
+            'attributes', 
+            'selected_attributes', 
+            'all_colors', 
+            'selected_color',
+            'location_id',
+            'brands'));
     }
 
     public function show_product_upload_form(Request $request)
